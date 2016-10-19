@@ -1,0 +1,1107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schemaMapping xmlns="http://www.3dcitydb.org/database/schema/3.0">
+    <applicationSchemas>
+        <schema id="gml" name="GML">
+            <namespaceURI>http://www.opengis.net/gml</namespaceURI>
+        </schema>
+        <schema id="energy" name="energy">
+            <namespaceURI>http://www.sig3d.org/citygml/2.0/energy/0.7.0</namespaceURI>
+        </schema>
+    </applicationSchemas>
+    <featureOrObjectOrDataTypes>
+        <featureOrObjectOrDataType id="_AbstractBuilding_energy_ADE" table="AbstractBuilding_energy_ADE" derivedFrom="_CityObject" abstract="true" path="_AbstractBuilding_energy_ADE" schema="energy">
+            <extension base="_AbstractBuilding">
+                <join fromTable="AbstractBuilding_energy_ADE" toTable="building" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="buildingType" schema="energy">
+                <type>
+                    <attribute column="buildingType_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="buildingType" type="string" path="." schema="gml"/>
+                    <mappingAdapter name="CollapsedStringAdapter"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="EnergyPerformanceCertification" path="energyPerformanceCertification" schema="energy">
+                <join fromTable="EnergyPerformanceCertification" toTable="AbstractBuilding_energy_ADE" fromColumn="Energ_energ_Abstr_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="VolumeType" path="volume" schema="energy">
+                <join fromTable="VolumeType" toTable="AbstractBuilding_energy_ADE" fromColumn="Volum_volum_Abstr_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <geometryProperty inlineColumn="referencePoint_Other_Geom" type="Point" path="referencePoint" schema="energy"/>
+            <featureOrObjectOrDataProperty target="RefurbishmentMeasure" path="refurbishmentMeasureOnBuilding" schema="energy">
+                <join fromTable="RefurbishmentMeasure" toTable="AbstractBuilding_energy_ADE" fromColumn="Refur_refur_Abstr_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="ThermalZone" path="thermalZone" schema="energy">
+                <join fromTable="ThermalZone" toTable="AbstractBuilding_energy_ADE" fromColumn="Therm_therm_Abstr_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="UsageZone" path="usageZone" schema="energy">
+                <join fromTable="UsageZone" toTable="AbstractBuilding_energy_ADE" fromColumn="Usage_usage_Abstr_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="FloorArea" path="floorArea" schema="energy">
+                <join fromTable="FloorArea" toTable="AbstractBuilding_energy_ADE" fromColumn="Floor_floor_Abstr_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="HeightAboveGround" path="heightAboveGround" schema="energy">
+                <join fromTable="HeightAboveGround" toTable="AbstractBuilding_energy_ADE" fromColumn="Heigh_heigh_Abstr_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="EnergyPerformanceCertification" table="EnergyPerformanceCertification" derivedFrom="_Object" abstract="false" path="EnergyPerformanceCertification" schema="energy">
+            <attribute column="certificationRating" type="string" path="certificationRating" schema="energy"/>
+            <attribute column="certificationName" type="string" path="certificationName" schema="energy"/>
+            <attribute column="certificationId" type="string" path="certificationId" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="VolumeType" table="VolumeType" derivedFrom="_Object" abstract="false" path="VolumeType" schema="energy">
+            <attribute column="type" type="string" path="type" schema="energy"/>
+            <complexAttribute path="value" schema="energy">
+                <type>
+                    <attribute column="value_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="value" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="RefurbishmentMeasure" table="RefurbishmentMeasure" derivedFrom="_Object" abstract="false" path="RefurbishmentMeasure" schema="energy">
+            <complexAttribute path="levelOfRefurbishment" schema="energy">
+                <type>
+                    <attribute column="levelOfRefurbishment_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="levelOfRefurbishment" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="descriptionOfRefurbishment" type="string" path="descriptionOfRefurbishment" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ThermalZone" table="ThermalZone" derivedFrom="_CityObject" abstract="false" path="ThermalZone" schema="energy">
+            <extension base="_CityObject">
+                <join fromTable="ThermalZone" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="additionalThermalBridgeUValue" schema="energy">
+                <type>
+                    <attribute column="additionalThermalBridgeUVa_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="additionalThermalBridgeUValue" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="effectiveThermalCapacity" schema="energy">
+                <type>
+                    <attribute column="effectiveThermalCapacity_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="effectiveThermalCapacity" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="FloorArea" path="floorArea" schema="energy">
+                <join fromTable="FloorArea" toTable="ThermalZone" fromColumn="FloorArea_floorAre_ThermalZ_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="VolumeType" path="volume" schema="energy">
+                <join fromTable="VolumeType" toTable="ThermalZone" fromColumn="VolumeType_volume_ThermalZo_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="UsageZone" path="contains" schema="energy">
+                <join fromTable="UsageZone" toTable="ThermalZone" fromColumn="UsageZone_contains_ThermalZ_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <complexAttribute path="indirectlyHeatedAreaRatio" schema="energy">
+                <type>
+                    <attribute column="indirectlyHeatedAreaRatio_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="indirectlyHeatedAreaRatio" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="infiltrationRate" schema="energy">
+                <type>
+                    <attribute column="infiltrationRate_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="infiltrationRate" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="isCooled" type="boolean" path="isCooled" schema="energy"/>
+            <attribute column="isHeated" type="boolean" path="isHeated" schema="energy"/>
+            <geometryProperty refColumn="ThermalZone_volumeGeometry_ID" type="AbstractSolid" path="volumeGeometry" schema="energy"/>
+            <featureOrObjectOrDataProperty target="Room" path="interiorRoom" schema="energy">
+                <joinTable>
+                    <join fromTable="ThermalZone_to_room_interiorRo" toTable="ThermalZone" fromColumn="ThermalZone_ID" toColumn="ID"/>
+                    <join fromTable="ThermalZone_to_room_interiorRo" toTable="room" fromColumn="room_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="ThermalBoundary" path="boundedBy" schema="energy">
+                <joinTable>
+                    <join fromTable="Therma_delimi_TO_Therma_bounde" toTable="ThermalBoundary" fromColumn="ThermalBoundary_delimitsBy_ID" toColumn="ID"/>
+                    <join fromTable="Therma_delimi_TO_Therma_bounde" toTable="ThermalZone" fromColumn="ThermalZone_boundedBy_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="UsageZone" table="UsageZone" derivedFrom="_CityObject" abstract="false" path="UsageZone" schema="energy">
+            <extension base="_CityObject">
+                <join fromTable="UsageZone" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="_Schedule" path="coolingSchedule" schema="energy">
+                <join fromTable="UsageZone" toTable="Schedule" fromColumn="coolingSchedule_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="_Schedule" path="heatingSchedule" schema="energy">
+                <join fromTable="UsageZone" toTable="Schedule" fromColumn="heatingSchedule_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <complexAttribute path="usageZoneType" schema="energy">
+                <type>
+                    <attribute column="usageZoneType_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="usageZoneType" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="usedFloors" type="string" path="usedFloors" schema="energy"/>
+            <featureOrObjectOrDataProperty target="_Schedule" path="ventilationSchedule" schema="energy">
+                <join fromTable="UsageZone" toTable="Schedule" fromColumn="ventilationSchedule_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="FloorArea" path="floorArea" schema="energy">
+                <join fromTable="FloorArea" toTable="UsageZone" fromColumn="FloorArea_floorAre_UsageZon_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <geometryProperty refColumn="UsageZone_volumeGeometry_ID" type="AbstractSolid" path="volumeGeometry" schema="energy"/>
+            <featureOrObjectOrDataProperty target="HeatExchangeType" path="averageInternalGains" schema="energy">
+                <join fromTable="UsageZone" toTable="HeatExchangeType" fromColumn="averageInternalGains_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="BuildingUnit" path="contains" schema="energy">
+                <join fromTable="BuildingUnit" toTable="UsageZone" fromColumn="BuildingU_contains_UsageZon_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Occupants" path="occupiedBy" schema="energy">
+                <join fromTable="Occupants" toTable="UsageZone" fromColumn="Occupants_occupied_UsageZon_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Facilities" path="equippedWith" schema="energy">
+                <join fromTable="Facilities" toTable="UsageZone" fromColumn="Facilitie_equipped_UsageZon_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="FloorArea" table="FloorArea" derivedFrom="_Object" abstract="false" path="FloorArea" schema="energy">
+            <complexAttribute path="type" schema="energy">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="value" schema="energy">
+                <type>
+                    <attribute column="value_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="value" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="HeightAboveGround" table="HeightAboveGround" derivedFrom="_Object" abstract="false" path="HeightAboveGround" schema="energy">
+            <attribute column="heightReference" type="string" path="heightReference" schema="energy"/>
+            <complexAttribute path="value" schema="energy">
+                <type>
+                    <attribute column="value_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="value" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ThermalBoundary" table="ThermalBoundary" derivedFrom="_CityObject" abstract="false" path="ThermalBoundary" schema="energy">
+            <extension base="_CityObject">
+                <join fromTable="ThermalBoundary" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="thermalBoundaryType" type="string" path="thermalBoundaryType" schema="energy"/>
+            <complexAttribute path="azimuth" schema="energy">
+                <type>
+                    <attribute column="azimuth_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="azimuth" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="inclination" schema="energy">
+                <type>
+                    <attribute column="inclination_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="inclination" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="area" schema="energy">
+                <type>
+                    <attribute column="area_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="area" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <geometryProperty refColumn="ThermalBounda_surfaceGeomet_ID" type="MultiSurface" path="surfaceGeometry" schema="energy"/>
+            <featureOrObjectOrDataProperty target="ThermalComponent" path="composedOf" schema="energy">
+                <join fromTable="ThermalComponent" toTable="ThermalBoundary" fromColumn="ThermalCo_composed_ThermalB_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="ThermalZone" path="delimitsBy" schema="energy">
+                <joinTable>
+                    <join fromTable="Therma_delimi_TO_Therma_bounde" toTable="ThermalBoundary" fromColumn="ThermalBoundary_delimitsBy_ID" toColumn="ID"/>
+                    <join fromTable="Therma_delimi_TO_Therma_bounde" toTable="ThermalZone" fromColumn="ThermalZone_boundedBy_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty path="relatesTo" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="_Schedule" table="Schedule" derivedFrom="_GML" abstract="true" path="_Schedule" schema="energy"/>
+        <featureOrObjectOrDataType id="HeatExchangeType" table="HeatExchangeType" derivedFrom="_Object" abstract="false" path="HeatExchangeType" schema="energy">
+            <complexAttribute path="convectiveFraction" schema="energy">
+                <type>
+                    <attribute column="convectiveFraction_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="convectiveFraction" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="latentFraction" schema="energy">
+                <type>
+                    <attribute column="latentFraction_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="latentFraction" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="radiantFraction" schema="energy">
+                <type>
+                    <attribute column="radiantFraction_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="radiantFraction" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="totalValue" schema="energy">
+                <type>
+                    <attribute column="totalValue_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="totalValue" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="BuildingUnit" table="BuildingUnit" derivedFrom="_CityObject" abstract="false" path="BuildingUnit" schema="energy">
+            <extension base="_CityObject">
+                <join fromTable="BuildingUnit" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="numberOfRooms" type="integer" path="numberOfRooms" schema="energy"/>
+            <attribute column="ownerName" type="string" path="ownerName" schema="energy"/>
+            <complexAttribute path="ownershipType" schema="energy">
+                <type>
+                    <attribute column="ownershipType_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="ownershipType" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="FloorArea" path="floorArea" schema="energy">
+                <join fromTable="FloorArea" toTable="BuildingUnit" fromColumn="FloorArea_floorAre_Building_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="EnergyPerformanceCertification" path="energyPerformanceCertification" schema="energy">
+                <join fromTable="EnergyPerformanceCertification" toTable="BuildingUnit" fromColumn="EnergyPer_energyPe_Building_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Occupants" path="occupiedBy" schema="energy">
+                <join fromTable="Occupants" toTable="BuildingUnit" fromColumn="Occupants_occupied_Building_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Address" path="address" schema="energy">
+                <joinTable>
+                    <join fromTable="BuildingUni_to_address_address" toTable="BuildingUnit" fromColumn="BuildingUnit_ID" toColumn="ID"/>
+                    <join fromTable="BuildingUni_to_address_address" toTable="address" fromColumn="address_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Facilities" path="equippedWith" schema="energy">
+                <join fromTable="Facilities" toTable="BuildingUnit" fromColumn="Facilitie_equipped_Building_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Occupants" table="Occupants" derivedFrom="_Feature" abstract="false" path="Occupants" schema="energy">
+            <featureOrObjectOrDataProperty target="HeatExchangeType" path="heatDissipation" schema="energy">
+                <join fromTable="Occupants" toTable="HeatExchangeType" fromColumn="heatDissipation_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <attribute column="numberOfOccupants" type="integer" path="numberOfOccupants" schema="energy"/>
+            <featureOrObjectOrDataProperty target="_Schedule" path="occupancyRate" schema="energy">
+                <join fromTable="Occupants" toTable="Schedule" fromColumn="occupancyRate_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <complexAttribute path="occupantType" schema="energy">
+                <type>
+                    <attribute column="occupantType_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="occupantType" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="Household" path="household" schema="energy">
+                <join fromTable="Household" toTable="Occupants" fromColumn="Household_househol_Occupant_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Facilities" table="Facilities" derivedFrom="_Feature" abstract="false" path="Facilities" schema="energy">
+            <featureOrObjectOrDataProperty target="_Schedule" path="operationSchedule" schema="energy">
+                <join fromTable="Facilities" toTable="Schedule" fromColumn="operationSchedule_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="HeatExchangeType" path="heatDissipation" schema="energy">
+                <join fromTable="Facilities" toTable="HeatExchangeType" fromColumn="heatDissipation_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="_BoundarySurface_energy_ADE" table="BoundarySurface_energy_ADE" derivedFrom="_CityObject" abstract="true" path="_BoundarySurface_energy_ADE" schema="energy">
+            <extension base="_BoundarySurface">
+                <join fromTable="BoundarySurface_energy_ADE" toTable="thematic_surface" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="RefurbishmentMeasure" path="refurbishmentMeasureOnBoundarySurface" schema="energy">
+                <join fromTable="RefurbishmentMeasure" toTable="BoundarySurface_energy_ADE" fromColumn="Refur_refur_Bound_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractConstruction" path="boundarySurfaceConstruction" schema="energy">
+                <join fromTable="AbstractConstruction" toTable="BoundarySurface_energy_ADE" fromColumn="Abstr_bound_Bound_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractConstruction" table="AbstractConstruction" derivedFrom="_Feature" abstract="true" path="AbstractConstruction" schema="energy"/>
+        <featureOrObjectOrDataType id="_CityObject_energy_ADE" table="CityObject_energy_ADE" derivedFrom="_CityObject" abstract="true" path="_CityObject_energy_ADE" schema="energy">
+            <extension base="_CityObject">
+                <join fromTable="CityObject_energy_ADE" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="EnergyConversionSystem" path="energyConversionSystem" schema="energy">
+                <join fromTable="EnergyConversionSystem" toTable="CityObject_energy_ADE" fromColumn="Energ_energ_CityO_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="EnergyDemand" path="energyDemands" schema="energy">
+                <join fromTable="EnergyDemand" toTable="CityObject_energy_ADE" fromColumn="Energ_energ_CityO_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="WeatherData" path="weatherData" schema="energy">
+                <join fromTable="WeatherData" toTable="CityObject_energy_ADE" fromColumn="Weath_weath_CityO_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="EnergyConversionSystem" table="EnergyConversionSystem" derivedFrom="_Feature" abstract="false" path="EnergyConversionSystem" schema="energy">
+            <attribute column="efficiencyIndicator" type="string" path="efficiencyIndicator" schema="energy"/>
+            <complexAttribute path="installedNominalPower" schema="energy">
+                <type>
+                    <attribute column="installedNominalPower_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="installedNominalPower" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="model" type="string" path="model" schema="energy"/>
+            <complexAttribute path="nominalEfficiency" schema="energy">
+                <type>
+                    <attribute column="nominalEfficiency_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="nominalEfficiency" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="number_" type="integer" path="number" schema="energy"/>
+            <featureOrObjectOrDataProperty target="ExternalReferenceType" path="productAndInstallationDocument" schema="energy">
+                <join fromTable="EnergyConversionSystem" toTable="external_reference" fromColumn="productAndInstallationDocum_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <attribute column="yearOfManufacture" type="date" path="yearOfManufacture" schema="energy"/>
+            <featureOrObjectOrDataProperty target="ServiceLife" path="serviceLife" schema="energy">
+                <join fromTable="EnergyConversionSystem" toTable="ServiceLife" fromColumn="serviceLife_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty path="installedIn" schema="energy"/>
+            <featureOrObjectOrDataProperty target="SystemOperation" path="has" schema="energy">
+                <join fromTable="SystemOperation" toTable="EnergyConversionSystem" fromColumn="SystemOpera_has_EnergyConve_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="FinalEnergy" path="consumes" schema="energy">
+                <joinTable>
+                    <join fromTable="Energy_consum_TO_FinalE_isCons" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_consumes_ID" toColumn="ID"/>
+                    <join fromTable="Energy_consum_TO_FinalE_isCons" toTable="FinalEnergy" fromColumn="FinalEnergy_isConsumedBy_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="FinalEnergy" path="produces" schema="energy">
+                <joinTable>
+                    <join fromTable="Energy_produc_TO_FinalE_isProd" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_produces_ID" toColumn="ID"/>
+                    <join fromTable="Energy_produc_TO_FinalE_isProd" toTable="FinalEnergy" fromColumn="FinalEnergy_isProducedBy_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="EnergyDemand" path="provides" schema="energy">
+                <joinTable>
+                    <join fromTable="Energy_provid_TO_Energy_isProv" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_provides_ID" toColumn="ID"/>
+                    <join fromTable="Energy_provid_TO_Energy_isProv" toTable="EnergyDemand" fromColumn="EnergyDemand_isProvidedBy_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="EnergyDemand" table="EnergyDemand" derivedFrom="_Feature" abstract="false" path="EnergyDemand" schema="energy">
+            <attribute column="endUse" type="string" path="endUse" schema="energy"/>
+            <featureOrObjectOrDataProperty target="_TimeSeries" path="energyAmount" schema="energy">
+                <join fromTable="EnergyDemand" toTable="TimeSeries" fromColumn="energyAmount_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <complexAttribute path="maximumLoad" schema="energy">
+                <type>
+                    <attribute column="maximumLoad_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="maximumLoad" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="EnergyDistributionSystem" path="energyDistribution" schema="energy">
+                <join fromTable="EnergyDemand" toTable="EnergyDistributionSystem" fromColumn="energyDistribution_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="_StorageSystem" path="storage" schema="energy">
+                <join fromTable="StorageSystem" toTable="EnergyDemand" fromColumn="StorageSy_storage_EnergyDem_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="EnergyConversionSystem" path="isProvidedBy" schema="energy">
+                <joinTable>
+                    <join fromTable="Energy_provid_TO_Energy_isProv" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_provides_ID" toColumn="ID"/>
+                    <join fromTable="Energy_provid_TO_Energy_isProv" toTable="EnergyDemand" fromColumn="EnergyDemand_isProvidedBy_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="WeatherData" table="WeatherData" derivedFrom="_GML" abstract="false" path="WeatherData" schema="energy">
+            <attribute column="weatherDataType" type="string" path="weatherDataType" schema="energy"/>
+            <featureOrObjectOrDataProperty target="_TimeSeries" path="values" schema="energy">
+                <join fromTable="WeatherData" toTable="TimeSeries" fromColumn="values_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <geometryProperty inlineColumn="position_Other_Geom" type="Point" path="position" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ServiceLife" table="ServiceLife" derivedFrom="_GML" abstract="false" path="ServiceLife" schema="energy">
+            <complexAttribute path="startOfLife" schema="energy">
+                <type>
+                    <attribute column="startOfLife_frame" type="string" path="@frame" schema="gml"/>
+                    <attribute column="startOfLife_calendarEraName" type="string" path="@calendarEraName" schema="gml"/>
+                    <attribute column="startOfLife_indeterminatePosit" type="string" path="@indeterminatePosition" schema="gml"/>
+                    <attribute column="startOfLife" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="lifeExpectancy" schema="energy">
+                <type>
+                    <attribute column="lifeExpectancy_unit" type="string" path="@unit" schema="gml"/>
+                    <attribute column="lifeExpectancy_radix" type="integer" path="@radix" schema="gml"/>
+                    <attribute column="lifeExpectancy_factor" type="integer" path="@factor" schema="gml"/>
+                    <attribute column="lifeExpectancy" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="mainMaintenanceInterval" schema="energy">
+                <type>
+                    <attribute column="mainMaintenanceInterval_unit" type="string" path="@unit" schema="gml"/>
+                    <attribute column="mainMaintenanceInterval_radix" type="integer" path="@radix" schema="gml"/>
+                    <attribute column="mainMaintenanceInterval_factor" type="integer" path="@factor" schema="gml"/>
+                    <attribute column="mainMaintenanceInterval" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="SystemOperation" table="SystemOperation" derivedFrom="_Feature" abstract="false" path="SystemOperation" schema="energy">
+            <attribute column="endUse" type="string" path="endUse" schema="energy"/>
+            <featureOrObjectOrDataProperty target="_Schedule" path="operationTime" schema="energy">
+                <join fromTable="SystemOperation" toTable="Schedule" fromColumn="operationTime_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <complexAttribute path="yearlyGlobalEfficiency" schema="energy">
+                <type>
+                    <attribute column="yearlyGlobalEfficiency_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="yearlyGlobalEfficiency" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="FinalEnergy" table="FinalEnergy" derivedFrom="_Feature" abstract="false" path="FinalEnergy" schema="energy">
+            <featureOrObjectOrDataProperty target="_TimeSeries" path="energyAmount" schema="energy">
+                <join fromTable="FinalEnergy" toTable="TimeSeries" fromColumn="energyAmount_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="EnergyCarrier" path="energyCarrier" schema="energy">
+                <join fromTable="FinalEnergy" toTable="EnergyCarrier" fromColumn="energyCarrier_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="EnergyConversionSystem" path="isConsumedBy" schema="energy">
+                <joinTable>
+                    <join fromTable="Energy_consum_TO_FinalE_isCons" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_consumes_ID" toColumn="ID"/>
+                    <join fromTable="Energy_consum_TO_FinalE_isCons" toTable="FinalEnergy" fromColumn="FinalEnergy_isConsumedBy_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="EnergyConversionSystem" path="isProducedBy" schema="energy">
+                <joinTable>
+                    <join fromTable="Energy_produc_TO_FinalE_isProd" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_produces_ID" toColumn="ID"/>
+                    <join fromTable="Energy_produc_TO_FinalE_isProd" toTable="FinalEnergy" fromColumn="FinalEnergy_isProducedBy_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="_TimeSeries" table="TimeSeries" derivedFrom="_GML" abstract="true" path="_TimeSeries" schema="energy">
+            <featureOrObjectOrDataProperty target="TimeValuesProperties" path="variableProperties" schema="energy">
+                <join fromTable="TimeSeries" toTable="TimeValuesProperties" fromColumn="variableProperties_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="EnergyDistributionSystem" table="EnergyDistributionSystem" derivedFrom="_Feature" abstract="false" path="EnergyDistributionSystem" schema="energy">
+            <featureOrObjectOrDataProperty target="ServiceLife" path="serviceLife" schema="energy">
+                <join fromTable="EnergyDistributionSystem" toTable="ServiceLife" fromColumn="serviceLife_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <attribute column="distributionPerimeter" type="string" path="distributionPerimeter" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="_StorageSystem" table="StorageSystem" derivedFrom="_Feature" abstract="true" path="_StorageSystem" schema="energy">
+            <featureOrObjectOrDataProperty target="ServiceLife" path="serviceLife" schema="energy">
+                <join fromTable="StorageSystem" toTable="ServiceLife" fromColumn="serviceLife_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="_Opening_energy_ADE" table="Opening_energy_ADE" derivedFrom="_CityObject" abstract="true" path="_Opening_energy_ADE" schema="energy">
+            <extension base="_Opening">
+                <join fromTable="Opening_energy_ADE" toTable="opening" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="ShadingType" path="indoorShading" schema="energy">
+                <join fromTable="ShadingType" toTable="Opening_energy_ADE" fromColumn="Shadi_indoo_Openi_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <complexAttribute path="openableRatio" schema="energy">
+                <type>
+                    <attribute column="openableRatio_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="openableRatio" type="double" path="." schema="gml"/>
+                    <mappingAdapter name="CollapsedStringAdapter"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="ShadingType" path="outdoorShading" schema="energy">
+                <join fromTable="ShadingType" toTable="Opening_energy_ADE" fromColumn="Shadi_outdo_Openi_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractConstruction" path="openingConstruction" schema="energy">
+                <join fromTable="AbstractConstruction" toTable="Opening_energy_ADE" fromColumn="Abstr_openi_Openi_energ_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ShadingType" table="ShadingType" derivedFrom="_Object" abstract="false" path="ShadingType" schema="energy">
+            <complexAttribute path="maximumCoverRatio" schema="energy">
+                <type>
+                    <attribute column="maximumCoverRatio_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="maximumCoverRatio" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="name" type="string" path="name" schema="energy"/>
+            <featureOrObjectOrDataProperty target="Transmittance" path="transmittance" schema="energy">
+                <join fromTable="ShadingType" toTable="Transmittance" fromColumn="transmittance_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Transmittance" table="Transmittance" derivedFrom="_Object" abstract="false" path="Transmittance" schema="energy">
+            <complexAttribute path="fraction" schema="energy">
+                <type>
+                    <attribute column="fraction_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="fraction" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="wavelengthRange" type="string" path="wavelengthRange" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="_SolarEnergySystem" table="SolarEnergySystem" derivedFrom="_Feature" abstract="true" path="_SolarEnergySystem" schema="energy">
+            <extension base="EnergyConversionSystem">
+                <join fromTable="SolarEnergySystem" toTable="EnergyConversionSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <geometryProperty refColumn="SolarEnergySy_surfaceGeomet_ID" type="MultiSurface" path="surfaceGeometry" schema="energy"/>
+            <featureOrObjectOrDataProperty path="installedOnBoundarySurface" schema="energy"/>
+            <featureOrObjectOrDataProperty target="BuildingInstallation" path="installedOnBuildingInstallation" schema="energy">
+                <join fromTable="SolarEnergySystem" toTable="building_installation" fromColumn="installedOnBuildingInstalla_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="TimeValuesProperties" table="TimeValuesProperties" derivedFrom="_Object" abstract="false" path="TimeValuesProperties" schema="energy">
+            <attribute column="acquisitionMethod" type="string" path="acquisitionMethod" schema="energy"/>
+            <attribute column="interpolationType" type="string" path="interpolationType" schema="energy"/>
+            <attribute column="qualityDescription" type="string" path="qualityDescription" schema="energy"/>
+            <attribute column="source" type="string" path="source" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractMaterial" table="AbstractMaterial" derivedFrom="_Feature" abstract="true" path="AbstractMaterial" schema="energy">
+            <featureOrObjectOrDataProperty target="ImageTexture" path="imageTexture" schema="energy">
+                <join fromTable="AbstractMaterial" toTable="ImageTexture" fromColumn="imageTexture_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ImageTexture" table="ImageTexture" derivedFrom="_Feature" abstract="false" path="ImageTexture" schema="energy">
+            <attribute column="url" type="string" path="url" schema="energy"/>
+            <attribute column="repeatS" type="boolean" path="repeatS" schema="energy"/>
+            <attribute column="repeatT" type="boolean" path="repeatT" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Boiler" table="Boiler" derivedFrom="_Feature" abstract="false" path="Boiler" schema="energy">
+            <extension base="EnergyConversionSystem">
+                <join fromTable="Boiler" toTable="EnergyConversionSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="condensation" type="boolean" path="condensation" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Household" table="Household" derivedFrom="_Feature" abstract="false" path="Household" schema="energy">
+            <attribute column="residenceType" type="string" path="residenceType" schema="energy"/>
+            <attribute column="householdType" type="string" path="householdType" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="CombinedHeatPower" table="CombinedHeatPower" derivedFrom="_Feature" abstract="false" path="CombinedHeatPower" schema="energy">
+            <extension base="EnergyConversionSystem">
+                <join fromTable="CombinedHeatPower" toTable="EnergyConversionSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="technologyType" type="string" path="technologyType" schema="energy"/>
+            <complexAttribute path="thermalEfficiency" schema="energy">
+                <type>
+                    <attribute column="thermalEfficiency_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="thermalEfficiency" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="electricalEfficiency" schema="energy">
+                <type>
+                    <attribute column="electricalEfficiency_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="electricalEfficiency" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ConstantValueSchedule" table="ConstantValueSchedule" derivedFrom="_GML" abstract="false" path="ConstantValueSchedule" schema="energy">
+            <extension base="_Schedule">
+                <join fromTable="ConstantValueSchedule" toTable="Schedule" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="averageValue" schema="energy">
+                <type>
+                    <attribute column="averageValue_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="averageValue" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Construction" table="Construction" derivedFrom="_Feature" abstract="false" path="Construction" schema="energy">
+            <extension base="AbstractConstruction">
+                <join fromTable="Construction" toTable="AbstractConstruction" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="uValue" schema="energy">
+                <type>
+                    <attribute column="uValue_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="uValue" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="OpticalProperties" path="opticalProperties" schema="energy">
+                <join fromTable="Construction" toTable="OpticalProperties" fromColumn="opticalProperties_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="ServiceLife" path="serviceLife" schema="energy">
+                <join fromTable="Construction" toTable="ServiceLife" fromColumn="serviceLife_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Layer" path="layer" schema="energy">
+                <join fromTable="Layer" toTable="Construction" fromColumn="Layer_layer_Construction_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="OpticalProperties" table="OpticalProperties" derivedFrom="_Object" abstract="false" path="OpticalProperties" schema="energy">
+            <featureOrObjectOrDataProperty target="Emissivity" path="emissivity" schema="energy">
+                <join fromTable="Emissivity" toTable="OpticalProperties" fromColumn="Emissivit_emissivi_OpticalP_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Reflectance" path="reflectance" schema="energy">
+                <join fromTable="Reflectance" toTable="OpticalProperties" fromColumn="Reflectan_reflecta_OpticalP_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Transmittance" path="transmittance" schema="energy">
+                <join fromTable="Transmittance" toTable="OpticalProperties" fromColumn="Transmitt_transmit_OpticalP_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <complexAttribute path="glazingRatio" schema="energy">
+                <type>
+                    <attribute column="glazingRatio_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="glazingRatio" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Layer" table="Layer" derivedFrom="_Feature" abstract="false" path="Layer" schema="energy">
+            <featureOrObjectOrDataProperty target="LayerComponent" path="layerComponent" schema="energy">
+                <join fromTable="LayerComponent" toTable="Layer" fromColumn="LayerCompo_layerCompo_Layer_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Emissivity" table="Emissivity" derivedFrom="_Object" abstract="false" path="Emissivity" schema="energy">
+            <complexAttribute path="fraction" schema="energy">
+                <type>
+                    <attribute column="fraction_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="fraction" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="surface" type="string" path="surface" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Reflectance" table="Reflectance" derivedFrom="_Object" abstract="false" path="Reflectance" schema="energy">
+            <complexAttribute path="fraction" schema="energy">
+                <type>
+                    <attribute column="fraction_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="fraction" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="surface" type="string" path="surface" schema="energy"/>
+            <attribute column="wavelengthRange" type="string" path="wavelengthRange" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="LayerComponent" table="LayerComponent" derivedFrom="_Feature" abstract="false" path="LayerComponent" schema="energy">
+            <complexAttribute path="areaFraction" schema="energy">
+                <type>
+                    <attribute column="areaFraction_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="areaFraction" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="thickness" schema="energy">
+                <type>
+                    <attribute column="thickness_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="thickness" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="ServiceLife" path="serviceLife" schema="energy">
+                <join fromTable="LayerComponent" toTable="ServiceLife" fromColumn="serviceLife_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractMaterial" path="material" schema="energy">
+                <join fromTable="LayerComponent" toTable="AbstractMaterial" fromColumn="material_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="DailyPatternSchedule" table="DailyPatternSchedule" derivedFrom="_GML" abstract="false" path="DailyPatternSchedule" schema="energy">
+            <extension base="_Schedule">
+                <join fromTable="DailyPatternSchedule" toTable="Schedule" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="PeriodOfYear" path="periodOfYear" schema="energy">
+                <join fromTable="PeriodOfYear" toTable="DailyPatternSchedule" fromColumn="PeriodOfY_periodOf_DailyPat_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="PeriodOfYear" table="PeriodOfYear" derivedFrom="_Object" abstract="false" path="PeriodOfYear" schema="energy">
+            <attribute column="period" type="xml_object" path="period" schema="energy"/>
+            <featureOrObjectOrDataProperty target="DailySchedule" path="dailySchedule" schema="energy">
+                <join fromTable="DailySchedule" toTable="PeriodOfYear" fromColumn="DailySche_dailySch_PeriodOf_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="DailySchedule" table="DailySchedule" derivedFrom="_Object" abstract="false" path="DailySchedule" schema="energy">
+            <attribute column="dayType" type="string" path="dayType" schema="energy"/>
+            <featureOrObjectOrDataProperty target="_TimeSeries" path="schedule" schema="energy">
+                <join fromTable="DailySchedule" toTable="TimeSeries" fromColumn="schedule_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="DHWFacilities" table="DHWFacilities" derivedFrom="_Feature" abstract="false" path="DHWFacilities" schema="energy">
+            <extension base="Facilities">
+                <join fromTable="DHWFacilities" toTable="Facilities" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="numberOfBaths" type="integer" path="numberOfBaths" schema="energy"/>
+            <attribute column="numberOfShowers" type="integer" path="numberOfShowers" schema="energy"/>
+            <attribute column="numberOfWashBasins" type="integer" path="numberOfWashBasins" schema="energy"/>
+            <complexAttribute path="waterStorageVolume" schema="energy">
+                <type>
+                    <attribute column="waterStorageVolume_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="waterStorageVolume" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="DistrictNetworkSubstation" table="DistrictNetworkSubstation" derivedFrom="_Feature" abstract="false" path="DistrictNetworkSubstation" schema="energy">
+            <extension base="EnergyConversionSystem">
+                <join fromTable="DistrictNetworkSubstation" toTable="EnergyConversionSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="networkId" type="string" path="networkId" schema="energy"/>
+            <attribute column="networkNodeId" type="string" path="networkNodeId" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="DualValueSchedule" table="DualValueSchedule" derivedFrom="_GML" abstract="false" path="DualValueSchedule" schema="energy">
+            <extension base="_Schedule">
+                <join fromTable="DualValueSchedule" toTable="Schedule" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="usageHoursPerDay" type="double" path="usageHoursPerDay" schema="energy"/>
+            <attribute column="usageDaysPerYear" type="double" path="usageDaysPerYear" schema="energy"/>
+            <complexAttribute path="usageValue" schema="energy">
+                <type>
+                    <attribute column="usageValue_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="usageValue" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="idleValue" schema="energy">
+                <type>
+                    <attribute column="idleValue_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="idleValue" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ElectricalAppliances" table="ElectricalAppliances" derivedFrom="_Feature" abstract="false" path="ElectricalAppliances" schema="energy">
+            <extension base="Facilities">
+                <join fromTable="ElectricalAppliances" toTable="Facilities" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="electricalPower" schema="energy">
+                <type>
+                    <attribute column="electricalPower_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="electricalPower" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ElectricalResistance" table="ElectricalResistance" derivedFrom="_Feature" abstract="false" path="ElectricalResistance" schema="energy">
+            <extension base="EnergyConversionSystem">
+                <join fromTable="ElectricalResistance" toTable="EnergyConversionSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="EnergyCarrier" table="EnergyCarrier" derivedFrom="_Object" abstract="false" path="EnergyCarrier" schema="energy">
+            <complexAttribute path="co2EmissionFactor" schema="energy">
+                <type>
+                    <attribute column="co2EmissionFactor_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="co2EmissionFactor" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="energyDensity" schema="energy">
+                <type>
+                    <attribute column="energyDensity_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="energyDensity" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="primaryEnergyFactor" schema="energy">
+                <type>
+                    <attribute column="primaryEnergyFactor_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="primaryEnergyFactor" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="type" schema="energy">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Gas" table="Gas" derivedFrom="_Feature" abstract="false" path="Gas" schema="energy">
+            <extension base="AbstractMaterial">
+                <join fromTable="Gas" toTable="AbstractMaterial" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="isVentilated" type="boolean" path="isVentilated" schema="energy"/>
+            <complexAttribute path="rValue" schema="energy">
+                <type>
+                    <attribute column="rValue_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="rValue" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="HeatPump" table="HeatPump" derivedFrom="_Feature" abstract="false" path="HeatPump" schema="energy">
+            <extension base="EnergyConversionSystem">
+                <join fromTable="HeatPump" toTable="EnergyConversionSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="heatSource" type="string" path="heatSource" schema="energy"/>
+            <complexAttribute path="copSourceTemperature" schema="energy">
+                <type>
+                    <attribute column="copSourceTemperature_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="copSourceTemperature" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="copOperationTemperature" schema="energy">
+                <type>
+                    <attribute column="copOperationTemperature_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="copOperationTemperature" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="IrregularTimeSeries" table="IrregularTimeSeries" derivedFrom="_GML" abstract="false" path="IrregularTimeSeries" schema="energy">
+            <extension base="_TimeSeries">
+                <join fromTable="IrregularTimeSeries" toTable="TimeSeries" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="uom" type="string" path="uom" schema="energy"/>
+            <featureOrObjectOrDataProperty target="MeasurementPoint" path="contains" schema="energy">
+                <join fromTable="MeasurementPoint" toTable="IrregularTimeSeries" fromColumn="Measureme_contains_Irregula_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="MeasurementPoint" table="MeasurementPoint" derivedFrom="_Object" abstract="false" path="MeasurementPoint" schema="energy">
+            <complexAttribute path="time" schema="energy">
+                <type>
+                    <attribute column="time_frame" type="string" path="@frame" schema="gml"/>
+                    <attribute column="time_calendarEraName" type="string" path="@calendarEraName" schema="gml"/>
+                    <attribute column="time_indeterminatePosition" type="string" path="@indeterminatePosition" schema="gml"/>
+                    <attribute column="time" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="value" type="double" path="value" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="IrregularTimeSeriesFile" table="IrregularTimeSeriesFile" derivedFrom="_GML" abstract="false" path="IrregularTimeSeriesFile" schema="energy">
+            <extension base="_TimeSeries">
+                <join fromTable="IrregularTimeSeriesFile" toTable="TimeSeries" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="uom" type="string" path="uom" schema="energy"/>
+            <attribute column="file_" type="string" path="file" schema="energy"/>
+            <attribute column="numberOfHeaderLines" type="integer" path="numberOfHeaderLines" schema="energy"/>
+            <attribute column="fieldSeparator" type="string" path="fieldSeparator" schema="energy"/>
+            <attribute column="recordSeparator" type="string" path="recordSeparator" schema="energy"/>
+            <attribute column="decimalSymbol" type="string" path="decimalSymbol" schema="energy"/>
+            <attribute column="timeColumnNumber" type="integer" path="timeColumnNumber" schema="energy"/>
+            <attribute column="valueColumnNumber" type="integer" path="valueColumnNumber" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="LightingFacilities" table="LightingFacilities" derivedFrom="_Feature" abstract="false" path="LightingFacilities" schema="energy">
+            <extension base="Facilities">
+                <join fromTable="LightingFacilities" toTable="Facilities" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="electricalPower" schema="energy">
+                <type>
+                    <attribute column="electricalPower_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="electricalPower" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="MechanicalVentilation" table="MechanicalVentilation" derivedFrom="_Feature" abstract="false" path="MechanicalVentilation" schema="energy">
+            <extension base="EnergyConversionSystem">
+                <join fromTable="MechanicalVentilation" toTable="EnergyConversionSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="heatRecovery" type="boolean" path="heatRecovery" schema="energy"/>
+            <complexAttribute path="recuperationFactor" schema="energy">
+                <type>
+                    <attribute column="recuperationFactor_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="recuperationFactor" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="PhotovoltaicSystem" table="PhotovoltaicSystem" derivedFrom="_Feature" abstract="false" path="PhotovoltaicSystem" schema="energy">
+            <extension base="_SolarEnergySystem">
+                <join fromTable="PhotovoltaicSystem" toTable="SolarEnergySystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="cellType" type="string" path="cellType" schema="energy"/>
+            <complexAttribute path="moduleArea" schema="energy">
+                <type>
+                    <attribute column="moduleArea_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="moduleArea" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="PhotovoltaicThermalSystem" table="PhotovoltaicThermalSystem" derivedFrom="_Feature" abstract="false" path="PhotovoltaicThermalSystem" schema="energy">
+            <extension base="_SolarEnergySystem">
+                <join fromTable="PhotovoltaicThermalSystem" toTable="SolarEnergySystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="cellType" type="string" path="cellType" schema="energy"/>
+            <attribute column="collectorType" type="string" path="collectorType" schema="energy"/>
+            <complexAttribute path="moduleArea" schema="energy">
+                <type>
+                    <attribute column="moduleArea_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="moduleArea" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="apertureArea" schema="energy">
+                <type>
+                    <attribute column="apertureArea_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="apertureArea" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="eta0" type="double" path="eta0" schema="energy"/>
+            <attribute column="a1" type="double" path="a1" schema="energy"/>
+            <attribute column="a2" type="double" path="a2" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="PowerDistributionSystem" table="PowerDistributionSystem" derivedFrom="_Feature" abstract="false" path="PowerDistributionSystem" schema="energy">
+            <extension base="EnergyDistributionSystem">
+                <join fromTable="PowerDistributionSystem" toTable="EnergyDistributionSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="current" schema="energy">
+                <type>
+                    <attribute column="current_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="current_" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="voltage" schema="energy">
+                <type>
+                    <attribute column="voltage_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="voltage" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="PowerStorageSystem" table="PowerStorageSystem" derivedFrom="_Feature" abstract="false" path="PowerStorageSystem" schema="energy">
+            <extension base="_StorageSystem">
+                <join fromTable="PowerStorageSystem" toTable="StorageSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="batteryTechnology" type="string" path="batteryTechnology" schema="energy"/>
+            <complexAttribute path="powerCapacity" schema="energy">
+                <type>
+                    <attribute column="powerCapacity_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="powerCapacity" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="RegularTimeSeries" table="RegularTimeSeries" derivedFrom="_GML" abstract="false" path="RegularTimeSeries" schema="energy">
+            <extension base="_TimeSeries">
+                <join fromTable="RegularTimeSeries" toTable="TimeSeries" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="temporalExtent" type="xml_object" path="temporalExtent" schema="energy"/>
+            <complexAttribute path="timeInterval" schema="energy">
+                <type>
+                    <attribute column="timeInterval_unit" type="string" path="@unit" schema="gml"/>
+                    <attribute column="timeInterval_radix" type="integer" path="@radix" schema="gml"/>
+                    <attribute column="timeInterval_factor" type="integer" path="@factor" schema="gml"/>
+                    <attribute column="timeInterval" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="values" schema="energy">
+                <type>
+                    <attribute column="values_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="values_" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="RegularTimeSeriesFile" table="RegularTimeSeriesFile" derivedFrom="_GML" abstract="false" path="RegularTimeSeriesFile" schema="energy">
+            <extension base="_TimeSeries">
+                <join fromTable="RegularTimeSeriesFile" toTable="TimeSeries" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="uom" type="string" path="uom" schema="energy"/>
+            <attribute column="file_" type="string" path="file" schema="energy"/>
+            <attribute column="temporalExtent" type="xml_object" path="temporalExtent" schema="energy"/>
+            <complexAttribute path="timeInterval" schema="energy">
+                <type>
+                    <attribute column="timeInterval_unit" type="string" path="@unit" schema="gml"/>
+                    <attribute column="timeInterval_radix" type="integer" path="@radix" schema="gml"/>
+                    <attribute column="timeInterval_factor" type="integer" path="@factor" schema="gml"/>
+                    <attribute column="timeInterval" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="numberOfHeaderLines" type="integer" path="numberOfHeaderLines" schema="energy"/>
+            <attribute column="fieldSeparator" type="string" path="fieldSeparator" schema="energy"/>
+            <attribute column="recordSeparator" type="string" path="recordSeparator" schema="energy"/>
+            <attribute column="decimalSymbol" type="string" path="decimalSymbol" schema="energy"/>
+            <attribute column="valueColumnNumber" type="integer" path="valueColumnNumber" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ReverseConstruction" table="ReverseConstruction" derivedFrom="_Feature" abstract="false" path="ReverseConstruction" schema="energy">
+            <extension base="AbstractConstruction">
+                <join fromTable="ReverseConstruction" toTable="AbstractConstruction" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="Construction" path="baseConstruction" schema="energy">
+                <join fromTable="ReverseConstruction" toTable="Construction" fromColumn="baseConstruction_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="SolarThermalSystem" table="SolarThermalSystem" derivedFrom="_Feature" abstract="false" path="SolarThermalSystem" schema="energy">
+            <extension base="_SolarEnergySystem">
+                <join fromTable="SolarThermalSystem" toTable="SolarEnergySystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="collectorType" type="string" path="collectorType" schema="energy"/>
+            <complexAttribute path="apertureArea" schema="energy">
+                <type>
+                    <attribute column="apertureArea_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="apertureArea" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="eta0" type="double" path="eta0" schema="energy"/>
+            <attribute column="a1" type="double" path="a1" schema="energy"/>
+            <attribute column="a2" type="double" path="a2" schema="energy"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="SolidMaterial" table="SolidMaterial" derivedFrom="_Feature" abstract="false" path="SolidMaterial" schema="energy">
+            <extension base="AbstractMaterial">
+                <join fromTable="SolidMaterial" toTable="AbstractMaterial" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="conductivity" schema="energy">
+                <type>
+                    <attribute column="conductivity_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="conductivity" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="density" schema="energy">
+                <type>
+                    <attribute column="density_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="density" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="permeance" schema="energy">
+                <type>
+                    <attribute column="permeance_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="permeance" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="porosity" schema="energy">
+                <type>
+                    <attribute column="porosity_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="porosity" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="specificHeat" schema="energy">
+                <type>
+                    <attribute column="specificHeat_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="specificHeat" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="embodiedCarbon" schema="energy">
+                <type>
+                    <attribute column="embodiedCarbon_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="embodiedCarbon" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="embodiedEnergy" schema="energy">
+                <type>
+                    <attribute column="embodiedEnergy_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="embodiedEnergy" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ThermalComponent" table="ThermalComponent" derivedFrom="_CityObject" abstract="false" path="ThermalComponent" schema="energy">
+            <extension base="_CityObject">
+                <join fromTable="ThermalComponent" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="area" schema="energy">
+                <type>
+                    <attribute column="area_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="area" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty path="relates" schema="energy"/>
+            <featureOrObjectOrDataProperty target="AbstractConstruction" path="construction" schema="energy">
+                <join fromTable="ThermalComponent" toTable="AbstractConstruction" fromColumn="construction_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ThermalDistributionSystem" table="ThermalDistributionSystem" derivedFrom="_Feature" abstract="false" path="ThermalDistributionSystem" schema="energy">
+            <extension base="EnergyDistributionSystem">
+                <join fromTable="ThermalDistributionSystem" toTable="EnergyDistributionSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="isCirculation" type="boolean" path="isCirculation" schema="energy"/>
+            <attribute column="medium" type="string" path="medium" schema="energy"/>
+            <complexAttribute path="nominalFlow" schema="energy">
+                <type>
+                    <attribute column="nominalFlow_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="nominalFlow" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="returnTemperature" schema="energy">
+                <type>
+                    <attribute column="returnTemperature_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="returnTemperature" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="supplyTemperature" schema="energy">
+                <type>
+                    <attribute column="supplyTemperature_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="supplyTemperature" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="thermalLossesFactor" schema="energy">
+                <type>
+                    <attribute column="thermalLossesFactor_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="thermalLossesFactor" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ThermalStorageSystem" table="ThermalStorageSystem" derivedFrom="_Feature" abstract="false" path="ThermalStorageSystem" schema="energy">
+            <extension base="_StorageSystem">
+                <join fromTable="ThermalStorageSystem" toTable="StorageSystem" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="preparationTemperature" schema="energy">
+                <type>
+                    <attribute column="preparationTemperature_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="preparationTemperature" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="medium" type="string" path="medium" schema="energy"/>
+            <complexAttribute path="thermalLossesFactor" schema="energy">
+                <type>
+                    <attribute column="thermalLossesFactor_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="thermalLossesFactor" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="volume" schema="energy">
+                <type>
+                    <attribute column="volume_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="volume" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="TimeSeriesSchedule" table="TimeSeriesSchedule" derivedFrom="_GML" abstract="false" path="TimeSeriesSchedule" schema="energy">
+            <extension base="_Schedule">
+                <join fromTable="TimeSeriesSchedule" toTable="Schedule" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="_TimeSeries" path="timeDependingValues" schema="energy">
+                <join fromTable="TimeSeriesSchedule" toTable="TimeSeries" fromColumn="timeDependingValues_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+    </featureOrObjectOrDataTypes>
+</schemaMapping>

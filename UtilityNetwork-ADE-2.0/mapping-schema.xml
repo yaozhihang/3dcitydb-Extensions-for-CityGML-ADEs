@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schemaMapping xmlns="http://www.3dcitydb.org/database/schema/3.0">
+    <applicationSchemas>
+        <schema id="gml" name="GML">
+            <namespaceURI>http://www.opengis.net/gml</namespaceURI>
+        </schema>
+        <schema id="utility" name="utility">
+            <namespaceURI>http://www.citygml.org/ade/utility/2.0</namespaceURI>
+        </schema>
+    </applicationSchemas>
+    <featureOrObjectOrDataTypes>
+        <featureOrObjectOrDataType id="_CityObject_utility_ADE" table="CityObject_utility_ADE" derivedFrom="_CityObject" abstract="true" path="_CityObject_utility_ADE" schema="utility">
+            <extension base="_CityObject">
+                <join fromTable="CityObject_utility_ADE" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="AbstractMediumSupply" path="mediumSupply" schema="utility">
+                <join fromTable="AbstractMediumSupply" toTable="CityObject_utility_ADE" fromColumn="Abstr_mediu_CityO_utili_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="RoleInNetwork" path="roleInNetwork" schema="utility">
+                <join fromTable="RoleInNetwork" toTable="CityObject_utility_ADE" fromColumn="RoleI_roleI_CityO_utili_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractMediumSupply" table="AbstractMediumSupply" derivedFrom="_Object" abstract="false" path="AbstractMediumSupply" schema="utility">
+            <featureOrObjectOrDataProperty target="Supply" path="potentialSupply" schema="utility">
+                <join fromTable="AbstractMediumSupply" toTable="Supply" fromColumn="potentialSupply_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Supply" path="currentSupply" schema="utility">
+                <join fromTable="AbstractMediumSupply" toTable="Supply" fromColumn="currentSupply_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Storage" path="storage" schema="utility">
+                <join fromTable="Storage" toTable="AbstractMediumSupply" fromColumn="Storage_storage_AbstractMed_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="RoleInNetwork" table="RoleInNetwork" derivedFrom="_Feature" abstract="false" path="RoleInNetwork" schema="utility">
+            <complexAttribute path="functionInNetwork" schema="utility">
+                <type>
+                    <attribute column="functionInNetwork_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="functionInNetwork" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="usageInNetwork" schema="utility">
+                <type>
+                    <attribute column="usageInNetwork_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="usageInNetwork" type="string" path="." schema="gml"/>
+                    <mappingAdapter name="CollapsedStringAdapter"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="Network" path="network" schema="utility">
+                <join fromTable="RoleInNetwork" toTable="Network" fromColumn="network_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Supply" table="Supply" derivedFrom="_Object" abstract="false" path="Supply" schema="utility">
+            <complexAttribute path="flowRate" schema="utility">
+                <type>
+                    <attribute column="flowRate_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="flowRate" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="status" type="string" path="status" schema="utility"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Storage" table="Storage" derivedFrom="_Object" abstract="false" path="Storage" schema="utility">
+            <complexAttribute path="type" schema="utility">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="maxCapacity" schema="utility">
+                <type>
+                    <attribute column="maxCapacity_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="maxCapacity" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="fillLevel" type="double" path="fillLevel" schema="utility"/>
+            <complexAttribute path="inflowRate" schema="utility">
+                <type>
+                    <attribute column="inflowRate_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="inflowRate" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="outflowRate" schema="utility">
+                <type>
+                    <attribute column="outflowRate_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="outflowRate" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Network" table="Network" derivedFrom="_CityObject" abstract="false" path="Network" schema="utility">
+            <extension base="_CityObject">
+                <join fromTable="Network" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="class" schema="utility">
+                <type>
+                    <attribute column="class_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="class" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="function" schema="utility">
+                <type>
+                    <attribute column="function_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="function" type="string" path="." schema="gml"/>
+                    <mappingAdapter name="CollapsedStringAdapter"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="usage" schema="utility">
+                <type>
+                    <attribute column="usage_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="usage" type="string" path="." schema="gml"/>
+                    <mappingAdapter name="CollapsedStringAdapter"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="AbstractCommodity" path="transportedMedium" schema="utility">
+                <join fromTable="Network" toTable="AbstractCommodity" fromColumn="transportedMedium_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Network" path="subNetwork" schema="utility">
+                <join fromTable="Network" toTable="Network" fromColumn="Network_Parent_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="NetworkGraph" path="topoGraph" schema="utility">
+                <join fromTable="Network" toTable="NetworkGraph" fromColumn="topoGraph_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractNetworkFeature" path="component" schema="utility">
+                <join fromTable="AbstractNetworkFeature" toTable="Network" fromColumn="AbstractN_component_Network_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="SupplyArea" path="supplies" schema="utility">
+                <join fromTable="Network" toTable="SupplyArea" fromColumn="supplies_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Network" path="subOrdinateNetwork" schema="utility">
+                <joinTable>
+                    <join fromTable="Network_subOrdinate_superOrdin" toTable="Network" fromColumn="Network_superOrdinateNetwor_ID" toColumn="ID"/>
+                    <join fromTable="Network_subOrdinate_superOrdin" toTable="Network" fromColumn="Network_subOrdinateNetwork_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Network" path="superOrdinateNetwork" schema="utility">
+                <joinTable>
+                    <join fromTable="Network_subOrdinate_superOrdin" toTable="Network" fromColumn="Network_superOrdinateNetwor_ID" toColumn="ID"/>
+                    <join fromTable="Network_subOrdinate_superOrdin" toTable="Network" fromColumn="Network_subOrdinateNetwork_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractCommodity" table="AbstractCommodity" derivedFrom="_Feature" abstract="true" path="AbstractCommodity" schema="utility">
+            <attribute column="owner" type="string" path="owner" schema="utility"/>
+            <featureOrObjectOrDataProperty target="AbstractCommodityClassifier" path="isClassifiedBy" schema="utility">
+                <join fromTable="AbstractCommodityClassifier" toTable="AbstractCommodity" fromColumn="AbstractC_isClassi_Abstract_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractCommodityClassifier" table="AbstractCommodityClassifier" derivedFrom="_Feature" abstract="true" path="AbstractCommodityClassifier" schema="utility">
+            <attribute column="molFormula" type="string" path="molFormula" schema="utility"/>
+            <attribute column="description" type="string" path="description" schema="utility"/>
+            <attribute column="physicalForm" type="string" path="physicalForm" schema="utility"/>
+            <complexAttribute path="molecularWeight" schema="utility">
+                <type>
+                    <attribute column="molecularWeight_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="molecularWeight" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="signalWord" type="string" path="signalWord" schema="utility"/>
+            <attribute column="isChemicalComplex" type="boolean" path="isChemicalComplex" schema="utility"/>
+            <featureOrObjectOrDataProperty target="AbstractCommodity" path="definesCommodity" schema="utility">
+                <join fromTable="AbstractCommodityClassifier" toTable="AbstractCommodity" fromColumn="definesCommodity_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractHollowSpace" path="boundedBy" schema="utility">
+                <join fromTable="AbstractCommodityClassifier" toTable="AbstractHollowSpace" fromColumn="boundedBy_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractCommodityClassifier" path="consistsOfFurtherElements" schema="utility">
+                <join fromTable="AbstractCommodityClassifier" toTable="AbstractCommodityClassifier" fromColumn="AbstractCommodityCla_Parent_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractFeatureMaterial" path="definesMaterial" schema="utility">
+                <join fromTable="AbstractCommodityClassifier" toTable="AbstractFeatureMaterial" fromColumn="definesMaterial_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractHollowSpace" table="AbstractHollowSpace" derivedFrom="_Feature" abstract="true" path="AbstractHollowSpace" schema="utility">
+            <featureOrObjectOrDataProperty target="AbstractCommodityClassifier" path="containedCommodity" schema="utility">
+                <join fromTable="AbstractHollowSpace" toTable="AbstractCommodityClassifier" fromColumn="containedCommodity_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="HollowSpacePart" path="consistsOfParts" schema="utility">
+                <join fromTable="AbstractHollowSpace" toTable="AbstractHollowSpace" fromColumn="AbstractHollowSpace_Parent_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractFeatureMaterial" table="AbstractFeatureMaterial" derivedFrom="_Feature" abstract="true" path="AbstractFeatureMaterial" schema="utility">
+            <complexAttribute path="type" schema="utility">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="AbstractNetworkFeature" path="usedBy" schema="utility">
+                <join fromTable="AbstractNetworkFeature" toTable="AbstractFeatureMaterial" fromColumn="AbstractNe_usedBy_AbstractF_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractCommodityClassifier" path="isClassifiedBy" schema="utility">
+                <join fromTable="AbstractCommodityClassifier" toTable="AbstractFeatureMaterial" fromColumn="Abstract_isClassi_Abstract_ID1" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="InteriorMaterial" path="consistsOf" schema="utility">
+                <join fromTable="AbstractFeatureMaterial" toTable="AbstractFeatureMaterial" fromColumn="AbstractFeatureMater_Parent_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="FillingMaterial" path="consistsOfFM" schema="utility">
+                <join fromTable="FillingMaterial" toTable="AbstractFeatureMaterial" fromColumn="FillingMa_consists_Abstract_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="HollowSpacePart" table="AbstractHollowSpace" derivedFrom="_Feature" abstract="false" path="HollowSpacePart" schema="utility">
+            <extension base="AbstractHollowSpace"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractNetworkFeature" table="AbstractNetworkFeature" derivedFrom="_CityObject" abstract="true" path="AbstractNetworkFeature" schema="utility">
+            <extension base="_CityObject">
+                <join fromTable="AbstractNetworkFeature" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="function" schema="utility">
+                <type>
+                    <attribute column="function_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="function" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="usage" schema="utility">
+                <type>
+                    <attribute column="usage_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="usage" type="string" path="." schema="gml"/>
+                    <mappingAdapter name="CollapsedStringAdapter"/>
+                </type>
+            </complexAttribute>
+            <attribute column="connectedCityObject" type="string" path="connectedCityObject" schema="utility"/>
+            <attribute column="yearOfConstruction" type="timestamp" path="yearOfConstruction" schema="utility"/>
+            <attribute column="status" type="string" path="status" schema="utility"/>
+            <attribute column="locationQuality" type="string" path="locationQuality" schema="utility"/>
+            <attribute column="elevationQuality" type="string" path="elevationQuality" schema="utility"/>
+            <geometryProperty refColumn="AbstractNet_lod1Geomet_Brep_ID" inlineColumn="lod1Geometry_Other_Geom" type="AbstractGeometry" path="lod1Geometry" schema="utility"/>
+            <featureOrObjectOrDataProperty target="AbstractHollowSpace" path="occupiedHollowSpace" schema="utility">
+                <join fromTable="AbstractNetworkFeature" toTable="AbstractHollowSpace" fromColumn="occupiedHollowSpace_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractNetworkFeature" path="consistsOf" schema="utility">
+                <join fromTable="AbstractNetworkFeature" toTable="AbstractNetworkFeature" fromColumn="AbstractNetworkFeatu_Parent_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractFeatureMaterial" path="hasMaterial" schema="utility">
+                <join fromTable="AbstractFeatureMaterial" toTable="AbstractNetworkFeature" fromColumn="AbstractF_hasMater_Abstract_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="FeatureGraph" path="topoGraph" schema="utility">
+                <join fromTable="AbstractNetworkFeature" toTable="FeatureGraph" fromColumn="topoGraph_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="InteriorMaterial" table="AbstractFeatureMaterial" derivedFrom="_Feature" abstract="false" path="InteriorMaterial" schema="utility">
+            <extension base="AbstractFeatureMaterial"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="FillingMaterial" table="FillingMaterial" derivedFrom="_Feature" abstract="false" path="FillingMaterial" schema="utility">
+            <complexAttribute path="type" schema="utility">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractDevice" table="AbstractDevice" derivedFrom="_CityObject" abstract="true" path="AbstractDevice" schema="utility">
+            <extension base="AbstractNetworkFeature">
+                <join fromTable="AbstractDevice" toTable="AbstractNetworkFeature" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="description" type="string" path="description" schema="utility"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="FeatureGraph" table="FeatureGraph" derivedFrom="_Feature" abstract="false" path="FeatureGraph" schema="utility">
+            <featureOrObjectOrDataProperty target="Node" path="nodeMember" schema="utility">
+                <join fromTable="Node" toTable="FeatureGraph" fromColumn="Node_nodeMember_FeatureGrap_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="InteriorFeatureLink" path="linkMember" schema="utility">
+                <join fromTable="AbstractLink" toTable="FeatureGraph" fromColumn="AbstractL_linkMemb_FeatureG_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractDistributionElement" table="AbstractDistributionElement" derivedFrom="_CityObject" abstract="true" path="AbstractDistributionElement" schema="utility">
+            <extension base="AbstractNetworkFeature">
+                <join fromTable="AbstractDistributionElement" toTable="AbstractNetworkFeature" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="class" schema="utility">
+                <type>
+                    <attribute column="class_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="class" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="functionOfLine" schema="utility">
+                <type>
+                    <attribute column="functionOfLine_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="functionOfLine" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractLink" table="AbstractLink" derivedFrom="_Feature" abstract="true" path="AbstractLink" schema="utility">
+            <attribute column="direction" type="string" path="direction" schema="utility"/>
+            <featureOrObjectOrDataProperty target="AbstractLinkControl" path="linkControl" schema="utility">
+                <join fromTable="AbstractLink" toTable="AbstractLinkControl" fromColumn="linkControl_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <geometryProperty inlineColumn="realization_Other_Geom" type="MultiCurve" path="realization" schema="utility"/>
+            <featureOrObjectOrDataProperty target="Node" path="end" schema="utility">
+                <join fromTable="AbstractLink" toTable="Node" fromColumn="end_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="Node" path="start" schema="utility">
+                <join fromTable="AbstractLink" toTable="Node" fromColumn="start_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractLinkControl" table="AbstractLinkControl" derivedFrom="_Object" abstract="true" path="AbstractLinkControl" schema="utility"/>
+        <featureOrObjectOrDataType id="Node" table="Node" derivedFrom="_Feature" abstract="false" path="Node" schema="utility">
+            <attribute column="type" type="string" path="type" schema="utility"/>
+            <featureOrObjectOrDataProperty target="AbstractSignature" path="connectionSignature" schema="utility">
+                <join fromTable="Node" toTable="AbstractSignature" fromColumn="connectionSignature_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="AbstractLinkControl" path="linkControl" schema="utility">
+                <join fromTable="Node" toTable="AbstractLinkControl" fromColumn="linkControl_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <geometryProperty inlineColumn="realization_Other_Geom" type="Point" path="realization" schema="utility"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractSignature" table="AbstractSignature" derivedFrom="_Object" abstract="true" path="AbstractSignature" schema="utility"/>
+        <featureOrObjectOrDataType id="InteriorFeatureLink" table="AbstractLink" derivedFrom="_Feature" abstract="false" path="InteriorFeatureLink" schema="utility">
+            <extension base="AbstractLink"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractPipe" table="AbstractPipe" derivedFrom="_CityObject" abstract="true" path="AbstractPipe" schema="utility">
+            <extension base="AbstractDistributionElement">
+                <join fromTable="AbstractPipe" toTable="AbstractDistributionElement" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="isGravity" type="boolean" path="isGravity" schema="utility"/>
+            <complexAttribute path="exteriorWidth" schema="utility">
+                <type>
+                    <attribute column="exteriorWidth_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="exteriorWidth" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="exteriorHeight" schema="utility">
+                <type>
+                    <attribute column="exteriorHeight_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="exteriorHeight" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="exteriorDiameter" schema="utility">
+                <type>
+                    <attribute column="exteriorDiameter_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="exteriorDiameter" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractProtectionShell" table="AbstractProtectionShell" derivedFrom="_CityObject" abstract="true" path="AbstractProtectionShell" schema="utility">
+            <extension base="ProtectiveElement">
+                <join fromTable="AbstractProtectionShell" toTable="ProtectiveElement" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="exteriorWidth" schema="utility">
+                <type>
+                    <attribute column="exteriorWidth_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="exteriorWidth" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="exteriorHeight" schema="utility">
+                <type>
+                    <attribute column="exteriorHeight_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="exteriorHeight" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="exteriorDiameter" schema="utility">
+                <type>
+                    <attribute column="exteriorDiameter_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="exteriorDiameter" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ProtectiveElement" table="ProtectiveElement" derivedFrom="_CityObject" abstract="false" path="ProtectiveElement" schema="utility">
+            <extension base="AbstractNetworkFeature">
+                <join fromTable="ProtectiveElement" toTable="AbstractNetworkFeature" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="AbstractNetworkFeature" path="contains" schema="utility">
+                <join fromTable="AbstractNetworkFeature" toTable="ProtectiveElement" fromColumn="AbstractN_contains_Protecti_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AnyDevice" table="AnyDevice" derivedFrom="_CityObject" abstract="false" path="AnyDevice" schema="utility">
+            <extension base="AbstractDevice">
+                <join fromTable="AnyDevice" toTable="AbstractDevice" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="class" schema="utility">
+                <type>
+                    <attribute column="class_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="class" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Bedding" table="Bedding" derivedFrom="_CityObject" abstract="false" path="Bedding" schema="utility">
+            <extension base="ProtectiveElement">
+                <join fromTable="Bedding" toTable="ProtectiveElement" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="width" schema="utility">
+                <type>
+                    <attribute column="width_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="width" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Cable" table="Cable" derivedFrom="_CityObject" abstract="false" path="Cable" schema="utility">
+            <extension base="AbstractDistributionElement">
+                <join fromTable="Cable" toTable="AbstractDistributionElement" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="isTransmission" type="boolean" path="isTransmission" schema="utility"/>
+            <attribute column="isCommunication" type="boolean" path="isCommunication" schema="utility"/>
+            <complexAttribute path="crossSection" schema="utility">
+                <type>
+                    <attribute column="crossSection_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="crossSection" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Canal" table="Canal" derivedFrom="_CityObject" abstract="false" path="Canal" schema="utility">
+            <extension base="AbstractDistributionElement">
+                <join fromTable="Canal" toTable="AbstractDistributionElement" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="profileName" type="string" path="profileName" schema="utility"/>
+            <complexAttribute path="slope" schema="utility">
+                <type>
+                    <attribute column="slope_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="slope" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="isGravity" type="boolean" path="isGravity" schema="utility"/>
+            <complexAttribute path="exteriorWidth" schema="utility">
+                <type>
+                    <attribute column="exteriorWidth_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="exteriorWidth" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="exteriorHeight" schema="utility">
+                <type>
+                    <attribute column="exteriorHeight_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="exteriorHeight" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="exteriorDiameter" schema="utility">
+                <type>
+                    <attribute column="exteriorDiameter_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="exteriorDiameter" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ChemicalClassifier" table="ChemicalClassifier" derivedFrom="_Feature" abstract="false" path="ChemicalClassifier" schema="utility">
+            <extension base="AbstractCommodityClassifier">
+                <join fromTable="ChemicalClassifier" toTable="AbstractCommodityClassifier" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="ECNo" type="string" path="ECNo" schema="utility"/>
+            <attribute column="CasNo" type="string" path="CasNo" schema="utility"/>
+            <attribute column="IUCLIDChemicalDataSheet" type="string" path="IUCLIDChemicalDataSheet" schema="utility"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Closed" table="Closed" derivedFrom="_CityObject" abstract="false" path="Closed" schema="utility">
+            <extension base="Canal">
+                <join fromTable="Closed" toTable="Canal" fromColumn="ID" toColumn="ID"/>
+            </extension>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ComplexFunctionalElement" table="ComplexFunctionalElement" derivedFrom="_CityObject" abstract="false" path="ComplexFunctionalElement" schema="utility">
+            <extension base="AbstractNetworkFeature">
+                <join fromTable="ComplexFunctionalElement" toTable="AbstractNetworkFeature" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="class" schema="utility">
+                <type>
+                    <attribute column="class_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="class" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ControllerDevice" table="ControllerDevice" derivedFrom="_CityObject" abstract="false" path="ControllerDevice" schema="utility">
+            <extension base="AbstractDevice">
+                <join fromTable="ControllerDevice" toTable="AbstractDevice" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="class" schema="utility">
+                <type>
+                    <attribute column="class_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="class" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ElectricalMedium" table="ElectricalMedium" derivedFrom="_Feature" abstract="false" path="ElectricalMedium" schema="utility">
+            <extension base="AbstractCommodity">
+                <join fromTable="ElectricalMedium" toTable="AbstractCommodity" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="type" type="string" path="type" schema="utility"/>
+            <complexAttribute path="voltageRange" schema="utility">
+                <type>
+                    <attribute column="voltageRange_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="voltageRange" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="amperageRange" schema="utility">
+                <type>
+                    <attribute column="amperageRange_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="amperageRange" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="bandWidth" schema="utility">
+                <type>
+                    <attribute column="bandWidth_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="bandWidth" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ElectricalMediumSupply" table="ElectricalMediumSupply" derivedFrom="_Object" abstract="false" path="ElectricalMediumSupply" schema="utility">
+            <extension base="AbstractMediumSupply">
+                <join fromTable="ElectricalMediumSupply" toTable="AbstractMediumSupply" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="type" type="string" path="type" schema="utility"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="ExteriorMaterial" table="AbstractFeatureMaterial" derivedFrom="_Feature" abstract="false" path="ExteriorMaterial" schema="utility">
+            <extension base="AbstractFeatureMaterial"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="GHSClassifier" table="GHSClassifier" derivedFrom="_Feature" abstract="false" path="GHSClassifier" schema="utility">
+            <extension base="AbstractCommodityClassifier">
+                <join fromTable="GHSClassifier" toTable="AbstractCommodityClassifier" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="ECNo" type="string" path="ECNo" schema="utility"/>
+            <attribute column="CasNo" type="string" path="CasNo" schema="utility"/>
+            <featureOrObjectOrDataProperty target="HazardClass" path="hazardClass" schema="utility">
+                <join fromTable="HazardClass" toTable="GHSClassifier" fromColumn="HazardCla_hazardCl_GHSClass_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="HazardClass" table="HazardClass" derivedFrom="_Object" abstract="false" path="HazardClass" schema="utility">
+            <attribute column="hazardClass" type="string" path="hazardClass" schema="utility"/>
+            <attribute column="categoryCode" type="string" path="categoryCode" schema="utility"/>
+            <attribute column="statementCode" type="string" path="statementCode" schema="utility"/>
+            <attribute column="pictogramCode" type="string" path="pictogramCode" schema="utility"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="GaseousMedium" table="GaseousMedium" derivedFrom="_Feature" abstract="false" path="GaseousMedium" schema="utility">
+            <extension base="AbstractCommodity">
+                <join fromTable="GaseousMedium" toTable="AbstractCommodity" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="type" schema="utility">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="concentration" schema="utility">
+                <type>
+                    <attribute column="concentration_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="concentration" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="isExplosive" type="boolean" path="isExplosive" schema="utility"/>
+            <complexAttribute path="pressureRange" schema="utility">
+                <type>
+                    <attribute column="pressureRange_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="pressureRange" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="electricConductivity" schema="utility">
+                <type>
+                    <attribute column="electricConductivity_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="electricConductivity" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="lighterThanAir" type="boolean" path="lighterThanAir" schema="utility"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="GaseousMediumSupply" table="GaseousMediumSupply" derivedFrom="_Object" abstract="false" path="GaseousMediumSupply" schema="utility">
+            <extension base="AbstractMediumSupply">
+                <join fromTable="GaseousMediumSupply" toTable="AbstractMediumSupply" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="type" schema="utility">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="GenericClassifier" table="AbstractCommodityClassifier" derivedFrom="_Feature" abstract="false" path="GenericClassifier" schema="utility">
+            <extension base="AbstractCommodityClassifier"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="HollowSpace" table="AbstractHollowSpace" derivedFrom="_Feature" abstract="false" path="HollowSpace" schema="utility">
+            <extension base="AbstractHollowSpace"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="InterFeatureLink" table="InterFeatureLink" derivedFrom="_Feature" abstract="false" path="InterFeatureLink" schema="utility">
+            <extension base="AbstractLink">
+                <join fromTable="InterFeatureLink" toTable="AbstractLink" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="type" type="string" path="type" schema="utility"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="LiquidMedium" table="LiquidMedium" derivedFrom="_Feature" abstract="false" path="LiquidMedium" schema="utility">
+            <extension base="AbstractCommodity">
+                <join fromTable="LiquidMedium" toTable="AbstractCommodity" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="type" schema="utility">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="isCorrosive" type="boolean" path="isCorrosive" schema="utility"/>
+            <attribute column="isExplosive" type="boolean" path="isExplosive" schema="utility"/>
+            <attribute column="flammable" type="double" path="flammable" schema="utility"/>
+            <complexAttribute path="electricConductivity" schema="utility">
+                <type>
+                    <attribute column="electricConductivity_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="electricConductivity" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="phValueRange" schema="utility">
+                <type>
+                    <attribute column="phValueRange_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="phValueRange" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="temperatureRange" schema="utility">
+                <type>
+                    <attribute column="temperatureRange_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="temperatureRange" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="flowRateRange" schema="utility">
+                <type>
+                    <attribute column="flowRateRange_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="flowRateRange" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="pressureRange" schema="utility">
+                <type>
+                    <attribute column="pressureRange_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="pressureRange" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="LiquidMediumSupply" table="LiquidMediumSupply" derivedFrom="_Object" abstract="false" path="LiquidMediumSupply" schema="utility">
+            <extension base="AbstractMediumSupply">
+                <join fromTable="LiquidMediumSupply" toTable="AbstractMediumSupply" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="type" schema="utility">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="MeasurementDevice" table="MeasurementDevice" derivedFrom="_CityObject" abstract="false" path="MeasurementDevice" schema="utility">
+            <extension base="AbstractDevice">
+                <join fromTable="MeasurementDevice" toTable="AbstractDevice" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="class" schema="utility">
+                <type>
+                    <attribute column="class_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="class" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="NetworkGraph" table="NetworkGraph" derivedFrom="_Feature" abstract="false" path="NetworkGraph" schema="utility">
+            <featureOrObjectOrDataProperty target="NetworkLink" path="linkMember" schema="utility">
+                <join fromTable="AbstractLink" toTable="NetworkGraph" fromColumn="AbstractL_linkMemb_NetworkG_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="InterFeatureLink" path="linkMember" schema="utility">
+                <join fromTable="InterFeatureLink" toTable="NetworkGraph" fromColumn="InterFeat_linkMemb_NetworkG_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="FeatureGraph" path="featureGraphMember" schema="utility">
+                <join fromTable="FeatureGraph" toTable="NetworkGraph" fromColumn="FeatureGr_featureG_NetworkG_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="SupplyArea" table="SupplyArea" derivedFrom="_CityObject" abstract="false" path="SupplyArea" schema="utility">
+            <extension base="CityObjectGroup">
+                <join fromTable="SupplyArea" toTable="cityobjectgroup" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="Network" path="suppliedBy" schema="utility">
+                <join fromTable="SupplyArea" toTable="Network" fromColumn="suppliedBy_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="NetworkLink" table="AbstractLink" derivedFrom="_Feature" abstract="false" path="NetworkLink" schema="utility">
+            <extension base="AbstractLink"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="OpticalMedium" table="OpticalMedium" derivedFrom="_Feature" abstract="false" path="OpticalMedium" schema="utility">
+            <extension base="AbstractCommodity">
+                <join fromTable="OpticalMedium" toTable="AbstractCommodity" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="type" type="string" path="type" schema="utility"/>
+            <attribute column="modeType" type="string" path="modeType" schema="utility"/>
+            <complexAttribute path="bandWidth" schema="utility">
+                <type>
+                    <attribute column="bandWidth_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="bandWidth" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="coreCrossSection" schema="utility">
+                <type>
+                    <attribute column="coreCrossSection_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="coreCrossSection" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="claddingCrossSection" schema="utility">
+                <type>
+                    <attribute column="claddingCrossSection_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="claddingCrossSection" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="OpticalMediumSupply" table="OpticalMediumSupply" derivedFrom="_Object" abstract="false" path="OpticalMediumSupply" schema="utility">
+            <extension base="AbstractMediumSupply">
+                <join fromTable="OpticalMediumSupply" toTable="AbstractMediumSupply" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="type" type="string" path="type" schema="utility"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="OtherShapePipe" table="AbstractPipe" derivedFrom="_CityObject" abstract="false" path="OtherShapePipe" schema="utility">
+            <extension base="AbstractPipe"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="OtherShell" table="AbstractProtectionShell" derivedFrom="_CityObject" abstract="false" path="OtherShell" schema="utility">
+            <extension base="AbstractProtectionShell"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="RectangularPipe" table="RectangularPipe" derivedFrom="_CityObject" abstract="false" path="RectangularPipe" schema="utility">
+            <extension base="AbstractPipe">
+                <join fromTable="RectangularPipe" toTable="AbstractPipe" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="interiorWidth" schema="utility">
+                <type>
+                    <attribute column="interiorWidth_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="interiorWidth" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="interiorHeight" schema="utility">
+                <type>
+                    <attribute column="interiorHeight_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="interiorHeight" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="RectangularShell" table="RectangularShell" derivedFrom="_CityObject" abstract="false" path="RectangularShell" schema="utility">
+            <extension base="AbstractProtectionShell">
+                <join fromTable="RectangularShell" toTable="AbstractProtectionShell" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="interiorWidth" schema="utility">
+                <type>
+                    <attribute column="interiorWidth_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="interiorWidth" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="interiorHeight" schema="utility">
+                <type>
+                    <attribute column="interiorHeight_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="interiorHeight" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="RoundPipe" table="RoundPipe" derivedFrom="_CityObject" abstract="false" path="RoundPipe" schema="utility">
+            <extension base="AbstractPipe">
+                <join fromTable="RoundPipe" toTable="AbstractPipe" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="interiorDiameter" schema="utility">
+                <type>
+                    <attribute column="interiorDiameter_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="interiorDiameter" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="RoundShell" table="RoundShell" derivedFrom="_CityObject" abstract="false" path="RoundShell" schema="utility">
+            <extension base="AbstractProtectionShell">
+                <join fromTable="RoundShell" toTable="AbstractProtectionShell" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="interiorDiameter" schema="utility">
+                <type>
+                    <attribute column="interiorDiameter_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="interiorDiameter" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="SemiOpen" table="SemiOpen" derivedFrom="_CityObject" abstract="false" path="SemiOpen" schema="utility">
+            <extension base="Canal">
+                <join fromTable="SemiOpen" toTable="Canal" fromColumn="ID" toColumn="ID"/>
+            </extension>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="SimpleFunctionalElement" table="SimpleFunctionalElement" derivedFrom="_CityObject" abstract="false" path="SimpleFunctionalElement" schema="utility">
+            <extension base="AbstractNetworkFeature">
+                <join fromTable="SimpleFunctionalElement" toTable="AbstractNetworkFeature" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="class" schema="utility">
+                <type>
+                    <attribute column="class_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="class" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="SolidMedium" table="SolidMedium" derivedFrom="_Feature" abstract="false" path="SolidMedium" schema="utility">
+            <extension base="AbstractCommodity">
+                <join fromTable="SolidMedium" toTable="AbstractCommodity" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="type" schema="utility">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <attribute column="isExplosive" type="boolean" path="isExplosive" schema="utility"/>
+            <attribute column="flammable" type="double" path="flammable" schema="utility"/>
+            <complexAttribute path="concentration" schema="utility">
+                <type>
+                    <attribute column="concentration_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="concentration" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="electricConductivity" schema="utility">
+                <type>
+                    <attribute column="electricConductivity_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="electricConductivity" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="pressureRange" schema="utility">
+                <type>
+                    <attribute column="pressureRange_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="pressureRange" type="double" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="SolidMediumSupply" table="SolidMediumSupply" derivedFrom="_Object" abstract="false" path="SolidMediumSupply" schema="utility">
+            <extension base="AbstractMediumSupply">
+                <join fromTable="SolidMediumSupply" toTable="AbstractMediumSupply" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="type" schema="utility">
+                <type>
+                    <attribute column="type_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="type" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="StorageDevice" table="StorageDevice" derivedFrom="_CityObject" abstract="false" path="StorageDevice" schema="utility">
+            <extension base="AbstractDevice">
+                <join fromTable="StorageDevice" toTable="AbstractDevice" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="class" schema="utility">
+                <type>
+                    <attribute column="class_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="class" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="TechDevice" table="TechDevice" derivedFrom="_CityObject" abstract="false" path="TechDevice" schema="utility">
+            <extension base="AbstractDevice">
+                <join fromTable="TechDevice" toTable="AbstractDevice" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="class" schema="utility">
+                <type>
+                    <attribute column="class_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="class" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="TerminalElement" table="TerminalElement" derivedFrom="_CityObject" abstract="false" path="TerminalElement" schema="utility">
+            <extension base="AbstractNetworkFeature">
+                <join fromTable="TerminalElement" toTable="AbstractNetworkFeature" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <complexAttribute path="class" schema="utility">
+                <type>
+                    <attribute column="class_uom" type="string" path="@uom" schema="gml"/>
+                    <attribute column="class" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+        </featureOrObjectOrDataType>
+    </featureOrObjectOrDataTypes>
+</schemaMapping>
