@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schemaMapping xmlns="http://www.3dcitydb.org/database/schema/3.0">
+    <applicationSchemas>
+        <schema id="gml" name="GML">
+            <namespaceURI>http://www.opengis.net/gml</namespaceURI>
+        </schema>
+        <schema id="dynamizer_ade" name="dynamizer_ade">
+            <namespaceURI>http://www.citygml.org/ade/dynamizer_ade/1.0</namespaceURI>
+        </schema>
+    </applicationSchemas>
+    <featureOrObjectOrDataTypes>
+        <featureOrObjectOrDataType id="_CityObject_dynamizer_ade_ADE" table="CityObject_dynamizer_ade_ADE" derivedFrom="_CityObject" abstract="true" path="_CityObject_dynamizer_ade_ADE" schema="dynamizer_ade">
+            <extension base="_CityObject">
+                <join fromTable="CityObject_dynamizer_ade_ADE" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="Dynamizer" path="dynamizers" schema="dynamizer_ade">
+                <join fromTable="Dynamizer" toTable="CityObject_dynamizer_ade_ADE" fromColumn="Dyna_dyna_City_dyna_ade_ADE_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="Dynamizer" table="Dynamizer" derivedFrom="_CityObject" abstract="false" path="Dynamizer" schema="dynamizer_ade">
+            <extension base="_CityObject">
+                <join fromTable="Dynamizer" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="attributeRef" type="string" path="attributeRef" schema="dynamizer_ade"/>
+            <complexAttribute path="startTime" schema="dynamizer_ade">
+                <type>
+                    <attribute column="startTime_frame" type="string" path="@frame" schema="gml"/>
+                    <attribute column="startTime_calendarEraName" type="string" path="@calendarEraName" schema="gml"/>
+                    <attribute column="startTime_indeterminatePositio" type="string" path="@indeterminatePosition" schema="gml"/>
+                    <attribute column="startTime" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <complexAttribute path="endTime" schema="dynamizer_ade">
+                <type>
+                    <attribute column="endTime_frame" type="string" path="@frame" schema="gml"/>
+                    <attribute column="endTime_calendarEraName" type="string" path="@calendarEraName" schema="gml"/>
+                    <attribute column="endTime_indeterminatePosition" type="string" path="@indeterminatePosition" schema="gml"/>
+                    <attribute column="endTime" type="string" path="." schema="gml"/>
+                </type>
+            </complexAttribute>
+            <featureOrObjectOrDataProperty target="AbstractTimeseries" path="dynamicData" schema="dynamizer_ade">
+                <join fromTable="Dynamizer" toTable="AbstractTimeseries" fromColumn="dynamicData_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+            <featureOrObjectOrDataProperty target="SensorConnection" path="linkToSensor" schema="dynamizer_ade">
+                <join fromTable="Dynamizer" toTable="SensorConnection" fromColumn="linkToSensor_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AbstractTimeseries" table="AbstractTimeseries" derivedFrom="_Feature" abstract="false" path="AbstractTimeseries" schema="dynamizer_ade"/>
+        <featureOrObjectOrDataType id="SensorConnection" table="SensorConnection" derivedFrom="_Object" abstract="false" path="SensorConnection" schema="dynamizer_ade">
+            <attribute column="sensorID" type="string" path="sensorID" schema="dynamizer_ade"/>
+            <attribute column="serviceType" type="string" path="serviceType" schema="dynamizer_ade"/>
+            <attribute column="linkToObservation" type="string" path="linkToObservation" schema="dynamizer_ade"/>
+            <attribute column="linkToSensorML" type="string" path="linkToSensorML" schema="dynamizer_ade"/>
+            <featureOrObjectOrDataProperty target="_CityObject" path="sensorLocation" schema="dynamizer_ade">
+                <join fromTable="SensorConnection" toTable="cityobject" fromColumn="sensorLocation_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="AtomicTimeseries" table="AtomicTimeseries" derivedFrom="_Feature" abstract="false" path="AtomicTimeseries" schema="dynamizer_ade">
+            <extension base="AbstractTimeseries">
+                <join fromTable="AtomicTimeseries" toTable="AbstractTimeseries" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <attribute column="dynamicDataTVP" type="xml_object" path="dynamicDataTVP" schema="dynamizer_ade"/>
+            <attribute column="dynamicDataDR" type="xml_object" path="dynamicDataDR" schema="dynamizer_ade"/>
+            <attribute column="observationData" type="xml_object" path="observationData" schema="dynamizer_ade"/>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="CompositeTimeseries" table="CompositeTimeseries" derivedFrom="_Feature" abstract="false" path="CompositeTimeseries" schema="dynamizer_ade">
+            <extension base="AbstractTimeseries">
+                <join fromTable="CompositeTimeseries" toTable="AbstractTimeseries" fromColumn="ID" toColumn="ID"/>
+            </extension>
+            <featureOrObjectOrDataProperty target="TimeseriesComponent" path="component" schema="dynamizer_ade">
+                <join fromTable="TimeseriesComponent" toTable="CompositeTimeseries" fromColumn="Timeserie_componen_Composit_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+        <featureOrObjectOrDataType id="TimeseriesComponent" table="TimeseriesComponent" derivedFrom="_Feature" abstract="false" path="TimeseriesComponent" schema="dynamizer_ade">
+            <attribute column="repetitions" type="integer" path="repetitions" schema="dynamizer_ade"/>
+            <attribute column="additionalGap" type="string" path="additionalGap" schema="dynamizer_ade"/>
+            <featureOrObjectOrDataProperty target="AbstractTimeseries" path="timeseries" schema="dynamizer_ade">
+                <join fromTable="TimeseriesComponent" toTable="AbstractTimeseries" fromColumn="timeseries_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
+        </featureOrObjectOrDataType>
+    </featureOrObjectOrDataTypes>
+</schemaMapping>
