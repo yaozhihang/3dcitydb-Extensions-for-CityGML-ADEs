@@ -14,6 +14,15 @@ ALTER TABLE AnyDevice
     DROP CONSTRAINT AnyDevice_FK;
 
 -- -------------------------------------------------------------------- 
+-- Network_superOrdina_subOrdinat 
+-- -------------------------------------------------------------------- 
+ALTER TABLE Network_superOrdina_subOrdinat
+    DROP CONSTRAINT Network_superOrdi_subOrdin_FK1;
+
+ALTER TABLE Network_superOrdina_subOrdinat
+    DROP CONSTRAINT Network_superOrdi_subOrdin_FK2;
+
+-- -------------------------------------------------------------------- 
 -- RectangularPipe 
 -- -------------------------------------------------------------------- 
 ALTER TABLE RectangularPipe
@@ -35,19 +44,22 @@ ALTER TABLE Canal
 -- Node 
 -- -------------------------------------------------------------------- 
 ALTER TABLE Node
+    DROP CONSTRAINT Node_linkControl_FK;
+
+ALTER TABLE Node
     DROP CONSTRAINT Node_nodeMember_FeatureGrap_FK;
 
 ALTER TABLE Node
     DROP CONSTRAINT Node_connectionSignature_FK;
-
-ALTER TABLE Node
-    DROP CONSTRAINT Node_linkControl_FK;
 
 -- -------------------------------------------------------------------- 
 -- AbstractProtectionShell 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractProtectionShell
     DROP CONSTRAINT AbstractProtectionShell_FK;
+
+ALTER TABLE AbstractProtectionShell
+    DROP CONSTRAINT AbstractProtect_Objectclass_FK;
 
 -- -------------------------------------------------------------------- 
 -- GaseousMediumSupply 
@@ -98,13 +110,13 @@ ALTER TABLE Network
     DROP CONSTRAINT Network_FK;
 
 ALTER TABLE Network
+    DROP CONSTRAINT Network_transportedMedium_FK;
+
+ALTER TABLE Network
     DROP CONSTRAINT Network_Parent_FK;
 
 ALTER TABLE Network
     DROP CONSTRAINT Network_Root_FK;
-
-ALTER TABLE Network
-    DROP CONSTRAINT Network_transportedMedium_FK;
 
 ALTER TABLE Network
     DROP CONSTRAINT Network_topoGraph_FK;
@@ -158,6 +170,9 @@ ALTER TABLE SolidMedium
 -- AbstractHollowSpace 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractHollowSpace
+    DROP CONSTRAINT AbstractHollowS_Objectclass_FK;
+
+ALTER TABLE AbstractHollowSpace
     DROP CONSTRAINT AbstractHollowSpace_Parent_FK;
 
 ALTER TABLE AbstractHollowSpace
@@ -199,6 +214,9 @@ ALTER TABLE LiquidMediumSupply
 ALTER TABLE AbstractPipe
     DROP CONSTRAINT AbstractPipe_FK;
 
+ALTER TABLE AbstractPipe
+    DROP CONSTRAINT AbstractPipe_Objectclass_FK;
+
 -- -------------------------------------------------------------------- 
 -- Storage 
 -- -------------------------------------------------------------------- 
@@ -224,6 +242,9 @@ ALTER TABLE AbstractNetworkFeature
     DROP CONSTRAINT AbstractNetworkFeature_Root_FK;
 
 ALTER TABLE AbstractNetworkFeature
+    DROP CONSTRAINT AbstractNetwo_occupiedHollo_FK;
+
+ALTER TABLE AbstractNetworkFeature
     DROP CONSTRAINT AbstractNe_usedBy_AbstractF_FK;
 
 ALTER TABLE AbstractNetworkFeature
@@ -231,9 +252,6 @@ ALTER TABLE AbstractNetworkFeature
 
 ALTER TABLE AbstractNetworkFeature
     DROP CONSTRAINT AbstractN_contains_Protecti_FK;
-
-ALTER TABLE AbstractNetworkFeature
-    DROP CONSTRAINT AbstractNetwo_occupiedHollo_FK;
 
 ALTER TABLE AbstractNetworkFeature
     DROP CONSTRAINT AbstractNetworkFe_topoGraph_FK;
@@ -293,6 +311,9 @@ ALTER TABLE HazardClass
 -- AbstractFeatureMaterial 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractFeatureMaterial
+    DROP CONSTRAINT AbstractFeature_Objectclass_FK;
+
+ALTER TABLE AbstractFeatureMaterial
     DROP CONSTRAINT AbstractFeatureMater_Parent_FK;
 
 ALTER TABLE AbstractFeatureMaterial
@@ -317,22 +338,25 @@ ALTER TABLE GaseousMedium
 -- AbstractCommodityClassifier 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractCommodityClassifier
+    DROP CONSTRAINT AbstractCommodi_Objectclass_FK;
+
+ALTER TABLE AbstractCommodityClassifier
+    DROP CONSTRAINT AbstractCommo_definesCommod_FK;
+
+ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT AbstractCommodityCla_Parent_FK;
 
 ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT AbstractCommodityClass_Root_FK;
 
 ALTER TABLE AbstractCommodityClassifier
+    DROP CONSTRAINT AbstractCommodity_boundedBy_FK;
+
+ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT AbstractC_isClassi_Abstract_FK;
 
 ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT Abstract_isClassi_Abstract_FK1;
-
-ALTER TABLE AbstractCommodityClassifier
-    DROP CONSTRAINT AbstractCommo_definesCommod_FK;
-
-ALTER TABLE AbstractCommodityClassifier
-    DROP CONSTRAINT AbstractCommodity_boundedBy_FK;
 
 ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT AbstractCommo_definesMateri_FK;
@@ -342,15 +366,6 @@ ALTER TABLE AbstractCommodityClassifier
 -- -------------------------------------------------------------------- 
 ALTER TABLE MeasurementDevice
     DROP CONSTRAINT MeasurementDevice_FK;
-
--- -------------------------------------------------------------------- 
--- Network_subOrdinate_superOrdin 
--- -------------------------------------------------------------------- 
-ALTER TABLE Network_subOrdinate_superOrdin
-    DROP CONSTRAINT Network_subOrdina_superOrd_FK1;
-
-ALTER TABLE Network_subOrdinate_superOrdin
-    DROP CONSTRAINT Network_subOrdina_superOrd_FK2;
 
 -- -------------------------------------------------------------------- 
 -- LiquidMedium 
@@ -395,6 +410,9 @@ ALTER TABLE ControllerDevice
 -- AbstractLink 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractLink
+    DROP CONSTRAINT AbstractLink_Objectclass_FK;
+
+ALTER TABLE AbstractLink
     DROP CONSTRAINT AbstractLink_linkControl_FK;
 
 ALTER TABLE AbstractLink
@@ -418,6 +436,11 @@ DROP TABLE RoleInNetwork;
 -- AnyDevice 
 -- -------------------------------------------------------------------- 
 DROP TABLE AnyDevice;
+
+-- -------------------------------------------------------------------- 
+-- Network_superOrdina_subOrdinat 
+-- -------------------------------------------------------------------- 
+DROP TABLE Network_superOrdina_subOrdinat;
 
 -- -------------------------------------------------------------------- 
 -- RectangularPipe 
@@ -648,11 +671,6 @@ DROP TABLE AbstractCommodityClassifier;
 -- MeasurementDevice 
 -- -------------------------------------------------------------------- 
 DROP TABLE MeasurementDevice;
-
--- -------------------------------------------------------------------- 
--- Network_subOrdinate_superOrdin 
--- -------------------------------------------------------------------- 
-DROP TABLE Network_subOrdinate_superOrdin;
 
 -- -------------------------------------------------------------------- 
 -- LiquidMedium 

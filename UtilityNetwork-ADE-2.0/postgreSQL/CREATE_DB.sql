@@ -25,6 +25,16 @@ CREATE TABLE AnyDevice
 );
 
 -- -------------------------------------------------------------------- 
+-- Network_superOrdina_subOrdinat 
+-- -------------------------------------------------------------------- 
+CREATE TABLE Network_superOrdina_subOrdinat
+(
+    Network_subOrdinateNetwork_ID INTEGER NOT NULL,
+    Network_superOrdinateNetwor_ID INTEGER NOT NULL,
+    PRIMARY KEY (Network_subOrdinateNetwork_ID, Network_superOrdinateNetwor_ID)
+);
+
+-- -------------------------------------------------------------------- 
 -- RectangularPipe 
 -- -------------------------------------------------------------------- 
 CREATE TABLE RectangularPipe
@@ -63,6 +73,8 @@ CREATE TABLE ComplexFunctionalElement
 CREATE TABLE Canal
 (
     ID INTEGER NOT NULL,
+    profileName VARCHAR(254),
+    isGravity BOOLEAN,
     slope_uom VARCHAR(254),
     slope NUMERIC,
     exteriorWidth_uom VARCHAR(254),
@@ -71,8 +83,6 @@ CREATE TABLE Canal
     exteriorHeight NUMERIC,
     exteriorDiameter_uom VARCHAR(254),
     exteriorDiameter NUMERIC,
-    profileName VARCHAR(254),
-    isGravity BOOLEAN,
     PRIMARY KEY (ID)
 );
 
@@ -82,9 +92,9 @@ CREATE TABLE Canal
 CREATE TABLE Node
 (
     ID INTEGER NOT NULL,
+    linkControl_ID INTEGER,
     Node_nodeMember_FeatureGrap_ID INTEGER,
     connectionSignature_ID INTEGER,
-    linkControl_ID INTEGER,
     realization_Other_Geom geometry(GEOMETRYZ),
     type VARCHAR(254),
     PRIMARY KEY (ID)
@@ -96,6 +106,7 @@ CREATE TABLE Node
 CREATE TABLE AbstractProtectionShell
 (
     ID INTEGER NOT NULL,
+    OBJECTCLASS_ID INTEGER,
     exteriorWidth_uom VARCHAR(254),
     exteriorWidth NUMERIC,
     exteriorHeight_uom VARCHAR(254),
@@ -179,9 +190,9 @@ CREATE TABLE AbstractMediumSupply
 CREATE TABLE Network
 (
     ID INTEGER NOT NULL,
+    transportedMedium_ID INTEGER,
     Network_Parent_ID INTEGER,
     Network_Root_ID INTEGER,
-    transportedMedium_ID INTEGER,
     topoGraph_ID INTEGER,
     supplies_ID INTEGER,
     class_uom VARCHAR(254),
@@ -199,14 +210,14 @@ CREATE TABLE Network
 CREATE TABLE OpticalMedium
 (
     ID INTEGER NOT NULL,
+    type VARCHAR(254),
+    modeType VARCHAR(254),
     bandWidth_uom VARCHAR(254),
     bandWidth NUMERIC,
     coreCrossSection_uom VARCHAR(254),
     coreCrossSection NUMERIC,
     claddingCrossSection_uom VARCHAR(254),
     claddingCrossSection NUMERIC,
-    type VARCHAR(254),
-    modeType VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -271,6 +282,8 @@ CREATE TABLE TechDevice
 CREATE TABLE SolidMedium
 (
     ID INTEGER NOT NULL,
+    isExplosive BOOLEAN,
+    flammable NUMERIC,
     type_uom VARCHAR(254),
     type VARCHAR(254),
     concentration_uom VARCHAR(254),
@@ -279,8 +292,6 @@ CREATE TABLE SolidMedium
     electricConductivity NUMERIC,
     pressureRange_uom VARCHAR(254),
     pressureRange NUMERIC,
-    isExplosive BOOLEAN,
-    flammable NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -290,6 +301,7 @@ CREATE TABLE SolidMedium
 CREATE TABLE AbstractHollowSpace
 (
     ID INTEGER NOT NULL,
+    OBJECTCLASS_ID INTEGER,
     AbstractHollowSpace_Parent_ID INTEGER,
     AbstractHollowSpace_Root_ID INTEGER,
     containedCommodity_ID INTEGER,
@@ -302,13 +314,13 @@ CREATE TABLE AbstractHollowSpace
 CREATE TABLE ElectricalMedium
 (
     ID INTEGER NOT NULL,
+    type VARCHAR(254),
     voltageRange_uom VARCHAR(254),
     voltageRange NUMERIC,
     amperageRange_uom VARCHAR(254),
     amperageRange NUMERIC,
     bandWidth_uom VARCHAR(254),
     bandWidth NUMERIC,
-    type VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -360,13 +372,14 @@ CREATE TABLE LiquidMediumSupply
 CREATE TABLE AbstractPipe
 (
     ID INTEGER NOT NULL,
+    OBJECTCLASS_ID INTEGER,
+    isGravity BOOLEAN,
     exteriorWidth_uom VARCHAR(254),
     exteriorWidth NUMERIC,
     exteriorHeight_uom VARCHAR(254),
     exteriorHeight NUMERIC,
     exteriorDiameter_uom VARCHAR(254),
     exteriorDiameter NUMERIC,
-    isGravity BOOLEAN,
     PRIMARY KEY (ID)
 );
 
@@ -377,6 +390,7 @@ CREATE TABLE Storage
 (
     ID INTEGER NOT NULL,
     Storage_storage_AbstractMed_ID INTEGER,
+    fillLevel NUMERIC,
     type_uom VARCHAR(254),
     type VARCHAR(254),
     maxCapacity_uom VARCHAR(254),
@@ -385,7 +399,6 @@ CREATE TABLE Storage
     inflowRate NUMERIC,
     outflowRate_uom VARCHAR(254),
     outflowRate NUMERIC,
-    fillLevel NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -408,22 +421,22 @@ CREATE TABLE AbstractNetworkFeature
     ID INTEGER NOT NULL,
     AbstractNetworkFeatu_Parent_ID INTEGER,
     AbstractNetworkFeature_Root_ID INTEGER,
+    occupiedHollowSpace_ID INTEGER,
     AbstractNe_usedBy_AbstractF_ID INTEGER,
     AbstractN_component_Network_ID INTEGER,
     AbstractN_contains_Protecti_ID INTEGER,
-    occupiedHollowSpace_ID INTEGER,
     topoGraph_ID INTEGER,
-    lod1Geometry_Other_Geom geometry(GEOMETRYZ),
-    AbstractNet_lod1Geomet_Brep_ID INTEGER,
-    function_uom VARCHAR(254),
-    function VARCHAR(254),
-    usage_uom VARCHAR(254),
-    usage VARCHAR(254),
     connectedCityObject VARCHAR(254),
     yearOfConstruction TIMESTAMP,
     status VARCHAR(254),
     locationQuality VARCHAR(254),
     elevationQuality VARCHAR(254),
+    function_uom VARCHAR(254),
+    function VARCHAR(254),
+    usage_uom VARCHAR(254),
+    usage VARCHAR(254),
+    lod1Geometry_Other_Geom geometry(GEOMETRYZ),
+    AbstractNet_lod1Geomet_Brep_ID INTEGER,
     PRIMARY KEY (ID)
 );
 
@@ -482,10 +495,10 @@ CREATE TABLE OpticalMediumSupply
 CREATE TABLE Cable
 (
     ID INTEGER NOT NULL,
-    crossSection_uom VARCHAR(254),
-    crossSection NUMERIC,
     isTransmission BOOLEAN,
     isCommunication BOOLEAN,
+    crossSection_uom VARCHAR(254),
+    crossSection NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -520,9 +533,9 @@ CREATE TABLE HazardClass
 CREATE TABLE Supply
 (
     ID INTEGER NOT NULL,
+    status VARCHAR(254),
     flowRate_uom VARCHAR(254),
     flowRate NUMERIC,
-    status VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -532,6 +545,7 @@ CREATE TABLE Supply
 CREATE TABLE AbstractFeatureMaterial
 (
     ID INTEGER NOT NULL,
+    OBJECTCLASS_ID INTEGER,
     AbstractFeatureMater_Parent_ID INTEGER,
     AbstractFeatureMateria_Root_ID INTEGER,
     AbstractF_hasMater_Abstract_ID INTEGER,
@@ -577,6 +591,8 @@ CREATE TABLE ChemicalClassifier
 CREATE TABLE GaseousMedium
 (
     ID INTEGER NOT NULL,
+    isExplosive BOOLEAN,
+    lighterThanAir BOOLEAN,
     type_uom VARCHAR(254),
     type VARCHAR(254),
     concentration_uom VARCHAR(254),
@@ -585,8 +601,6 @@ CREATE TABLE GaseousMedium
     pressureRange NUMERIC,
     electricConductivity_uom VARCHAR(254),
     electricConductivity NUMERIC,
-    isExplosive BOOLEAN,
-    lighterThanAir BOOLEAN,
     PRIMARY KEY (ID)
 );
 
@@ -596,20 +610,21 @@ CREATE TABLE GaseousMedium
 CREATE TABLE AbstractCommodityClassifier
 (
     ID INTEGER NOT NULL,
+    OBJECTCLASS_ID INTEGER,
+    definesCommodity_ID INTEGER,
     AbstractCommodityCla_Parent_ID INTEGER,
     AbstractCommodityClass_Root_ID INTEGER,
+    boundedBy_ID INTEGER,
     AbstractC_isClassi_Abstract_ID INTEGER,
     Abstract_isClassi_Abstract_ID1 INTEGER,
-    definesCommodity_ID INTEGER,
-    boundedBy_ID INTEGER,
     definesMaterial_ID INTEGER,
-    molecularWeight_uom VARCHAR(254),
-    molecularWeight NUMERIC,
     molFormula VARCHAR(254),
     description VARCHAR(254),
     physicalForm VARCHAR(254),
     signalWord VARCHAR(254),
     isChemicalComplex BOOLEAN,
+    molecularWeight_uom VARCHAR(254),
+    molecularWeight NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -625,21 +640,14 @@ CREATE TABLE MeasurementDevice
 );
 
 -- -------------------------------------------------------------------- 
--- Network_subOrdinate_superOrdin 
--- -------------------------------------------------------------------- 
-CREATE TABLE Network_subOrdinate_superOrdin
-(
-    Network_superOrdinateNetwor_ID INTEGER NOT NULL,
-    Network_subOrdinateNetwork_ID INTEGER NOT NULL,
-    PRIMARY KEY (Network_superOrdinateNetwor_ID, Network_subOrdinateNetwork_ID)
-);
-
--- -------------------------------------------------------------------- 
 -- LiquidMedium 
 -- -------------------------------------------------------------------- 
 CREATE TABLE LiquidMedium
 (
     ID INTEGER NOT NULL,
+    isCorrosive BOOLEAN,
+    isExplosive BOOLEAN,
+    flammable NUMERIC,
     type_uom VARCHAR(254),
     type VARCHAR(254),
     electricConductivity_uom VARCHAR(254),
@@ -652,9 +660,6 @@ CREATE TABLE LiquidMedium
     flowRateRange NUMERIC,
     pressureRange_uom VARCHAR(254),
     pressureRange NUMERIC,
-    isCorrosive BOOLEAN,
-    isExplosive BOOLEAN,
-    flammable NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -716,6 +721,7 @@ CREATE TABLE ControllerDevice
 CREATE TABLE AbstractLink
 (
     ID INTEGER NOT NULL,
+    OBJECTCLASS_ID INTEGER,
     linkControl_ID INTEGER,
     end_ID INTEGER,
     start_ID INTEGER,
@@ -742,6 +748,15 @@ ALTER TABLE AnyDevice
     ADD CONSTRAINT AnyDevice_FK FOREIGN KEY (ID) REFERENCES AbstractDevice (ID);
 
 -- -------------------------------------------------------------------- 
+-- Network_superOrdina_subOrdinat 
+-- -------------------------------------------------------------------- 
+ALTER TABLE Network_superOrdina_subOrdinat
+    ADD CONSTRAINT Network_superOrdi_subOrdin_FK1 FOREIGN KEY (Network_superOrdinateNetwor_ID) REFERENCES Network (ID);
+
+ALTER TABLE Network_superOrdina_subOrdinat
+    ADD CONSTRAINT Network_superOrdi_subOrdin_FK2 FOREIGN KEY (Network_subOrdinateNetwork_ID) REFERENCES Network (ID);
+
+-- -------------------------------------------------------------------- 
 -- RectangularPipe 
 -- -------------------------------------------------------------------- 
 ALTER TABLE RectangularPipe
@@ -763,19 +778,22 @@ ALTER TABLE Canal
 -- Node 
 -- -------------------------------------------------------------------- 
 ALTER TABLE Node
+    ADD CONSTRAINT Node_linkControl_FK FOREIGN KEY (linkControl_ID) REFERENCES AbstractLinkControl (ID);
+
+ALTER TABLE Node
     ADD CONSTRAINT Node_nodeMember_FeatureGrap_FK FOREIGN KEY (Node_nodeMember_FeatureGrap_ID) REFERENCES FeatureGraph (ID);
 
 ALTER TABLE Node
     ADD CONSTRAINT Node_connectionSignature_FK FOREIGN KEY (connectionSignature_ID) REFERENCES AbstractSignature (ID);
-
-ALTER TABLE Node
-    ADD CONSTRAINT Node_linkControl_FK FOREIGN KEY (linkControl_ID) REFERENCES AbstractLinkControl (ID);
 
 -- -------------------------------------------------------------------- 
 -- AbstractProtectionShell 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractProtectionShell
     ADD CONSTRAINT AbstractProtectionShell_FK FOREIGN KEY (ID) REFERENCES ProtectiveElement (ID);
+
+ALTER TABLE AbstractProtectionShell
+    ADD CONSTRAINT AbstractProtect_Objectclass_FK FOREIGN KEY (OBJECTCLASS_ID) REFERENCES objectclass (ID);
 
 -- -------------------------------------------------------------------- 
 -- GaseousMediumSupply 
@@ -826,13 +844,13 @@ ALTER TABLE Network
     ADD CONSTRAINT Network_FK FOREIGN KEY (ID) REFERENCES cityobject (ID);
 
 ALTER TABLE Network
+    ADD CONSTRAINT Network_transportedMedium_FK FOREIGN KEY (transportedMedium_ID) REFERENCES AbstractCommodity (ID);
+
+ALTER TABLE Network
     ADD CONSTRAINT Network_Parent_FK FOREIGN KEY (Network_Parent_ID) REFERENCES Network (ID);
 
 ALTER TABLE Network
     ADD CONSTRAINT Network_Root_FK FOREIGN KEY (Network_Root_ID) REFERENCES Network (ID);
-
-ALTER TABLE Network
-    ADD CONSTRAINT Network_transportedMedium_FK FOREIGN KEY (transportedMedium_ID) REFERENCES AbstractCommodity (ID);
 
 ALTER TABLE Network
     ADD CONSTRAINT Network_topoGraph_FK FOREIGN KEY (topoGraph_ID) REFERENCES NetworkGraph (ID);
@@ -886,6 +904,9 @@ ALTER TABLE SolidMedium
 -- AbstractHollowSpace 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractHollowSpace
+    ADD CONSTRAINT AbstractHollowS_Objectclass_FK FOREIGN KEY (OBJECTCLASS_ID) REFERENCES objectclass (ID);
+
+ALTER TABLE AbstractHollowSpace
     ADD CONSTRAINT AbstractHollowSpace_Parent_FK FOREIGN KEY (AbstractHollowSpace_Parent_ID) REFERENCES AbstractHollowSpace (ID);
 
 ALTER TABLE AbstractHollowSpace
@@ -927,6 +948,9 @@ ALTER TABLE LiquidMediumSupply
 ALTER TABLE AbstractPipe
     ADD CONSTRAINT AbstractPipe_FK FOREIGN KEY (ID) REFERENCES AbstractDistributionElement (ID);
 
+ALTER TABLE AbstractPipe
+    ADD CONSTRAINT AbstractPipe_Objectclass_FK FOREIGN KEY (OBJECTCLASS_ID) REFERENCES objectclass (ID);
+
 -- -------------------------------------------------------------------- 
 -- Storage 
 -- -------------------------------------------------------------------- 
@@ -952,6 +976,9 @@ ALTER TABLE AbstractNetworkFeature
     ADD CONSTRAINT AbstractNetworkFeature_Root_FK FOREIGN KEY (AbstractNetworkFeature_Root_ID) REFERENCES AbstractNetworkFeature (ID);
 
 ALTER TABLE AbstractNetworkFeature
+    ADD CONSTRAINT AbstractNetwo_occupiedHollo_FK FOREIGN KEY (occupiedHollowSpace_ID) REFERENCES AbstractHollowSpace (ID);
+
+ALTER TABLE AbstractNetworkFeature
     ADD CONSTRAINT AbstractNe_usedBy_AbstractF_FK FOREIGN KEY (AbstractNe_usedBy_AbstractF_ID) REFERENCES AbstractFeatureMaterial (ID);
 
 ALTER TABLE AbstractNetworkFeature
@@ -959,9 +986,6 @@ ALTER TABLE AbstractNetworkFeature
 
 ALTER TABLE AbstractNetworkFeature
     ADD CONSTRAINT AbstractN_contains_Protecti_FK FOREIGN KEY (AbstractN_contains_Protecti_ID) REFERENCES ProtectiveElement (ID);
-
-ALTER TABLE AbstractNetworkFeature
-    ADD CONSTRAINT AbstractNetwo_occupiedHollo_FK FOREIGN KEY (occupiedHollowSpace_ID) REFERENCES AbstractHollowSpace (ID);
 
 ALTER TABLE AbstractNetworkFeature
     ADD CONSTRAINT AbstractNetworkFe_topoGraph_FK FOREIGN KEY (topoGraph_ID) REFERENCES FeatureGraph (ID);
@@ -1021,6 +1045,9 @@ ALTER TABLE HazardClass
 -- AbstractFeatureMaterial 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractFeatureMaterial
+    ADD CONSTRAINT AbstractFeature_Objectclass_FK FOREIGN KEY (OBJECTCLASS_ID) REFERENCES objectclass (ID);
+
+ALTER TABLE AbstractFeatureMaterial
     ADD CONSTRAINT AbstractFeatureMater_Parent_FK FOREIGN KEY (AbstractFeatureMater_Parent_ID) REFERENCES AbstractFeatureMaterial (ID);
 
 ALTER TABLE AbstractFeatureMaterial
@@ -1045,22 +1072,25 @@ ALTER TABLE GaseousMedium
 -- AbstractCommodityClassifier 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractCommodityClassifier
+    ADD CONSTRAINT AbstractCommodi_Objectclass_FK FOREIGN KEY (OBJECTCLASS_ID) REFERENCES objectclass (ID);
+
+ALTER TABLE AbstractCommodityClassifier
+    ADD CONSTRAINT AbstractCommo_definesCommod_FK FOREIGN KEY (definesCommodity_ID) REFERENCES AbstractCommodity (ID);
+
+ALTER TABLE AbstractCommodityClassifier
     ADD CONSTRAINT AbstractCommodityCla_Parent_FK FOREIGN KEY (AbstractCommodityCla_Parent_ID) REFERENCES AbstractCommodityClassifier (ID);
 
 ALTER TABLE AbstractCommodityClassifier
     ADD CONSTRAINT AbstractCommodityClass_Root_FK FOREIGN KEY (AbstractCommodityClass_Root_ID) REFERENCES AbstractCommodityClassifier (ID);
 
 ALTER TABLE AbstractCommodityClassifier
+    ADD CONSTRAINT AbstractCommodity_boundedBy_FK FOREIGN KEY (boundedBy_ID) REFERENCES AbstractHollowSpace (ID);
+
+ALTER TABLE AbstractCommodityClassifier
     ADD CONSTRAINT AbstractC_isClassi_Abstract_FK FOREIGN KEY (AbstractC_isClassi_Abstract_ID) REFERENCES AbstractCommodity (ID);
 
 ALTER TABLE AbstractCommodityClassifier
     ADD CONSTRAINT Abstract_isClassi_Abstract_FK1 FOREIGN KEY (Abstract_isClassi_Abstract_ID1) REFERENCES AbstractFeatureMaterial (ID);
-
-ALTER TABLE AbstractCommodityClassifier
-    ADD CONSTRAINT AbstractCommo_definesCommod_FK FOREIGN KEY (definesCommodity_ID) REFERENCES AbstractCommodity (ID);
-
-ALTER TABLE AbstractCommodityClassifier
-    ADD CONSTRAINT AbstractCommodity_boundedBy_FK FOREIGN KEY (boundedBy_ID) REFERENCES AbstractHollowSpace (ID);
 
 ALTER TABLE AbstractCommodityClassifier
     ADD CONSTRAINT AbstractCommo_definesMateri_FK FOREIGN KEY (definesMaterial_ID) REFERENCES AbstractFeatureMaterial (ID);
@@ -1070,15 +1100,6 @@ ALTER TABLE AbstractCommodityClassifier
 -- -------------------------------------------------------------------- 
 ALTER TABLE MeasurementDevice
     ADD CONSTRAINT MeasurementDevice_FK FOREIGN KEY (ID) REFERENCES AbstractDevice (ID);
-
--- -------------------------------------------------------------------- 
--- Network_subOrdinate_superOrdin 
--- -------------------------------------------------------------------- 
-ALTER TABLE Network_subOrdinate_superOrdin
-    ADD CONSTRAINT Network_subOrdina_superOrd_FK1 FOREIGN KEY (Network_subOrdinateNetwork_ID) REFERENCES Network (ID);
-
-ALTER TABLE Network_subOrdinate_superOrdin
-    ADD CONSTRAINT Network_subOrdina_superOrd_FK2 FOREIGN KEY (Network_superOrdinateNetwor_ID) REFERENCES Network (ID);
 
 -- -------------------------------------------------------------------- 
 -- LiquidMedium 
@@ -1122,6 +1143,9 @@ ALTER TABLE ControllerDevice
 -- -------------------------------------------------------------------- 
 -- AbstractLink 
 -- -------------------------------------------------------------------- 
+ALTER TABLE AbstractLink
+    ADD CONSTRAINT AbstractLink_Objectclass_FK FOREIGN KEY (OBJECTCLASS_ID) REFERENCES objectclass (ID);
+
 ALTER TABLE AbstractLink
     ADD CONSTRAINT AbstractLink_linkControl_FK FOREIGN KEY (linkControl_ID) REFERENCES AbstractLinkControl (ID);
 

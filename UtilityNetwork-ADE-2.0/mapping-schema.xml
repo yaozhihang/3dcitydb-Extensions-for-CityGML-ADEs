@@ -126,14 +126,14 @@
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="Network" path="subOrdinateNetwork" schema="utility">
                 <joinTable>
-                    <join fromTable="Network_subOrdinate_superOrdin" toTable="Network" fromColumn="Network_superOrdinateNetwor_ID" toColumn="ID"/>
-                    <join fromTable="Network_subOrdinate_superOrdin" toTable="Network" fromColumn="Network_subOrdinateNetwork_ID" toColumn="ID"/>
+                    <join fromTable="Network_superOrdina_subOrdinat" toTable="Network" fromColumn="Network_subOrdinateNetwork_ID" toColumn="ID"/>
+                    <join fromTable="Network_superOrdina_subOrdinat" toTable="Network" fromColumn="Network_superOrdinateNetwor_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="Network" path="superOrdinateNetwork" schema="utility">
                 <joinTable>
-                    <join fromTable="Network_subOrdinate_superOrdin" toTable="Network" fromColumn="Network_superOrdinateNetwor_ID" toColumn="ID"/>
-                    <join fromTable="Network_subOrdinate_superOrdin" toTable="Network" fromColumn="Network_subOrdinateNetwork_ID" toColumn="ID"/>
+                    <join fromTable="Network_superOrdina_subOrdinat" toTable="Network" fromColumn="Network_subOrdinateNetwork_ID" toColumn="ID"/>
+                    <join fromTable="Network_superOrdina_subOrdinat" toTable="Network" fromColumn="Network_superOrdinateNetwor_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
         </featureOrObjectOrDataType>
