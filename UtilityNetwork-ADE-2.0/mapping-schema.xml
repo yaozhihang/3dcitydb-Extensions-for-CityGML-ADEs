@@ -221,7 +221,7 @@
             <attribute column="status" type="string" path="status" schema="utility"/>
             <attribute column="locationQuality" type="string" path="locationQuality" schema="utility"/>
             <attribute column="elevationQuality" type="string" path="elevationQuality" schema="utility"/>
-            <geometryProperty refColumn="AbstractNet_lod1Geomet_Brep_ID" inlineColumn="lod1Geometry_Other_Geom" type="AbstractGeometry" path="lod1Geometry" schema="utility"/>
+            <geometryProperty refColumn="lod1Geometry_Brep_ID" inlineColumn="lod1Geometry_Other_Geom" type="AbstractGeometry" path="lod1Geometry" schema="utility"/>
             <featureOrObjectOrDataProperty target="AbstractHollowSpace" path="occupiedHollowSpace" schema="utility">
                 <join fromTable="AbstractNetworkFeature" toTable="AbstractHollowSpace" fromColumn="occupiedHollowSpace_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
@@ -282,7 +282,7 @@
             <featureOrObjectOrDataProperty target="AbstractLinkControl" path="linkControl" schema="utility">
                 <join fromTable="AbstractLink" toTable="AbstractLinkControl" fromColumn="linkControl_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
-            <geometryProperty inlineColumn="realization_Other_Geom" type="MultiCurve" path="realization" schema="utility"/>
+            <geometryProperty inlineColumn="realization" type="MultiCurve" path="realization" schema="utility"/>
             <featureOrObjectOrDataProperty target="Node" path="end" schema="utility">
                 <join fromTable="AbstractLink" toTable="Node" fromColumn="end_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
@@ -299,7 +299,7 @@
             <featureOrObjectOrDataProperty target="AbstractLinkControl" path="linkControl" schema="utility">
                 <join fromTable="Node" toTable="AbstractLinkControl" fromColumn="linkControl_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
-            <geometryProperty inlineColumn="realization_Other_Geom" type="Point" path="realization" schema="utility"/>
+            <geometryProperty inlineColumn="realization" type="Point" path="realization" schema="utility"/>
         </featureOrObjectOrDataType>
         <featureOrObjectOrDataType id="AbstractSignature" table="AbstractSignature" derivedFrom="_Object" abstract="true" path="AbstractSignature" schema="utility"/>
         <featureOrObjectOrDataType id="InteriorFeatureLink" table="AbstractLink" derivedFrom="_Feature" abstract="false" path="InteriorFeatureLink" schema="utility">

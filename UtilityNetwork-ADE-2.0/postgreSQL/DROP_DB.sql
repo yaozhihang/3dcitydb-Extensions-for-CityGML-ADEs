@@ -2,10 +2,10 @@
 -- RoleInNetwork 
 -- -------------------------------------------------------------------- 
 ALTER TABLE RoleInNetwork
-    DROP CONSTRAINT RoleI_roleI_CityO_utili_ADE_FK;
+    DROP CONSTRAINT RoleInNetwork_network_FK;
 
 ALTER TABLE RoleInNetwork
-    DROP CONSTRAINT RoleInNetwork_network_FK;
+    DROP CONSTRAINT RoleI_roleI_CityO_utili_ADE_FK;
 
 -- -------------------------------------------------------------------- 
 -- AnyDevice 
@@ -44,22 +44,22 @@ ALTER TABLE Canal
 -- Node 
 -- -------------------------------------------------------------------- 
 ALTER TABLE Node
+    DROP CONSTRAINT Node_connectionSignature_FK;
+
+ALTER TABLE Node
     DROP CONSTRAINT Node_linkControl_FK;
 
 ALTER TABLE Node
     DROP CONSTRAINT Node_nodeMember_FeatureGrap_FK;
 
-ALTER TABLE Node
-    DROP CONSTRAINT Node_connectionSignature_FK;
-
 -- -------------------------------------------------------------------- 
 -- AbstractProtectionShell 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractProtectionShell
-    DROP CONSTRAINT AbstractProtectionShell_FK;
+    DROP CONSTRAINT AbstractProtect_Objectclass_FK;
 
 ALTER TABLE AbstractProtectionShell
-    DROP CONSTRAINT AbstractProtect_Objectclass_FK;
+    DROP CONSTRAINT AbstractProtectionShell_FK;
 
 -- -------------------------------------------------------------------- 
 -- GaseousMediumSupply 
@@ -95,10 +95,10 @@ ALTER TABLE StorageDevice
 -- AbstractMediumSupply 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractMediumSupply
-    DROP CONSTRAINT Abstr_mediu_CityO_utili_ADE_FK;
+    DROP CONSTRAINT AbstractMediu_potentialSupp_FK;
 
 ALTER TABLE AbstractMediumSupply
-    DROP CONSTRAINT AbstractMediu_potentialSupp_FK;
+    DROP CONSTRAINT Abstr_mediu_CityO_utili_ADE_FK;
 
 ALTER TABLE AbstractMediumSupply
     DROP CONSTRAINT AbstractMediu_currentSupply_FK;
@@ -110,13 +110,13 @@ ALTER TABLE Network
     DROP CONSTRAINT Network_FK;
 
 ALTER TABLE Network
-    DROP CONSTRAINT Network_transportedMedium_FK;
-
-ALTER TABLE Network
     DROP CONSTRAINT Network_Parent_FK;
 
 ALTER TABLE Network
     DROP CONSTRAINT Network_Root_FK;
+
+ALTER TABLE Network
+    DROP CONSTRAINT Network_transportedMedium_FK;
 
 ALTER TABLE Network
     DROP CONSTRAINT Network_topoGraph_FK;
@@ -212,10 +212,10 @@ ALTER TABLE LiquidMediumSupply
 -- AbstractPipe 
 -- -------------------------------------------------------------------- 
 ALTER TABLE AbstractPipe
-    DROP CONSTRAINT AbstractPipe_FK;
+    DROP CONSTRAINT AbstractPipe_Objectclass_FK;
 
 ALTER TABLE AbstractPipe
-    DROP CONSTRAINT AbstractPipe_Objectclass_FK;
+    DROP CONSTRAINT AbstractPipe_FK;
 
 -- -------------------------------------------------------------------- 
 -- Storage 
@@ -236,13 +236,16 @@ ALTER TABLE AbstractNetworkFeature
     DROP CONSTRAINT AbstractNetworkFeature_FK;
 
 ALTER TABLE AbstractNetworkFeature
+    DROP CONSTRAINT AbstractNetwo_occupiedHollo_FK;
+
+ALTER TABLE AbstractNetworkFeature
+    DROP CONSTRAINT AbstractNetworkFe_topoGraph_FK;
+
+ALTER TABLE AbstractNetworkFeature
     DROP CONSTRAINT AbstractNetworkFeatu_Parent_FK;
 
 ALTER TABLE AbstractNetworkFeature
     DROP CONSTRAINT AbstractNetworkFeature_Root_FK;
-
-ALTER TABLE AbstractNetworkFeature
-    DROP CONSTRAINT AbstractNetwo_occupiedHollo_FK;
 
 ALTER TABLE AbstractNetworkFeature
     DROP CONSTRAINT AbstractNe_usedBy_AbstractF_FK;
@@ -252,9 +255,6 @@ ALTER TABLE AbstractNetworkFeature
 
 ALTER TABLE AbstractNetworkFeature
     DROP CONSTRAINT AbstractN_contains_Protecti_FK;
-
-ALTER TABLE AbstractNetworkFeature
-    DROP CONSTRAINT AbstractNetworkFe_topoGraph_FK;
 
 ALTER TABLE AbstractNetworkFeature
     DROP CONSTRAINT AbstractNet_lod1Geomet_Brep_FK;
@@ -341,25 +341,25 @@ ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT AbstractCommodi_Objectclass_FK;
 
 ALTER TABLE AbstractCommodityClassifier
-    DROP CONSTRAINT AbstractCommo_definesCommod_FK;
-
-ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT AbstractCommodityCla_Parent_FK;
 
 ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT AbstractCommodityClass_Root_FK;
 
 ALTER TABLE AbstractCommodityClassifier
+    DROP CONSTRAINT AbstractCommo_definesCommod_FK;
+
+ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT AbstractCommodity_boundedBy_FK;
+
+ALTER TABLE AbstractCommodityClassifier
+    DROP CONSTRAINT AbstractCommo_definesMateri_FK;
 
 ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT AbstractC_isClassi_Abstract_FK;
 
 ALTER TABLE AbstractCommodityClassifier
     DROP CONSTRAINT Abstract_isClassi_Abstract_FK1;
-
-ALTER TABLE AbstractCommodityClassifier
-    DROP CONSTRAINT AbstractCommo_definesMateri_FK;
 
 -- -------------------------------------------------------------------- 
 -- MeasurementDevice 

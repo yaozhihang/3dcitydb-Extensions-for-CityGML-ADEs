@@ -32,10 +32,10 @@ ALTER TABLE Therma_bounde_TO_Therma_delimi
 -- SystemOperation 
 -- -------------------------------------------------------------------- 
 ALTER TABLE SystemOperation
-    DROP CONSTRAINT SystemOpera_has_EnergyConve_FK;
+    DROP CONSTRAINT SystemOperati_operationTime_FK;
 
 ALTER TABLE SystemOperation
-    DROP CONSTRAINT SystemOperati_operationTime_FK;
+    DROP CONSTRAINT SystemOpera_has_EnergyConve_FK;
 
 -- -------------------------------------------------------------------- 
 -- EnergyDistributionSystem 
@@ -47,16 +47,16 @@ ALTER TABLE EnergyDistributionSystem
 -- Occupants 
 -- -------------------------------------------------------------------- 
 ALTER TABLE Occupants
-    DROP CONSTRAINT Occupants_heatDissipation_FK;
+    DROP CONSTRAINT Occupants_occupancyRate_FK;
 
 ALTER TABLE Occupants
     DROP CONSTRAINT Occupants_occupied_Building_FK;
 
 ALTER TABLE Occupants
-    DROP CONSTRAINT Occupants_occupancyRate_FK;
+    DROP CONSTRAINT Occupants_occupied_UsageZon_FK;
 
 ALTER TABLE Occupants
-    DROP CONSTRAINT Occupants_occupied_UsageZon_FK;
+    DROP CONSTRAINT Occupants_heatDissipation_FK;
 
 -- -------------------------------------------------------------------- 
 -- CityObject_energy_ADE 
@@ -140,25 +140,25 @@ ALTER TABLE Construction
     DROP CONSTRAINT Construction_FK;
 
 ALTER TABLE Construction
-    DROP CONSTRAINT Construction_opticalPropert_FK;
+    DROP CONSTRAINT Construction_serviceLife_FK;
 
 ALTER TABLE Construction
-    DROP CONSTRAINT Construction_serviceLife_FK;
+    DROP CONSTRAINT Construction_opticalPropert_FK;
 
 -- -------------------------------------------------------------------- 
 -- EnergyConversionSystem 
 -- -------------------------------------------------------------------- 
 ALTER TABLE EnergyConversionSystem
-    DROP CONSTRAINT EnergyConvers_productAndIns_FK;
-
-ALTER TABLE EnergyConversionSystem
-    DROP CONSTRAINT EnergyConversio_serviceLife_FK;
-
-ALTER TABLE EnergyConversionSystem
     DROP CONSTRAINT EnergyConversio_installedIn_FK;
 
 ALTER TABLE EnergyConversionSystem
+    DROP CONSTRAINT EnergyConvers_productAndIns_FK;
+
+ALTER TABLE EnergyConversionSystem
     DROP CONSTRAINT Energ_energ_CityO_energ_ADE_FK;
+
+ALTER TABLE EnergyConversionSystem
+    DROP CONSTRAINT EnergyConversio_serviceLife_FK;
 
 -- -------------------------------------------------------------------- 
 -- Household 
@@ -170,13 +170,13 @@ ALTER TABLE Household
 -- LayerComponent 
 -- -------------------------------------------------------------------- 
 ALTER TABLE LayerComponent
+    DROP CONSTRAINT LayerCompo_layerCompo_Layer_FK;
+
+ALTER TABLE LayerComponent
     DROP CONSTRAINT LayerComponent_serviceLife_FK;
 
 ALTER TABLE LayerComponent
     DROP CONSTRAINT LayerComponent_material_FK;
-
-ALTER TABLE LayerComponent
-    DROP CONSTRAINT LayerCompo_layerCompo_Layer_FK;
 
 -- -------------------------------------------------------------------- 
 -- Transmittance 
@@ -401,9 +401,6 @@ ALTER TABLE UsageZone
     DROP CONSTRAINT Usage_usage_Abstr_energ_ADE_FK;
 
 ALTER TABLE UsageZone
-    DROP CONSTRAINT UsageZone_contains_ThermalZ_FK;
-
-ALTER TABLE UsageZone
     DROP CONSTRAINT UsageZone_coolingSchedule_FK;
 
 ALTER TABLE UsageZone
@@ -411,6 +408,9 @@ ALTER TABLE UsageZone
 
 ALTER TABLE UsageZone
     DROP CONSTRAINT UsageZone_ventilationSchedu_FK;
+
+ALTER TABLE UsageZone
+    DROP CONSTRAINT UsageZone_contains_ThermalZ_FK;
 
 ALTER TABLE UsageZone
     DROP CONSTRAINT UsageZone_averageInternalGa_FK;
@@ -461,10 +461,10 @@ ALTER TABLE PeriodOfYear
 -- StorageSystem 
 -- -------------------------------------------------------------------- 
 ALTER TABLE StorageSystem
-    DROP CONSTRAINT StorageSystem_serviceLife_FK;
+    DROP CONSTRAINT StorageSy_storage_EnergyDem_FK;
 
 ALTER TABLE StorageSystem
-    DROP CONSTRAINT StorageSy_storage_EnergyDem_FK;
+    DROP CONSTRAINT StorageSystem_serviceLife_FK;
 
 -- -------------------------------------------------------------------- 
 -- MechanicalVentilation 
@@ -506,13 +506,13 @@ ALTER TABLE ThermalComponent
     DROP CONSTRAINT ThermalComponent_FK;
 
 ALTER TABLE ThermalComponent
-    DROP CONSTRAINT ThermalCo_composed_ThermalB_FK;
-
-ALTER TABLE ThermalComponent
     DROP CONSTRAINT ThermalComponent_relates_FK;
 
 ALTER TABLE ThermalComponent
     DROP CONSTRAINT ThermalCompone_construction_FK;
+
+ALTER TABLE ThermalComponent
+    DROP CONSTRAINT ThermalCo_composed_ThermalB_FK;
 
 -- -------------------------------------------------------------------- 
 -- IrregularTimeSeriesFile 
@@ -554,10 +554,10 @@ ALTER TABLE Facilities
     DROP CONSTRAINT Facilities_operationSchedul_FK;
 
 ALTER TABLE Facilities
-    DROP CONSTRAINT Facilities_heatDissipation_FK;
+    DROP CONSTRAINT Facilitie_equipped_Building_FK;
 
 ALTER TABLE Facilities
-    DROP CONSTRAINT Facilitie_equipped_Building_FK;
+    DROP CONSTRAINT Facilities_heatDissipation_FK;
 
 ALTER TABLE Facilities
     DROP CONSTRAINT Facilitie_equipped_UsageZon_FK;
@@ -891,14 +891,14 @@ DROP TABLE ConstantValueSchedule;
 DROP TABLE PeriodOfYear;
 
 -- -------------------------------------------------------------------- 
--- StorageSystem 
--- -------------------------------------------------------------------- 
-DROP TABLE StorageSystem;
-
--- -------------------------------------------------------------------- 
 -- DateOfEvent 
 -- -------------------------------------------------------------------- 
 DROP TABLE DateOfEvent;
+
+-- -------------------------------------------------------------------- 
+-- StorageSystem 
+-- -------------------------------------------------------------------- 
+DROP TABLE StorageSystem;
 
 -- -------------------------------------------------------------------- 
 -- MechanicalVentilation 

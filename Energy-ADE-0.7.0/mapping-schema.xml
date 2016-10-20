@@ -26,7 +26,7 @@
             <featureOrObjectOrDataProperty target="VolumeType" path="volume" schema="energy">
                 <join fromTable="VolumeType" toTable="AbstractBuilding_energy_ADE" fromColumn="Volum_volum_Abstr_energ_ADE_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
-            <geometryProperty inlineColumn="referencePoint_Other_Geom" type="Point" path="referencePoint" schema="energy"/>
+            <geometryProperty inlineColumn="referencePoint" type="Point" path="referencePoint" schema="energy"/>
             <featureOrObjectOrDataProperty target="RefurbishmentMeasure" path="refurbishmentMeasureOnBuilding" schema="energy">
                 <join fromTable="RefurbishmentMeasure" toTable="AbstractBuilding_energy_ADE" fromColumn="Refur_refur_Abstr_energ_ADE_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
@@ -105,7 +105,7 @@
             </complexAttribute>
             <attribute column="isCooled" type="boolean" path="isCooled" schema="energy"/>
             <attribute column="isHeated" type="boolean" path="isHeated" schema="energy"/>
-            <geometryProperty refColumn="ThermalZone_volumeGeometry_ID" type="AbstractSolid" path="volumeGeometry" schema="energy"/>
+            <geometryProperty refColumn="volumeGeometry_ID" type="AbstractSolid" path="volumeGeometry" schema="energy"/>
             <featureOrObjectOrDataProperty target="Room" path="interiorRoom" schema="energy">
                 <joinTable>
                     <join fromTable="ThermalZone_to_room_interiorRo" toTable="ThermalZone" fromColumn="ThermalZone_ID" toColumn="ID"/>
@@ -142,7 +142,7 @@
             <featureOrObjectOrDataProperty target="FloorArea" path="floorArea" schema="energy">
                 <join fromTable="FloorArea" toTable="UsageZone" fromColumn="FloorArea_floorAre_UsageZon_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
-            <geometryProperty refColumn="UsageZone_volumeGeometry_ID" type="AbstractSolid" path="volumeGeometry" schema="energy"/>
+            <geometryProperty refColumn="volumeGeometry_ID" type="AbstractSolid" path="volumeGeometry" schema="energy"/>
             <featureOrObjectOrDataProperty target="HeatExchangeType" path="averageInternalGains" schema="energy">
                 <join fromTable="UsageZone" toTable="HeatExchangeType" fromColumn="averageInternalGains_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
@@ -202,7 +202,7 @@
                     <attribute column="area" type="double" path="." schema="gml"/>
                 </type>
             </complexAttribute>
-            <geometryProperty refColumn="ThermalBounda_surfaceGeomet_ID" type="MultiSurface" path="surfaceGeometry" schema="energy"/>
+            <geometryProperty refColumn="surfaceGeometry_ID" type="MultiSurface" path="surfaceGeometry" schema="energy"/>
             <featureOrObjectOrDataProperty target="ThermalComponent" path="composedOf" schema="energy">
                 <join fromTable="ThermalComponent" toTable="ThermalBoundary" fromColumn="ThermalCo_composed_ThermalB_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
@@ -406,7 +406,7 @@
             <featureOrObjectOrDataProperty target="_TimeSeries" path="values" schema="energy">
                 <join fromTable="WeatherData" toTable="TimeSeries" fromColumn="values_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
-            <geometryProperty inlineColumn="position_Other_Geom" type="Point" path="position" schema="energy"/>
+            <geometryProperty inlineColumn="position" type="Point" path="position" schema="energy"/>
         </featureOrObjectOrDataType>
         <featureOrObjectOrDataType id="ServiceLife" table="ServiceLife" derivedFrom="_GML" abstract="false" path="ServiceLife" schema="energy">
             <complexAttribute path="startOfLife" schema="energy">
@@ -528,7 +528,7 @@
             <extension base="EnergyConversionSystem">
                 <join fromTable="SolarEnergySystem" toTable="EnergyConversionSystem" fromColumn="ID" toColumn="ID"/>
             </extension>
-            <geometryProperty refColumn="SolarEnergySy_surfaceGeomet_ID" type="MultiSurface" path="surfaceGeometry" schema="energy"/>
+            <geometryProperty refColumn="surfaceGeometry_ID" type="MultiSurface" path="surfaceGeometry" schema="energy"/>
             <featureOrObjectOrDataProperty target="_BoundarySurface" path="installedOnBoundarySurface" schema="energy">
                 <join fromTable="SolarEnergySystem" toTable="thematic_surface" fromColumn="installedOnBoundarySurface_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>

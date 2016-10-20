@@ -44,8 +44,8 @@ CREATE TABLE Therma_bounde_TO_Therma_delimi
 CREATE TABLE SystemOperation
 (
     ID INTEGER NOT NULL,
-    SystemOpera_has_EnergyConve_ID INTEGER,
     operationTime_ID INTEGER,
+    SystemOpera_has_EnergyConve_ID INTEGER,
     endUse VARCHAR2(254),
     yearlyGlobalEfficiency_uom VARCHAR2(254),
     yearlyGlobalEfficiency NUMBER,
@@ -69,10 +69,10 @@ CREATE TABLE EnergyDistributionSystem
 CREATE TABLE Occupants
 (
     ID INTEGER NOT NULL,
-    heatDissipation_ID INTEGER,
-    Occupants_occupied_Building_ID INTEGER,
     occupancyRate_ID INTEGER,
+    Occupants_occupied_Building_ID INTEGER,
     Occupants_occupied_UsageZon_ID INTEGER,
+    heatDissipation_ID INTEGER,
     numberOfOccupants INTEGER,
     occupantType_uom VARCHAR2(254),
     occupantType VARCHAR2(254),
@@ -94,13 +94,13 @@ CREATE TABLE CityObject_energy_ADE
 CREATE TABLE RegularTimeSeries
 (
     ID INTEGER NOT NULL,
-    temporalExtent CLOB,
     timeInterval_unit VARCHAR2(254),
     timeInterval_radix INTEGER,
     timeInterval_factor INTEGER,
     timeInterval NUMBER,
     values_uom VARCHAR2(254),
     values_ NUMBER,
+    temporalExtent CLOB,
     PRIMARY KEY (ID)
 );
 
@@ -158,7 +158,7 @@ CREATE TABLE ThermalZone
     indirectlyHeatedAreaRatio NUMBER,
     infiltrationRate_uom VARCHAR2(254),
     infiltrationRate NUMBER,
-    ThermalZone_volumeGeometry_ID INTEGER,
+    volumeGeometry_ID INTEGER,
     PRIMARY KEY (ID)
 );
 
@@ -256,8 +256,8 @@ CREATE TABLE IrregularTimeSeries
 CREATE TABLE Construction
 (
     ID INTEGER NOT NULL,
-    opticalProperties_ID INTEGER,
     serviceLife_ID INTEGER,
+    opticalProperties_ID INTEGER,
     uValue_uom VARCHAR2(254),
     uValue NUMBER,
     PRIMARY KEY (ID)
@@ -282,10 +282,10 @@ CREATE TABLE TimeValuesProperties
 CREATE TABLE EnergyConversionSystem
 (
     ID INTEGER NOT NULL,
-    productAndInstallationDocum_ID INTEGER,
-    serviceLife_ID INTEGER,
     installedIn_ID INTEGER,
+    productAndInstallationDocum_ID INTEGER,
     Energ_energ_CityO_energ_ADE_ID INTEGER,
+    serviceLife_ID INTEGER,
     efficiencyIndicator VARCHAR2(254),
     model VARCHAR2(254),
     number_ INTEGER,
@@ -315,9 +315,9 @@ CREATE TABLE Household
 CREATE TABLE LayerComponent
 (
     ID INTEGER NOT NULL,
+    LayerCompo_layerCompo_Layer_ID INTEGER,
     serviceLife_ID INTEGER,
     material_ID INTEGER,
-    LayerCompo_layerCompo_Layer_ID INTEGER,
     areaFraction_uom VARCHAR2(254),
     areaFraction NUMBER,
     thickness_uom VARCHAR2(254),
@@ -440,7 +440,6 @@ CREATE TABLE EnergyPerformanceCertification
 CREATE TABLE RegularTimeSeriesFile
 (
     ID INTEGER NOT NULL,
-    temporalExtent CLOB,
     uom VARCHAR2(254),
     file_ VARCHAR2(254),
     numberOfHeaderLines INTEGER,
@@ -452,6 +451,7 @@ CREATE TABLE RegularTimeSeriesFile
     timeInterval_radix INTEGER,
     timeInterval_factor INTEGER,
     timeInterval NUMBER,
+    temporalExtent CLOB,
     PRIMARY KEY (ID)
 );
 
@@ -681,7 +681,7 @@ CREATE TABLE SolarEnergySystem
     ID INTEGER NOT NULL,
     installedOnBoundarySurface_ID INTEGER,
     installedOnBuildingInstalla_ID INTEGER,
-    SolarEnergySy_surfaceGeomet_ID INTEGER,
+    surfaceGeometry_ID INTEGER,
     PRIMARY KEY (ID)
 );
 
@@ -692,15 +692,15 @@ CREATE TABLE UsageZone
 (
     ID INTEGER NOT NULL,
     Usage_usage_Abstr_energ_ADE_ID INTEGER,
-    UsageZone_contains_ThermalZ_ID INTEGER,
     coolingSchedule_ID INTEGER,
     heatingSchedule_ID INTEGER,
     ventilationSchedule_ID INTEGER,
+    UsageZone_contains_ThermalZ_ID INTEGER,
     averageInternalGains_ID INTEGER,
     usedFloors VARCHAR2(254),
     usageZoneType_uom VARCHAR2(254),
     usageZoneType VARCHAR2(254),
-    UsageZone_volumeGeometry_ID INTEGER,
+    volumeGeometry_ID INTEGER,
     PRIMARY KEY (ID)
 );
 
@@ -789,17 +789,6 @@ CREATE TABLE PeriodOfYear
 );
 
 -- -------------------------------------------------------------------- 
--- StorageSystem 
--- -------------------------------------------------------------------- 
-CREATE TABLE StorageSystem
-(
-    ID INTEGER NOT NULL,
-    serviceLife_ID INTEGER,
-    StorageSy_storage_EnergyDem_ID INTEGER,
-    PRIMARY KEY (ID)
-);
-
--- -------------------------------------------------------------------- 
 -- DateOfEvent 
 -- -------------------------------------------------------------------- 
 CREATE TABLE DateOfEvent
@@ -810,6 +799,17 @@ CREATE TABLE DateOfEvent
     instant_calendarEraName VARCHAR2(254),
     instant_indeterminatePosition VARCHAR2(254),
     instant VARCHAR2(254),
+    PRIMARY KEY (ID)
+);
+
+-- -------------------------------------------------------------------- 
+-- StorageSystem 
+-- -------------------------------------------------------------------- 
+CREATE TABLE StorageSystem
+(
+    ID INTEGER NOT NULL,
+    StorageSy_storage_EnergyDem_ID INTEGER,
+    serviceLife_ID INTEGER,
     PRIMARY KEY (ID)
 );
 
@@ -880,9 +880,9 @@ CREATE TABLE PhotovoltaicSystem
 CREATE TABLE ThermalComponent
 (
     ID INTEGER NOT NULL,
-    ThermalCo_composed_ThermalB_ID INTEGER,
     relates_ID INTEGER,
     construction_ID INTEGER,
+    ThermalCo_composed_ThermalB_ID INTEGER,
     area_uom VARCHAR2(254),
     area NUMBER,
     PRIMARY KEY (ID)
@@ -944,8 +944,8 @@ CREATE TABLE WeatherData
     ID INTEGER NOT NULL,
     Weath_weath_CityO_energ_ADE_ID INTEGER,
     values_ID INTEGER,
+    position MDSYS.SDO_GEOMETRY,
     weatherDataType VARCHAR2(254),
-    position_Other_Geom MDSYS.SDO_GEOMETRY,
     PRIMARY KEY (ID)
 );
 
@@ -956,8 +956,8 @@ CREATE TABLE Facilities
 (
     ID INTEGER NOT NULL,
     operationSchedule_ID INTEGER,
-    heatDissipation_ID INTEGER,
     Facilitie_equipped_Building_ID INTEGER,
+    heatDissipation_ID INTEGER,
     Facilitie_equipped_UsageZon_ID INTEGER,
     PRIMARY KEY (ID)
 );
@@ -968,9 +968,9 @@ CREATE TABLE Facilities
 CREATE TABLE AbstractBuilding_energy_ADE
 (
     ID INTEGER NOT NULL,
+    referencePoint MDSYS.SDO_GEOMETRY,
     buildingType_uom VARCHAR2(254),
     buildingType VARCHAR2(254),
-    referencePoint_Other_Geom MDSYS.SDO_GEOMETRY,
     PRIMARY KEY (ID)
 );
 
@@ -1053,7 +1053,7 @@ CREATE TABLE ThermalBoundary
     inclination NUMBER,
     area_uom VARCHAR2(254),
     area NUMBER,
-    ThermalBounda_surfaceGeomet_ID INTEGER,
+    surfaceGeometry_ID INTEGER,
     PRIMARY KEY (ID)
 );
 
@@ -1091,10 +1091,10 @@ ALTER TABLE Therma_bounde_TO_Therma_delimi
 -- SystemOperation 
 -- -------------------------------------------------------------------- 
 ALTER TABLE SystemOperation
-    ADD CONSTRAINT SystemOpera_has_EnergyConve_FK FOREIGN KEY (SystemOpera_has_EnergyConve_ID) REFERENCES EnergyConversionSystem (ID);
+    ADD CONSTRAINT SystemOperati_operationTime_FK FOREIGN KEY (operationTime_ID) REFERENCES Schedule (ID);
 
 ALTER TABLE SystemOperation
-    ADD CONSTRAINT SystemOperati_operationTime_FK FOREIGN KEY (operationTime_ID) REFERENCES Schedule (ID);
+    ADD CONSTRAINT SystemOpera_has_EnergyConve_FK FOREIGN KEY (SystemOpera_has_EnergyConve_ID) REFERENCES EnergyConversionSystem (ID);
 
 -- -------------------------------------------------------------------- 
 -- EnergyDistributionSystem 
@@ -1106,16 +1106,16 @@ ALTER TABLE EnergyDistributionSystem
 -- Occupants 
 -- -------------------------------------------------------------------- 
 ALTER TABLE Occupants
-    ADD CONSTRAINT Occupants_heatDissipation_FK FOREIGN KEY (heatDissipation_ID) REFERENCES HeatExchangeType (ID);
+    ADD CONSTRAINT Occupants_occupancyRate_FK FOREIGN KEY (occupancyRate_ID) REFERENCES Schedule (ID);
 
 ALTER TABLE Occupants
     ADD CONSTRAINT Occupants_occupied_Building_FK FOREIGN KEY (Occupants_occupied_Building_ID) REFERENCES BuildingUnit (ID);
 
 ALTER TABLE Occupants
-    ADD CONSTRAINT Occupants_occupancyRate_FK FOREIGN KEY (occupancyRate_ID) REFERENCES Schedule (ID);
+    ADD CONSTRAINT Occupants_occupied_UsageZon_FK FOREIGN KEY (Occupants_occupied_UsageZon_ID) REFERENCES UsageZone (ID);
 
 ALTER TABLE Occupants
-    ADD CONSTRAINT Occupants_occupied_UsageZon_FK FOREIGN KEY (Occupants_occupied_UsageZon_ID) REFERENCES UsageZone (ID);
+    ADD CONSTRAINT Occupants_heatDissipation_FK FOREIGN KEY (heatDissipation_ID) REFERENCES HeatExchangeType (ID);
 
 -- -------------------------------------------------------------------- 
 -- CityObject_energy_ADE 
@@ -1151,7 +1151,7 @@ ALTER TABLE ThermalZone
     ADD CONSTRAINT Therm_therm_Abstr_energ_ADE_FK FOREIGN KEY (Therm_therm_Abstr_energ_ADE_ID) REFERENCES AbstractBuilding_energy_ADE (ID);
 
 ALTER TABLE ThermalZone
-    ADD CONSTRAINT ThermalZone_volumeGeometry_FK FOREIGN KEY (ThermalZone_volumeGeometry_ID) REFERENCES SURFACE_GEOMETRY (ID);
+    ADD CONSTRAINT ThermalZone_volumeGeometry_FK FOREIGN KEY (volumeGeometry_ID) REFERENCES SURFACE_GEOMETRY (ID);
 
 -- -------------------------------------------------------------------- 
 -- ThermalDistributionSystem 
@@ -1199,25 +1199,25 @@ ALTER TABLE Construction
     ADD CONSTRAINT Construction_FK FOREIGN KEY (ID) REFERENCES AbstractConstruction (ID);
 
 ALTER TABLE Construction
-    ADD CONSTRAINT Construction_opticalPropert_FK FOREIGN KEY (opticalProperties_ID) REFERENCES OpticalProperties (ID);
+    ADD CONSTRAINT Construction_serviceLife_FK FOREIGN KEY (serviceLife_ID) REFERENCES ServiceLife (ID);
 
 ALTER TABLE Construction
-    ADD CONSTRAINT Construction_serviceLife_FK FOREIGN KEY (serviceLife_ID) REFERENCES ServiceLife (ID);
+    ADD CONSTRAINT Construction_opticalPropert_FK FOREIGN KEY (opticalProperties_ID) REFERENCES OpticalProperties (ID);
 
 -- -------------------------------------------------------------------- 
 -- EnergyConversionSystem 
 -- -------------------------------------------------------------------- 
 ALTER TABLE EnergyConversionSystem
-    ADD CONSTRAINT EnergyConvers_productAndIns_FK FOREIGN KEY (productAndInstallationDocum_ID) REFERENCES external_reference (ID);
-
-ALTER TABLE EnergyConversionSystem
-    ADD CONSTRAINT EnergyConversio_serviceLife_FK FOREIGN KEY (serviceLife_ID) REFERENCES ServiceLife (ID);
-
-ALTER TABLE EnergyConversionSystem
     ADD CONSTRAINT EnergyConversio_installedIn_FK FOREIGN KEY (installedIn_ID) REFERENCES cityobject (ID);
 
 ALTER TABLE EnergyConversionSystem
+    ADD CONSTRAINT EnergyConvers_productAndIns_FK FOREIGN KEY (productAndInstallationDocum_ID) REFERENCES external_reference (ID);
+
+ALTER TABLE EnergyConversionSystem
     ADD CONSTRAINT Energ_energ_CityO_energ_ADE_FK FOREIGN KEY (Energ_energ_CityO_energ_ADE_ID) REFERENCES CityObject_energy_ADE (ID);
+
+ALTER TABLE EnergyConversionSystem
+    ADD CONSTRAINT EnergyConversio_serviceLife_FK FOREIGN KEY (serviceLife_ID) REFERENCES ServiceLife (ID);
 
 -- -------------------------------------------------------------------- 
 -- Household 
@@ -1229,13 +1229,13 @@ ALTER TABLE Household
 -- LayerComponent 
 -- -------------------------------------------------------------------- 
 ALTER TABLE LayerComponent
+    ADD CONSTRAINT LayerCompo_layerCompo_Layer_FK FOREIGN KEY (LayerCompo_layerCompo_Layer_ID) REFERENCES Layer (ID);
+
+ALTER TABLE LayerComponent
     ADD CONSTRAINT LayerComponent_serviceLife_FK FOREIGN KEY (serviceLife_ID) REFERENCES ServiceLife (ID);
 
 ALTER TABLE LayerComponent
     ADD CONSTRAINT LayerComponent_material_FK FOREIGN KEY (material_ID) REFERENCES AbstractMaterial (ID);
-
-ALTER TABLE LayerComponent
-    ADD CONSTRAINT LayerCompo_layerCompo_Layer_FK FOREIGN KEY (LayerCompo_layerCompo_Layer_ID) REFERENCES Layer (ID);
 
 -- -------------------------------------------------------------------- 
 -- Transmittance 
@@ -1448,7 +1448,7 @@ ALTER TABLE SolarEnergySystem
     ADD CONSTRAINT SolarEnergySy_installedOnBu_FK FOREIGN KEY (installedOnBuildingInstalla_ID) REFERENCES building_installation (ID);
 
 ALTER TABLE SolarEnergySystem
-    ADD CONSTRAINT SolarEnergySy_surfaceGeomet_FK FOREIGN KEY (SolarEnergySy_surfaceGeomet_ID) REFERENCES SURFACE_GEOMETRY (ID);
+    ADD CONSTRAINT SolarEnergySy_surfaceGeomet_FK FOREIGN KEY (surfaceGeometry_ID) REFERENCES SURFACE_GEOMETRY (ID);
 
 -- -------------------------------------------------------------------- 
 -- UsageZone 
@@ -1460,9 +1460,6 @@ ALTER TABLE UsageZone
     ADD CONSTRAINT Usage_usage_Abstr_energ_ADE_FK FOREIGN KEY (Usage_usage_Abstr_energ_ADE_ID) REFERENCES AbstractBuilding_energy_ADE (ID);
 
 ALTER TABLE UsageZone
-    ADD CONSTRAINT UsageZone_contains_ThermalZ_FK FOREIGN KEY (UsageZone_contains_ThermalZ_ID) REFERENCES ThermalZone (ID);
-
-ALTER TABLE UsageZone
     ADD CONSTRAINT UsageZone_coolingSchedule_FK FOREIGN KEY (coolingSchedule_ID) REFERENCES Schedule (ID);
 
 ALTER TABLE UsageZone
@@ -1472,10 +1469,13 @@ ALTER TABLE UsageZone
     ADD CONSTRAINT UsageZone_ventilationSchedu_FK FOREIGN KEY (ventilationSchedule_ID) REFERENCES Schedule (ID);
 
 ALTER TABLE UsageZone
+    ADD CONSTRAINT UsageZone_contains_ThermalZ_FK FOREIGN KEY (UsageZone_contains_ThermalZ_ID) REFERENCES ThermalZone (ID);
+
+ALTER TABLE UsageZone
     ADD CONSTRAINT UsageZone_averageInternalGa_FK FOREIGN KEY (averageInternalGains_ID) REFERENCES HeatExchangeType (ID);
 
 ALTER TABLE UsageZone
-    ADD CONSTRAINT UsageZone_volumeGeometry_FK FOREIGN KEY (UsageZone_volumeGeometry_ID) REFERENCES SURFACE_GEOMETRY (ID);
+    ADD CONSTRAINT UsageZone_volumeGeometry_FK FOREIGN KEY (volumeGeometry_ID) REFERENCES SURFACE_GEOMETRY (ID);
 
 -- -------------------------------------------------------------------- 
 -- FinalE_isProd_TO_Energy_produc 
@@ -1520,10 +1520,10 @@ ALTER TABLE PeriodOfYear
 -- StorageSystem 
 -- -------------------------------------------------------------------- 
 ALTER TABLE StorageSystem
-    ADD CONSTRAINT StorageSystem_serviceLife_FK FOREIGN KEY (serviceLife_ID) REFERENCES ServiceLife (ID);
+    ADD CONSTRAINT StorageSy_storage_EnergyDem_FK FOREIGN KEY (StorageSy_storage_EnergyDem_ID) REFERENCES EnergyDemand (ID);
 
 ALTER TABLE StorageSystem
-    ADD CONSTRAINT StorageSy_storage_EnergyDem_FK FOREIGN KEY (StorageSy_storage_EnergyDem_ID) REFERENCES EnergyDemand (ID);
+    ADD CONSTRAINT StorageSystem_serviceLife_FK FOREIGN KEY (serviceLife_ID) REFERENCES ServiceLife (ID);
 
 -- -------------------------------------------------------------------- 
 -- MechanicalVentilation 
@@ -1565,13 +1565,13 @@ ALTER TABLE ThermalComponent
     ADD CONSTRAINT ThermalComponent_FK FOREIGN KEY (ID) REFERENCES cityobject (ID);
 
 ALTER TABLE ThermalComponent
-    ADD CONSTRAINT ThermalCo_composed_ThermalB_FK FOREIGN KEY (ThermalCo_composed_ThermalB_ID) REFERENCES ThermalBoundary (ID);
-
-ALTER TABLE ThermalComponent
     ADD CONSTRAINT ThermalComponent_relates_FK FOREIGN KEY (relates_ID) REFERENCES opening (ID);
 
 ALTER TABLE ThermalComponent
     ADD CONSTRAINT ThermalCompone_construction_FK FOREIGN KEY (construction_ID) REFERENCES AbstractConstruction (ID);
+
+ALTER TABLE ThermalComponent
+    ADD CONSTRAINT ThermalCo_composed_ThermalB_FK FOREIGN KEY (ThermalCo_composed_ThermalB_ID) REFERENCES ThermalBoundary (ID);
 
 -- -------------------------------------------------------------------- 
 -- IrregularTimeSeriesFile 
@@ -1613,10 +1613,10 @@ ALTER TABLE Facilities
     ADD CONSTRAINT Facilities_operationSchedul_FK FOREIGN KEY (operationSchedule_ID) REFERENCES Schedule (ID);
 
 ALTER TABLE Facilities
-    ADD CONSTRAINT Facilities_heatDissipation_FK FOREIGN KEY (heatDissipation_ID) REFERENCES HeatExchangeType (ID);
+    ADD CONSTRAINT Facilitie_equipped_Building_FK FOREIGN KEY (Facilitie_equipped_Building_ID) REFERENCES BuildingUnit (ID);
 
 ALTER TABLE Facilities
-    ADD CONSTRAINT Facilitie_equipped_Building_FK FOREIGN KEY (Facilitie_equipped_Building_ID) REFERENCES BuildingUnit (ID);
+    ADD CONSTRAINT Facilities_heatDissipation_FK FOREIGN KEY (heatDissipation_ID) REFERENCES HeatExchangeType (ID);
 
 ALTER TABLE Facilities
     ADD CONSTRAINT Facilitie_equipped_UsageZon_FK FOREIGN KEY (Facilitie_equipped_UsageZon_ID) REFERENCES UsageZone (ID);
@@ -1652,5 +1652,5 @@ ALTER TABLE ThermalBoundary
     ADD CONSTRAINT ThermalBoundary_FK FOREIGN KEY (ID) REFERENCES cityobject (ID);
 
 ALTER TABLE ThermalBoundary
-    ADD CONSTRAINT ThermalBounda_surfaceGeomet_FK FOREIGN KEY (ThermalBounda_surfaceGeomet_ID) REFERENCES SURFACE_GEOMETRY (ID);
+    ADD CONSTRAINT ThermalBounda_surfaceGeomet_FK FOREIGN KEY (surfaceGeometry_ID) REFERENCES SURFACE_GEOMETRY (ID);
 
