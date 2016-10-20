@@ -114,8 +114,8 @@
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="ThermalBoundary" path="boundedBy" schema="energy">
                 <joinTable>
-                    <join fromTable="Therma_delimi_TO_Therma_bounde" toTable="ThermalBoundary" fromColumn="ThermalBoundary_delimitsBy_ID" toColumn="ID"/>
-                    <join fromTable="Therma_delimi_TO_Therma_bounde" toTable="ThermalZone" fromColumn="ThermalZone_boundedBy_ID" toColumn="ID"/>
+                    <join fromTable="Therma_bounde_TO_Therma_delimi" toTable="ThermalZone" fromColumn="ThermalZone_boundedBy_ID" toColumn="ID"/>
+                    <join fromTable="Therma_bounde_TO_Therma_delimi" toTable="ThermalBoundary" fromColumn="ThermalBoundary_delimitsBy_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
         </featureOrObjectOrDataType>
@@ -208,8 +208,8 @@
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="ThermalZone" path="delimitsBy" schema="energy">
                 <joinTable>
-                    <join fromTable="Therma_delimi_TO_Therma_bounde" toTable="ThermalBoundary" fromColumn="ThermalBoundary_delimitsBy_ID" toColumn="ID"/>
-                    <join fromTable="Therma_delimi_TO_Therma_bounde" toTable="ThermalZone" fromColumn="ThermalZone_boundedBy_ID" toColumn="ID"/>
+                    <join fromTable="Therma_bounde_TO_Therma_delimi" toTable="ThermalZone" fromColumn="ThermalZone_boundedBy_ID" toColumn="ID"/>
+                    <join fromTable="Therma_bounde_TO_Therma_delimi" toTable="ThermalBoundary" fromColumn="ThermalBoundary_delimitsBy_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="_BoundarySurface" path="relatesTo" schema="energy">
@@ -360,20 +360,20 @@
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="FinalEnergy" path="consumes" schema="energy">
                 <joinTable>
-                    <join fromTable="Energy_consum_TO_FinalE_isCons" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_consumes_ID" toColumn="ID"/>
-                    <join fromTable="Energy_consum_TO_FinalE_isCons" toTable="FinalEnergy" fromColumn="FinalEnergy_isConsumedBy_ID" toColumn="ID"/>
+                    <join fromTable="FinalE_isCons_TO_Energy_consum" toTable="FinalEnergy" fromColumn="FinalEnergy_isConsumedBy_ID" toColumn="ID"/>
+                    <join fromTable="FinalE_isCons_TO_Energy_consum" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_consumes_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="FinalEnergy" path="produces" schema="energy">
                 <joinTable>
-                    <join fromTable="Energy_produc_TO_FinalE_isProd" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_produces_ID" toColumn="ID"/>
-                    <join fromTable="Energy_produc_TO_FinalE_isProd" toTable="FinalEnergy" fromColumn="FinalEnergy_isProducedBy_ID" toColumn="ID"/>
+                    <join fromTable="FinalE_isProd_TO_Energy_produc" toTable="FinalEnergy" fromColumn="FinalEnergy_isProducedBy_ID" toColumn="ID"/>
+                    <join fromTable="FinalE_isProd_TO_Energy_produc" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_produces_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="EnergyDemand" path="provides" schema="energy">
                 <joinTable>
-                    <join fromTable="Energy_provid_TO_Energy_isProv" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_provides_ID" toColumn="ID"/>
-                    <join fromTable="Energy_provid_TO_Energy_isProv" toTable="EnergyDemand" fromColumn="EnergyDemand_isProvidedBy_ID" toColumn="ID"/>
+                    <join fromTable="Energy_isProv_TO_Energy_provid" toTable="EnergyDemand" fromColumn="EnergyDemand_isProvidedBy_ID" toColumn="ID"/>
+                    <join fromTable="Energy_isProv_TO_Energy_provid" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_provides_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
         </featureOrObjectOrDataType>
@@ -396,8 +396,8 @@
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="EnergyConversionSystem" path="isProvidedBy" schema="energy">
                 <joinTable>
-                    <join fromTable="Energy_provid_TO_Energy_isProv" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_provides_ID" toColumn="ID"/>
-                    <join fromTable="Energy_provid_TO_Energy_isProv" toTable="EnergyDemand" fromColumn="EnergyDemand_isProvidedBy_ID" toColumn="ID"/>
+                    <join fromTable="Energy_isProv_TO_Energy_provid" toTable="EnergyDemand" fromColumn="EnergyDemand_isProvidedBy_ID" toColumn="ID"/>
+                    <join fromTable="Energy_isProv_TO_Energy_provid" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_provides_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
         </featureOrObjectOrDataType>
@@ -455,14 +455,14 @@
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="EnergyConversionSystem" path="isConsumedBy" schema="energy">
                 <joinTable>
-                    <join fromTable="Energy_consum_TO_FinalE_isCons" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_consumes_ID" toColumn="ID"/>
-                    <join fromTable="Energy_consum_TO_FinalE_isCons" toTable="FinalEnergy" fromColumn="FinalEnergy_isConsumedBy_ID" toColumn="ID"/>
+                    <join fromTable="FinalE_isCons_TO_Energy_consum" toTable="FinalEnergy" fromColumn="FinalEnergy_isConsumedBy_ID" toColumn="ID"/>
+                    <join fromTable="FinalE_isCons_TO_Energy_consum" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_consumes_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="EnergyConversionSystem" path="isProducedBy" schema="energy">
                 <joinTable>
-                    <join fromTable="Energy_produc_TO_FinalE_isProd" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_produces_ID" toColumn="ID"/>
-                    <join fromTable="Energy_produc_TO_FinalE_isProd" toTable="FinalEnergy" fromColumn="FinalEnergy_isProducedBy_ID" toColumn="ID"/>
+                    <join fromTable="FinalE_isProd_TO_Energy_produc" toTable="FinalEnergy" fromColumn="FinalEnergy_isProducedBy_ID" toColumn="ID"/>
+                    <join fromTable="FinalE_isProd_TO_Energy_produc" toTable="EnergyConversionSystem" fromColumn="EnergyConversionSy_produces_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
         </featureOrObjectOrDataType>

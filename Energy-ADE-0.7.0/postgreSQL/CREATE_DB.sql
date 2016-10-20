@@ -29,13 +29,13 @@ CREATE TABLE DailyPatternSchedule
 );
 
 -- -------------------------------------------------------------------- 
--- Energy_produc_TO_FinalE_isProd 
+-- Therma_bounde_TO_Therma_delimi 
 -- -------------------------------------------------------------------- 
-CREATE TABLE Energy_produc_TO_FinalE_isProd
+CREATE TABLE Therma_bounde_TO_Therma_delimi
 (
-    EnergyConversionSy_produces_ID INTEGER NOT NULL,
-    FinalEnergy_isProducedBy_ID INTEGER NOT NULL,
-    PRIMARY KEY (EnergyConversionSy_produces_ID, FinalEnergy_isProducedBy_ID)
+    ThermalZone_boundedBy_ID INTEGER NOT NULL,
+    ThermalBoundary_delimitsBy_ID INTEGER NOT NULL,
+    PRIMARY KEY (ThermalZone_boundedBy_ID, ThermalBoundary_delimitsBy_ID)
 );
 
 -- -------------------------------------------------------------------- 
@@ -44,11 +44,11 @@ CREATE TABLE Energy_produc_TO_FinalE_isProd
 CREATE TABLE SystemOperation
 (
     ID INTEGER NOT NULL,
-    operationTime_ID INTEGER,
     SystemOpera_has_EnergyConve_ID INTEGER,
+    operationTime_ID INTEGER,
+    endUse VARCHAR(254),
     yearlyGlobalEfficiency_uom VARCHAR(254),
     yearlyGlobalEfficiency NUMERIC,
-    endUse VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -69,13 +69,13 @@ CREATE TABLE EnergyDistributionSystem
 CREATE TABLE Occupants
 (
     ID INTEGER NOT NULL,
-    occupancyRate_ID INTEGER,
-    Occupants_occupied_Building_ID INTEGER,
-    Occupants_occupied_UsageZon_ID INTEGER,
     heatDissipation_ID INTEGER,
+    Occupants_occupied_Building_ID INTEGER,
+    occupancyRate_ID INTEGER,
+    Occupants_occupied_UsageZon_ID INTEGER,
+    numberOfOccupants INTEGER,
     occupantType_uom VARCHAR(254),
     occupantType VARCHAR(254),
-    numberOfOccupants INTEGER,
     PRIMARY KEY (ID)
 );
 
@@ -94,13 +94,13 @@ CREATE TABLE CityObject_energy_ADE
 CREATE TABLE RegularTimeSeries
 (
     ID INTEGER NOT NULL,
+    temporalExtent TEXT,
     timeInterval_unit VARCHAR(254),
     timeInterval_radix INTEGER,
     timeInterval_factor INTEGER,
     timeInterval NUMERIC,
     values_uom VARCHAR(254),
     values_ NUMERIC,
-    temporalExtent TEXT,
     PRIMARY KEY (ID)
 );
 
@@ -132,23 +132,13 @@ CREATE TABLE ImageTexture
 CREATE TABLE SolarThermalSystem
 (
     ID INTEGER NOT NULL,
-    apertureArea_uom VARCHAR(254),
-    apertureArea NUMERIC,
     collectorType VARCHAR(254),
     eta0 NUMERIC,
     a1 NUMERIC,
     a2 NUMERIC,
+    apertureArea_uom VARCHAR(254),
+    apertureArea NUMERIC,
     PRIMARY KEY (ID)
-);
-
--- -------------------------------------------------------------------- 
--- Therma_delimi_TO_Therma_bounde 
--- -------------------------------------------------------------------- 
-CREATE TABLE Therma_delimi_TO_Therma_bounde
-(
-    ThermalBoundary_delimitsBy_ID INTEGER NOT NULL,
-    ThermalZone_boundedBy_ID INTEGER NOT NULL,
-    PRIMARY KEY (ThermalBoundary_delimitsBy_ID, ThermalZone_boundedBy_ID)
 );
 
 -- -------------------------------------------------------------------- 
@@ -158,6 +148,8 @@ CREATE TABLE ThermalZone
 (
     ID INTEGER NOT NULL,
     Therm_therm_Abstr_energ_ADE_ID INTEGER,
+    isCooled BOOLEAN,
+    isHeated BOOLEAN,
     additionalThermalBridgeUVa_uom VARCHAR(254),
     additionalThermalBridgeUValue NUMERIC,
     effectiveThermalCapacity_uom VARCHAR(254),
@@ -166,8 +158,6 @@ CREATE TABLE ThermalZone
     indirectlyHeatedAreaRatio NUMERIC,
     infiltrationRate_uom VARCHAR(254),
     infiltrationRate NUMERIC,
-    isCooled BOOLEAN,
-    isHeated BOOLEAN,
     ThermalZone_volumeGeometry_ID INTEGER,
     PRIMARY KEY (ID)
 );
@@ -178,6 +168,8 @@ CREATE TABLE ThermalZone
 CREATE TABLE ThermalDistributionSystem
 (
     ID INTEGER NOT NULL,
+    isCirculation BOOLEAN,
+    medium VARCHAR(254),
     nominalFlow_uom VARCHAR(254),
     nominalFlow NUMERIC,
     returnTemperature_uom VARCHAR(254),
@@ -186,19 +178,7 @@ CREATE TABLE ThermalDistributionSystem
     supplyTemperature NUMERIC,
     thermalLossesFactor_uom VARCHAR(254),
     thermalLossesFactor NUMERIC,
-    isCirculation BOOLEAN,
-    medium VARCHAR(254),
     PRIMARY KEY (ID)
-);
-
--- -------------------------------------------------------------------- 
--- Energy_consum_TO_FinalE_isCons 
--- -------------------------------------------------------------------- 
-CREATE TABLE Energy_consum_TO_FinalE_isCons
-(
-    EnergyConversionSy_consumes_ID INTEGER NOT NULL,
-    FinalEnergy_isConsumedBy_ID INTEGER NOT NULL,
-    PRIMARY KEY (EnergyConversionSy_consumes_ID, FinalEnergy_isConsumedBy_ID)
 );
 
 -- -------------------------------------------------------------------- 
@@ -208,11 +188,11 @@ CREATE TABLE MeasurementPoint
 (
     ID INTEGER NOT NULL,
     Measureme_contains_Irregula_ID INTEGER,
+    value NUMERIC,
     time_frame VARCHAR(254),
     time_calendarEraName VARCHAR(254),
     time_indeterminatePosition VARCHAR(254),
     time VARCHAR(254),
-    value NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -252,11 +232,11 @@ CREATE TABLE BuildingUni_to_address_address
 CREATE TABLE HeatPump
 (
     ID INTEGER NOT NULL,
+    heatSource VARCHAR(254),
     copSourceTemperature_uom VARCHAR(254),
     copSourceTemperature NUMERIC,
     copOperationTemperature_uom VARCHAR(254),
     copOperationTemperature NUMERIC,
-    heatSource VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -276,8 +256,8 @@ CREATE TABLE IrregularTimeSeries
 CREATE TABLE Construction
 (
     ID INTEGER NOT NULL,
-    serviceLife_ID INTEGER,
     opticalProperties_ID INTEGER,
+    serviceLife_ID INTEGER,
     uValue_uom VARCHAR(254),
     uValue NUMERIC,
     PRIMARY KEY (ID)
@@ -302,18 +282,18 @@ CREATE TABLE TimeValuesProperties
 CREATE TABLE EnergyConversionSystem
 (
     ID INTEGER NOT NULL,
-    installedIn_ID INTEGER,
     productAndInstallationDocum_ID INTEGER,
     serviceLife_ID INTEGER,
+    installedIn_ID INTEGER,
     Energ_energ_CityO_energ_ADE_ID INTEGER,
-    installedNominalPower_uom VARCHAR(254),
-    installedNominalPower NUMERIC,
-    nominalEfficiency_uom VARCHAR(254),
-    nominalEfficiency NUMERIC,
     efficiencyIndicator VARCHAR(254),
     model VARCHAR(254),
     number_ INTEGER,
     yearOfManufacture DATE,
+    installedNominalPower_uom VARCHAR(254),
+    installedNominalPower NUMERIC,
+    nominalEfficiency_uom VARCHAR(254),
+    nominalEfficiency NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -352,9 +332,9 @@ CREATE TABLE Transmittance
 (
     ID INTEGER NOT NULL,
     Transmitt_transmit_OpticalP_ID INTEGER,
+    wavelengthRange VARCHAR(254),
     fraction_uom VARCHAR(254),
     fraction NUMERIC,
-    wavelengthRange VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -395,9 +375,9 @@ CREATE TABLE ShadingType
     Shadi_indoo_Openi_energ_ADE_ID INTEGER,
     Shadi_outdo_Openi_energ_ADE_ID INTEGER,
     transmittance_ID INTEGER,
+    name VARCHAR(254),
     maximumCoverRatio_uom VARCHAR(254),
     maximumCoverRatio NUMERIC,
-    name VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -408,9 +388,9 @@ CREATE TABLE Emissivity
 (
     ID INTEGER NOT NULL,
     Emissivit_emissivi_OpticalP_ID INTEGER,
+    surface VARCHAR(254),
     fraction_uom VARCHAR(254),
     fraction NUMERIC,
-    surface VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -420,9 +400,9 @@ CREATE TABLE Emissivity
 CREATE TABLE PowerStorageSystem
 (
     ID INTEGER NOT NULL,
+    batteryTechnology VARCHAR(254),
     powerCapacity_uom VARCHAR(254),
     powerCapacity NUMERIC,
-    batteryTechnology VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -432,22 +412,12 @@ CREATE TABLE PowerStorageSystem
 CREATE TABLE CombinedHeatPower
 (
     ID INTEGER NOT NULL,
+    technologyType VARCHAR(254),
     thermalEfficiency_uom VARCHAR(254),
     thermalEfficiency NUMERIC,
     electricalEfficiency_uom VARCHAR(254),
     electricalEfficiency NUMERIC,
-    technologyType VARCHAR(254),
     PRIMARY KEY (ID)
-);
-
--- -------------------------------------------------------------------- 
--- Energy_provid_TO_Energy_isProv 
--- -------------------------------------------------------------------- 
-CREATE TABLE Energy_provid_TO_Energy_isProv
-(
-    EnergyConversionSy_provides_ID INTEGER NOT NULL,
-    EnergyDemand_isProvidedBy_ID INTEGER NOT NULL,
-    PRIMARY KEY (EnergyConversionSy_provides_ID, EnergyDemand_isProvidedBy_ID)
 );
 
 -- -------------------------------------------------------------------- 
@@ -470,10 +440,6 @@ CREATE TABLE EnergyPerformanceCertification
 CREATE TABLE RegularTimeSeriesFile
 (
     ID INTEGER NOT NULL,
-    timeInterval_unit VARCHAR(254),
-    timeInterval_radix INTEGER,
-    timeInterval_factor INTEGER,
-    timeInterval NUMERIC,
     temporalExtent TEXT,
     uom VARCHAR(254),
     file_ VARCHAR(254),
@@ -482,6 +448,10 @@ CREATE TABLE RegularTimeSeriesFile
     recordSeparator VARCHAR(254),
     decimalSymbol VARCHAR(254),
     valueColumnNumber INTEGER,
+    timeInterval_unit VARCHAR(254),
+    timeInterval_radix INTEGER,
+    timeInterval_factor INTEGER,
+    timeInterval NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -491,9 +461,9 @@ CREATE TABLE RegularTimeSeriesFile
 CREATE TABLE Gas
 (
     ID INTEGER NOT NULL,
+    isVentilated BOOLEAN,
     rValue_uom VARCHAR(254),
     rValue NUMERIC,
-    isVentilated BOOLEAN,
     PRIMARY KEY (ID)
 );
 
@@ -511,16 +481,26 @@ CREATE TABLE PowerDistributionSystem
 );
 
 -- -------------------------------------------------------------------- 
+-- FinalE_isCons_TO_Energy_consum 
+-- -------------------------------------------------------------------- 
+CREATE TABLE FinalE_isCons_TO_Energy_consum
+(
+    FinalEnergy_isConsumedBy_ID INTEGER NOT NULL,
+    EnergyConversionSy_consumes_ID INTEGER NOT NULL,
+    PRIMARY KEY (FinalEnergy_isConsumedBy_ID, EnergyConversionSy_consumes_ID)
+);
+
+-- -------------------------------------------------------------------- 
 -- Reflectance 
 -- -------------------------------------------------------------------- 
 CREATE TABLE Reflectance
 (
     ID INTEGER NOT NULL,
     Reflectan_reflecta_OpticalP_ID INTEGER,
-    fraction_uom VARCHAR(254),
-    fraction NUMERIC,
     surface VARCHAR(254),
     wavelengthRange VARCHAR(254),
+    fraction_uom VARCHAR(254),
+    fraction NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -532,9 +512,9 @@ CREATE TABLE RefurbishmentMeasure
     ID INTEGER NOT NULL,
     Refur_refur_Abstr_energ_ADE_ID INTEGER,
     Refur_refur_Bound_energ_ADE_ID INTEGER,
+    descriptionOfRefurbishment VARCHAR(254),
     levelOfRefurbishment_uom VARCHAR(254),
     levelOfRefurbishment VARCHAR(254),
-    descriptionOfRefurbishment VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -556,17 +536,27 @@ CREATE TABLE FloorArea
 );
 
 -- -------------------------------------------------------------------- 
+-- Energy_isProv_TO_Energy_provid 
+-- -------------------------------------------------------------------- 
+CREATE TABLE Energy_isProv_TO_Energy_provid
+(
+    EnergyDemand_isProvidedBy_ID INTEGER NOT NULL,
+    EnergyConversionSy_provides_ID INTEGER NOT NULL,
+    PRIMARY KEY (EnergyDemand_isProvidedBy_ID, EnergyConversionSy_provides_ID)
+);
+
+-- -------------------------------------------------------------------- 
 -- EnergyDemand 
 -- -------------------------------------------------------------------- 
 CREATE TABLE EnergyDemand
 (
     ID INTEGER NOT NULL,
-    energyAmount_ID INTEGER,
     Energ_energ_CityO_energ_ADE_ID INTEGER,
+    energyAmount_ID INTEGER,
     energyDistribution_ID INTEGER,
+    endUse VARCHAR(254),
     maximumLoad_uom VARCHAR(254),
     maximumLoad NUMERIC,
-    endUse VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -609,10 +599,10 @@ CREATE TABLE BuildingUnit
 (
     ID INTEGER NOT NULL,
     BuildingU_contains_UsageZon_ID INTEGER,
-    ownershipType_uom VARCHAR(254),
-    ownershipType VARCHAR(254),
     numberOfRooms INTEGER,
     ownerName VARCHAR(254),
+    ownershipType_uom VARCHAR(254),
+    ownershipType VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -677,9 +667,9 @@ CREATE TABLE VolumeType
     ID INTEGER NOT NULL,
     Volum_volum_Abstr_energ_ADE_ID INTEGER,
     VolumeType_volume_ThermalZo_ID INTEGER,
+    type VARCHAR(254),
     value_uom VARCHAR(254),
     value NUMERIC,
-    type VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -702,16 +692,26 @@ CREATE TABLE UsageZone
 (
     ID INTEGER NOT NULL,
     Usage_usage_Abstr_energ_ADE_ID INTEGER,
+    UsageZone_contains_ThermalZ_ID INTEGER,
     coolingSchedule_ID INTEGER,
     heatingSchedule_ID INTEGER,
-    UsageZone_contains_ThermalZ_ID INTEGER,
     ventilationSchedule_ID INTEGER,
     averageInternalGains_ID INTEGER,
+    usedFloors VARCHAR(254),
     usageZoneType_uom VARCHAR(254),
     usageZoneType VARCHAR(254),
-    usedFloors VARCHAR(254),
     UsageZone_volumeGeometry_ID INTEGER,
     PRIMARY KEY (ID)
+);
+
+-- -------------------------------------------------------------------- 
+-- FinalE_isProd_TO_Energy_produc 
+-- -------------------------------------------------------------------- 
+CREATE TABLE FinalE_isProd_TO_Energy_produc
+(
+    FinalEnergy_isProducedBy_ID INTEGER NOT NULL,
+    EnergyConversionSy_produces_ID INTEGER NOT NULL,
+    PRIMARY KEY (FinalEnergy_isProducedBy_ID, EnergyConversionSy_produces_ID)
 );
 
 -- -------------------------------------------------------------------- 
@@ -744,9 +744,9 @@ CREATE TABLE HeightAboveGround
 (
     ID INTEGER NOT NULL,
     Heigh_heigh_Abstr_energ_ADE_ID INTEGER,
+    heightReference VARCHAR(254),
     value_uom VARCHAR(254),
     value NUMERIC,
-    heightReference VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -756,13 +756,13 @@ CREATE TABLE HeightAboveGround
 CREATE TABLE ThermalStorageSystem
 (
     ID INTEGER NOT NULL,
+    medium VARCHAR(254),
     preparationTemperature_uom VARCHAR(254),
     preparationTemperature NUMERIC,
     thermalLossesFactor_uom VARCHAR(254),
     thermalLossesFactor NUMERIC,
     volume_uom VARCHAR(254),
     volume NUMERIC,
-    medium VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -789,16 +789,6 @@ CREATE TABLE PeriodOfYear
 );
 
 -- -------------------------------------------------------------------- 
--- DateOfEvent 
--- -------------------------------------------------------------------- 
-CREATE TABLE DateOfEvent
-(
-    ID INTEGER NOT NULL,
-    period TEXT,
-    PRIMARY KEY (ID)
-);
-
--- -------------------------------------------------------------------- 
 -- StorageSystem 
 -- -------------------------------------------------------------------- 
 CREATE TABLE StorageSystem
@@ -810,14 +800,28 @@ CREATE TABLE StorageSystem
 );
 
 -- -------------------------------------------------------------------- 
+-- DateOfEvent 
+-- -------------------------------------------------------------------- 
+CREATE TABLE DateOfEvent
+(
+    ID INTEGER NOT NULL,
+    period TEXT,
+    instant_frame VARCHAR(254),
+    instant_calendarEraName VARCHAR(254),
+    instant_indeterminatePosition VARCHAR(254),
+    instant VARCHAR(254),
+    PRIMARY KEY (ID)
+);
+
+-- -------------------------------------------------------------------- 
 -- MechanicalVentilation 
 -- -------------------------------------------------------------------- 
 CREATE TABLE MechanicalVentilation
 (
     ID INTEGER NOT NULL,
+    heatRecovery BOOLEAN,
     recuperationFactor_uom VARCHAR(254),
     recuperationFactor NUMERIC,
-    heatRecovery BOOLEAN,
     PRIMARY KEY (ID)
 );
 
@@ -827,15 +831,15 @@ CREATE TABLE MechanicalVentilation
 CREATE TABLE PhotovoltaicThermalSystem
 (
     ID INTEGER NOT NULL,
-    moduleArea_uom VARCHAR(254),
-    moduleArea NUMERIC,
-    apertureArea_uom VARCHAR(254),
-    apertureArea NUMERIC,
     cellType VARCHAR(254),
     collectorType VARCHAR(254),
     eta0 NUMERIC,
     a1 NUMERIC,
     a2 NUMERIC,
+    moduleArea_uom VARCHAR(254),
+    moduleArea NUMERIC,
+    apertureArea_uom VARCHAR(254),
+    apertureArea NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -864,9 +868,9 @@ CREATE TABLE ReverseConstruction
 CREATE TABLE PhotovoltaicSystem
 (
     ID INTEGER NOT NULL,
+    cellType VARCHAR(254),
     moduleArea_uom VARCHAR(254),
     moduleArea NUMERIC,
-    cellType VARCHAR(254),
     PRIMARY KEY (ID)
 );
 
@@ -876,9 +880,9 @@ CREATE TABLE PhotovoltaicSystem
 CREATE TABLE ThermalComponent
 (
     ID INTEGER NOT NULL,
+    ThermalCo_composed_ThermalB_ID INTEGER,
     relates_ID INTEGER,
     construction_ID INTEGER,
-    ThermalCo_composed_ThermalB_ID INTEGER,
     area_uom VARCHAR(254),
     area NUMERIC,
     PRIMARY KEY (ID)
@@ -940,8 +944,8 @@ CREATE TABLE WeatherData
     ID INTEGER NOT NULL,
     Weath_weath_CityO_energ_ADE_ID INTEGER,
     values_ID INTEGER,
-    position_Other_Geom geometry(GEOMETRYZ),
     weatherDataType VARCHAR(254),
+    position_Other_Geom geometry(GEOMETRYZ),
     PRIMARY KEY (ID)
 );
 
@@ -952,9 +956,9 @@ CREATE TABLE Facilities
 (
     ID INTEGER NOT NULL,
     operationSchedule_ID INTEGER,
+    heatDissipation_ID INTEGER,
     Facilitie_equipped_Building_ID INTEGER,
     Facilitie_equipped_UsageZon_ID INTEGER,
-    heatDissipation_ID INTEGER,
     PRIMARY KEY (ID)
 );
 
@@ -976,12 +980,12 @@ CREATE TABLE AbstractBuilding_energy_ADE
 CREATE TABLE DualValueSchedule
 (
     ID INTEGER NOT NULL,
+    usageHoursPerDay NUMERIC,
+    usageDaysPerYear NUMERIC,
     usageValue_uom VARCHAR(254),
     usageValue NUMERIC,
     idleValue_uom VARCHAR(254),
     idleValue NUMERIC,
-    usageHoursPerDay NUMERIC,
-    usageDaysPerYear NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -1011,11 +1015,11 @@ CREATE TABLE LightingFacilities
 CREATE TABLE DHWFacilities
 (
     ID INTEGER NOT NULL,
-    waterStorageVolume_uom VARCHAR(254),
-    waterStorageVolume NUMERIC,
     numberOfBaths INTEGER,
     numberOfShowers INTEGER,
     numberOfWashBasins INTEGER,
+    waterStorageVolume_uom VARCHAR(254),
+    waterStorageVolume NUMERIC,
     PRIMARY KEY (ID)
 );
 
@@ -1042,13 +1046,13 @@ CREATE TABLE EnergyCarrier
 CREATE TABLE ThermalBoundary
 (
     ID INTEGER NOT NULL,
+    thermalBoundaryType VARCHAR(254),
     azimuth_uom VARCHAR(254),
     azimuth NUMERIC,
     inclination_uom VARCHAR(254),
     inclination NUMERIC,
     area_uom VARCHAR(254),
     area NUMERIC,
-    thermalBoundaryType VARCHAR(254),
     ThermalBounda_surfaceGeomet_ID INTEGER,
     PRIMARY KEY (ID)
 );
@@ -1075,22 +1079,22 @@ ALTER TABLE DailyPatternSchedule
     ADD CONSTRAINT DailyPatternSchedule_FK FOREIGN KEY (ID) REFERENCES Schedule (ID);
 
 -- -------------------------------------------------------------------- 
--- Energy_produc_TO_FinalE_isProd 
+-- Therma_bounde_TO_Therma_delimi 
 -- -------------------------------------------------------------------- 
-ALTER TABLE Energy_produc_TO_FinalE_isProd
-    ADD CONSTRAINT Energ_produ_TO_Final_isPro_FK1 FOREIGN KEY (EnergyConversionSy_produces_ID) REFERENCES EnergyConversionSystem (ID);
+ALTER TABLE Therma_bounde_TO_Therma_delimi
+    ADD CONSTRAINT Therm_bound_TO_Therm_delim_FK1 FOREIGN KEY (ThermalZone_boundedBy_ID) REFERENCES ThermalZone (ID);
 
-ALTER TABLE Energy_produc_TO_FinalE_isProd
-    ADD CONSTRAINT Energ_produ_TO_Final_isPro_FK2 FOREIGN KEY (FinalEnergy_isProducedBy_ID) REFERENCES FinalEnergy (ID);
+ALTER TABLE Therma_bounde_TO_Therma_delimi
+    ADD CONSTRAINT Therm_bound_TO_Therm_delim_FK2 FOREIGN KEY (ThermalBoundary_delimitsBy_ID) REFERENCES ThermalBoundary (ID);
 
 -- -------------------------------------------------------------------- 
 -- SystemOperation 
 -- -------------------------------------------------------------------- 
 ALTER TABLE SystemOperation
-    ADD CONSTRAINT SystemOperati_operationTime_FK FOREIGN KEY (operationTime_ID) REFERENCES Schedule (ID);
+    ADD CONSTRAINT SystemOpera_has_EnergyConve_FK FOREIGN KEY (SystemOpera_has_EnergyConve_ID) REFERENCES EnergyConversionSystem (ID);
 
 ALTER TABLE SystemOperation
-    ADD CONSTRAINT SystemOpera_has_EnergyConve_FK FOREIGN KEY (SystemOpera_has_EnergyConve_ID) REFERENCES EnergyConversionSystem (ID);
+    ADD CONSTRAINT SystemOperati_operationTime_FK FOREIGN KEY (operationTime_ID) REFERENCES Schedule (ID);
 
 -- -------------------------------------------------------------------- 
 -- EnergyDistributionSystem 
@@ -1102,16 +1106,16 @@ ALTER TABLE EnergyDistributionSystem
 -- Occupants 
 -- -------------------------------------------------------------------- 
 ALTER TABLE Occupants
-    ADD CONSTRAINT Occupants_occupancyRate_FK FOREIGN KEY (occupancyRate_ID) REFERENCES Schedule (ID);
+    ADD CONSTRAINT Occupants_heatDissipation_FK FOREIGN KEY (heatDissipation_ID) REFERENCES HeatExchangeType (ID);
 
 ALTER TABLE Occupants
     ADD CONSTRAINT Occupants_occupied_Building_FK FOREIGN KEY (Occupants_occupied_Building_ID) REFERENCES BuildingUnit (ID);
 
 ALTER TABLE Occupants
-    ADD CONSTRAINT Occupants_occupied_UsageZon_FK FOREIGN KEY (Occupants_occupied_UsageZon_ID) REFERENCES UsageZone (ID);
+    ADD CONSTRAINT Occupants_occupancyRate_FK FOREIGN KEY (occupancyRate_ID) REFERENCES Schedule (ID);
 
 ALTER TABLE Occupants
-    ADD CONSTRAINT Occupants_heatDissipation_FK FOREIGN KEY (heatDissipation_ID) REFERENCES HeatExchangeType (ID);
+    ADD CONSTRAINT Occupants_occupied_UsageZon_FK FOREIGN KEY (Occupants_occupied_UsageZon_ID) REFERENCES UsageZone (ID);
 
 -- -------------------------------------------------------------------- 
 -- CityObject_energy_ADE 
@@ -1138,15 +1142,6 @@ ALTER TABLE SolarThermalSystem
     ADD CONSTRAINT SolarThermalSystem_FK FOREIGN KEY (ID) REFERENCES SolarEnergySystem (ID);
 
 -- -------------------------------------------------------------------- 
--- Therma_delimi_TO_Therma_bounde 
--- -------------------------------------------------------------------- 
-ALTER TABLE Therma_delimi_TO_Therma_bounde
-    ADD CONSTRAINT Therm_delim_TO_Therm_bound_FK1 FOREIGN KEY (ThermalBoundary_delimitsBy_ID) REFERENCES ThermalBoundary (ID);
-
-ALTER TABLE Therma_delimi_TO_Therma_bounde
-    ADD CONSTRAINT Therm_delim_TO_Therm_bound_FK2 FOREIGN KEY (ThermalZone_boundedBy_ID) REFERENCES ThermalZone (ID);
-
--- -------------------------------------------------------------------- 
 -- ThermalZone 
 -- -------------------------------------------------------------------- 
 ALTER TABLE ThermalZone
@@ -1163,15 +1158,6 @@ ALTER TABLE ThermalZone
 -- -------------------------------------------------------------------- 
 ALTER TABLE ThermalDistributionSystem
     ADD CONSTRAINT ThermalDistributionSystem_FK FOREIGN KEY (ID) REFERENCES EnergyDistributionSystem (ID);
-
--- -------------------------------------------------------------------- 
--- Energy_consum_TO_FinalE_isCons 
--- -------------------------------------------------------------------- 
-ALTER TABLE Energy_consum_TO_FinalE_isCons
-    ADD CONSTRAINT Energ_consu_TO_Final_isCon_FK1 FOREIGN KEY (EnergyConversionSy_consumes_ID) REFERENCES EnergyConversionSystem (ID);
-
-ALTER TABLE Energy_consum_TO_FinalE_isCons
-    ADD CONSTRAINT Energ_consu_TO_Final_isCon_FK2 FOREIGN KEY (FinalEnergy_isConsumedBy_ID) REFERENCES FinalEnergy (ID);
 
 -- -------------------------------------------------------------------- 
 -- MeasurementPoint 
@@ -1213,22 +1199,22 @@ ALTER TABLE Construction
     ADD CONSTRAINT Construction_FK FOREIGN KEY (ID) REFERENCES AbstractConstruction (ID);
 
 ALTER TABLE Construction
-    ADD CONSTRAINT Construction_serviceLife_FK FOREIGN KEY (serviceLife_ID) REFERENCES ServiceLife (ID);
+    ADD CONSTRAINT Construction_opticalPropert_FK FOREIGN KEY (opticalProperties_ID) REFERENCES OpticalProperties (ID);
 
 ALTER TABLE Construction
-    ADD CONSTRAINT Construction_opticalPropert_FK FOREIGN KEY (opticalProperties_ID) REFERENCES OpticalProperties (ID);
+    ADD CONSTRAINT Construction_serviceLife_FK FOREIGN KEY (serviceLife_ID) REFERENCES ServiceLife (ID);
 
 -- -------------------------------------------------------------------- 
 -- EnergyConversionSystem 
 -- -------------------------------------------------------------------- 
 ALTER TABLE EnergyConversionSystem
-    ADD CONSTRAINT EnergyConversio_installedIn_FK FOREIGN KEY (installedIn_ID) REFERENCES cityobject (ID);
-
-ALTER TABLE EnergyConversionSystem
     ADD CONSTRAINT EnergyConvers_productAndIns_FK FOREIGN KEY (productAndInstallationDocum_ID) REFERENCES external_reference (ID);
 
 ALTER TABLE EnergyConversionSystem
     ADD CONSTRAINT EnergyConversio_serviceLife_FK FOREIGN KEY (serviceLife_ID) REFERENCES ServiceLife (ID);
+
+ALTER TABLE EnergyConversionSystem
+    ADD CONSTRAINT EnergyConversio_installedIn_FK FOREIGN KEY (installedIn_ID) REFERENCES cityobject (ID);
 
 ALTER TABLE EnergyConversionSystem
     ADD CONSTRAINT Energ_energ_CityO_energ_ADE_FK FOREIGN KEY (Energ_energ_CityO_energ_ADE_ID) REFERENCES CityObject_energy_ADE (ID);
@@ -1294,15 +1280,6 @@ ALTER TABLE CombinedHeatPower
     ADD CONSTRAINT CombinedHeatPower_FK FOREIGN KEY (ID) REFERENCES EnergyConversionSystem (ID);
 
 -- -------------------------------------------------------------------- 
--- Energy_provid_TO_Energy_isProv 
--- -------------------------------------------------------------------- 
-ALTER TABLE Energy_provid_TO_Energy_isProv
-    ADD CONSTRAINT Energ_provi_TO_Energ_isPro_FK1 FOREIGN KEY (EnergyConversionSy_provides_ID) REFERENCES EnergyConversionSystem (ID);
-
-ALTER TABLE Energy_provid_TO_Energy_isProv
-    ADD CONSTRAINT Energ_provi_TO_Energ_isPro_FK2 FOREIGN KEY (EnergyDemand_isProvidedBy_ID) REFERENCES EnergyDemand (ID);
-
--- -------------------------------------------------------------------- 
 -- EnergyPerformanceCertification 
 -- -------------------------------------------------------------------- 
 ALTER TABLE EnergyPerformanceCertification
@@ -1328,6 +1305,15 @@ ALTER TABLE Gas
 -- -------------------------------------------------------------------- 
 ALTER TABLE PowerDistributionSystem
     ADD CONSTRAINT PowerDistributionSystem_FK FOREIGN KEY (ID) REFERENCES EnergyDistributionSystem (ID);
+
+-- -------------------------------------------------------------------- 
+-- FinalE_isCons_TO_Energy_consum 
+-- -------------------------------------------------------------------- 
+ALTER TABLE FinalE_isCons_TO_Energy_consum
+    ADD CONSTRAINT Final_isCon_TO_Energ_consu_FK1 FOREIGN KEY (FinalEnergy_isConsumedBy_ID) REFERENCES FinalEnergy (ID);
+
+ALTER TABLE FinalE_isCons_TO_Energy_consum
+    ADD CONSTRAINT Final_isCon_TO_Energ_consu_FK2 FOREIGN KEY (EnergyConversionSy_consumes_ID) REFERENCES EnergyConversionSystem (ID);
 
 -- -------------------------------------------------------------------- 
 -- Reflectance 
@@ -1360,13 +1346,22 @@ ALTER TABLE FloorArea
     ADD CONSTRAINT FloorArea_floorAre_UsageZon_FK FOREIGN KEY (FloorArea_floorAre_UsageZon_ID) REFERENCES UsageZone (ID);
 
 -- -------------------------------------------------------------------- 
+-- Energy_isProv_TO_Energy_provid 
+-- -------------------------------------------------------------------- 
+ALTER TABLE Energy_isProv_TO_Energy_provid
+    ADD CONSTRAINT Energ_isPro_TO_Energ_provi_FK1 FOREIGN KEY (EnergyDemand_isProvidedBy_ID) REFERENCES EnergyDemand (ID);
+
+ALTER TABLE Energy_isProv_TO_Energy_provid
+    ADD CONSTRAINT Energ_isPro_TO_Energ_provi_FK2 FOREIGN KEY (EnergyConversionSy_provides_ID) REFERENCES EnergyConversionSystem (ID);
+
+-- -------------------------------------------------------------------- 
 -- EnergyDemand 
 -- -------------------------------------------------------------------- 
 ALTER TABLE EnergyDemand
-    ADD CONSTRAINT EnergyDemand_energyAmount_FK FOREIGN KEY (energyAmount_ID) REFERENCES TimeSeries (ID);
+    ADD CONSTRAINT Energ_energ_CityO_ener_ADE_FK1 FOREIGN KEY (Energ_energ_CityO_energ_ADE_ID) REFERENCES CityObject_energy_ADE (ID);
 
 ALTER TABLE EnergyDemand
-    ADD CONSTRAINT Energ_energ_CityO_ener_ADE_FK1 FOREIGN KEY (Energ_energ_CityO_energ_ADE_ID) REFERENCES CityObject_energy_ADE (ID);
+    ADD CONSTRAINT EnergyDemand_energyAmount_FK FOREIGN KEY (energyAmount_ID) REFERENCES TimeSeries (ID);
 
 ALTER TABLE EnergyDemand
     ADD CONSTRAINT EnergyDemand_energyDistribu_FK FOREIGN KEY (energyDistribution_ID) REFERENCES EnergyDistributionSystem (ID);
@@ -1465,13 +1460,13 @@ ALTER TABLE UsageZone
     ADD CONSTRAINT Usage_usage_Abstr_energ_ADE_FK FOREIGN KEY (Usage_usage_Abstr_energ_ADE_ID) REFERENCES AbstractBuilding_energy_ADE (ID);
 
 ALTER TABLE UsageZone
+    ADD CONSTRAINT UsageZone_contains_ThermalZ_FK FOREIGN KEY (UsageZone_contains_ThermalZ_ID) REFERENCES ThermalZone (ID);
+
+ALTER TABLE UsageZone
     ADD CONSTRAINT UsageZone_coolingSchedule_FK FOREIGN KEY (coolingSchedule_ID) REFERENCES Schedule (ID);
 
 ALTER TABLE UsageZone
     ADD CONSTRAINT UsageZone_heatingSchedule_FK FOREIGN KEY (heatingSchedule_ID) REFERENCES Schedule (ID);
-
-ALTER TABLE UsageZone
-    ADD CONSTRAINT UsageZone_contains_ThermalZ_FK FOREIGN KEY (UsageZone_contains_ThermalZ_ID) REFERENCES ThermalZone (ID);
 
 ALTER TABLE UsageZone
     ADD CONSTRAINT UsageZone_ventilationSchedu_FK FOREIGN KEY (ventilationSchedule_ID) REFERENCES Schedule (ID);
@@ -1481,6 +1476,15 @@ ALTER TABLE UsageZone
 
 ALTER TABLE UsageZone
     ADD CONSTRAINT UsageZone_volumeGeometry_FK FOREIGN KEY (UsageZone_volumeGeometry_ID) REFERENCES SURFACE_GEOMETRY (ID);
+
+-- -------------------------------------------------------------------- 
+-- FinalE_isProd_TO_Energy_produc 
+-- -------------------------------------------------------------------- 
+ALTER TABLE FinalE_isProd_TO_Energy_produc
+    ADD CONSTRAINT Final_isPro_TO_Energ_produ_FK1 FOREIGN KEY (FinalEnergy_isProducedBy_ID) REFERENCES FinalEnergy (ID);
+
+ALTER TABLE FinalE_isProd_TO_Energy_produc
+    ADD CONSTRAINT Final_isPro_TO_Energ_produ_FK2 FOREIGN KEY (EnergyConversionSy_produces_ID) REFERENCES EnergyConversionSystem (ID);
 
 -- -------------------------------------------------------------------- 
 -- SolidMaterial 
@@ -1561,13 +1565,13 @@ ALTER TABLE ThermalComponent
     ADD CONSTRAINT ThermalComponent_FK FOREIGN KEY (ID) REFERENCES cityobject (ID);
 
 ALTER TABLE ThermalComponent
+    ADD CONSTRAINT ThermalCo_composed_ThermalB_FK FOREIGN KEY (ThermalCo_composed_ThermalB_ID) REFERENCES ThermalBoundary (ID);
+
+ALTER TABLE ThermalComponent
     ADD CONSTRAINT ThermalComponent_relates_FK FOREIGN KEY (relates_ID) REFERENCES opening (ID);
 
 ALTER TABLE ThermalComponent
     ADD CONSTRAINT ThermalCompone_construction_FK FOREIGN KEY (construction_ID) REFERENCES AbstractConstruction (ID);
-
-ALTER TABLE ThermalComponent
-    ADD CONSTRAINT ThermalCo_composed_ThermalB_FK FOREIGN KEY (ThermalCo_composed_ThermalB_ID) REFERENCES ThermalBoundary (ID);
 
 -- -------------------------------------------------------------------- 
 -- IrregularTimeSeriesFile 
@@ -1609,13 +1613,13 @@ ALTER TABLE Facilities
     ADD CONSTRAINT Facilities_operationSchedul_FK FOREIGN KEY (operationSchedule_ID) REFERENCES Schedule (ID);
 
 ALTER TABLE Facilities
+    ADD CONSTRAINT Facilities_heatDissipation_FK FOREIGN KEY (heatDissipation_ID) REFERENCES HeatExchangeType (ID);
+
+ALTER TABLE Facilities
     ADD CONSTRAINT Facilitie_equipped_Building_FK FOREIGN KEY (Facilitie_equipped_Building_ID) REFERENCES BuildingUnit (ID);
 
 ALTER TABLE Facilities
     ADD CONSTRAINT Facilitie_equipped_UsageZon_FK FOREIGN KEY (Facilitie_equipped_UsageZon_ID) REFERENCES UsageZone (ID);
-
-ALTER TABLE Facilities
-    ADD CONSTRAINT Facilities_heatDissipation_FK FOREIGN KEY (heatDissipation_ID) REFERENCES HeatExchangeType (ID);
 
 -- -------------------------------------------------------------------- 
 -- AbstractBuilding_energy_ADE 
