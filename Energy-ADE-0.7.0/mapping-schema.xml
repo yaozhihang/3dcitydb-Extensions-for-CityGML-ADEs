@@ -212,7 +212,12 @@
                     <join fromTable="Therma_delimi_TO_Therma_bounde" toTable="ThermalZone" fromColumn="ThermalZone_boundedBy_ID" toColumn="ID"/>
                 </joinTable>
             </featureOrObjectOrDataProperty>
-            <featureOrObjectOrDataProperty path="relatesTo" schema="energy"/>
+            <featureOrObjectOrDataProperty target="_BoundarySurface" path="relatesTo" schema="energy">
+                <joinTable>
+                    <join fromTable="Therma_to_themat_surfac_relate" toTable="ThermalBoundary" fromColumn="ThermalBoundary_ID" toColumn="ID"/>
+                    <join fromTable="Therma_to_themat_surfac_relate" toTable="thematic_surface" fromColumn="thematic_surface_ID" toColumn="ID"/>
+                </joinTable>
+            </featureOrObjectOrDataProperty>
         </featureOrObjectOrDataType>
         <featureOrObjectOrDataType id="_Schedule" table="Schedule" derivedFrom="_GML" abstract="true" path="_Schedule" schema="energy"/>
         <featureOrObjectOrDataType id="HeatExchangeType" table="HeatExchangeType" derivedFrom="_Object" abstract="false" path="HeatExchangeType" schema="energy">
@@ -347,7 +352,9 @@
             <featureOrObjectOrDataProperty target="ServiceLife" path="serviceLife" schema="energy">
                 <join fromTable="EnergyConversionSystem" toTable="ServiceLife" fromColumn="serviceLife_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
-            <featureOrObjectOrDataProperty path="installedIn" schema="energy"/>
+            <featureOrObjectOrDataProperty target="_CityObject" path="installedIn" schema="energy">
+                <join fromTable="EnergyConversionSystem" toTable="cityobject" fromColumn="installedIn_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="SystemOperation" path="has" schema="energy">
                 <join fromTable="SystemOperation" toTable="EnergyConversionSystem" fromColumn="SystemOpera_has_EnergyConve_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
@@ -522,7 +529,9 @@
                 <join fromTable="SolarEnergySystem" toTable="EnergyConversionSystem" fromColumn="ID" toColumn="ID"/>
             </extension>
             <geometryProperty refColumn="SolarEnergySy_surfaceGeomet_ID" type="MultiSurface" path="surfaceGeometry" schema="energy"/>
-            <featureOrObjectOrDataProperty path="installedOnBoundarySurface" schema="energy"/>
+            <featureOrObjectOrDataProperty target="_BoundarySurface" path="installedOnBoundarySurface" schema="energy">
+                <join fromTable="SolarEnergySystem" toTable="thematic_surface" fromColumn="installedOnBoundarySurface_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="BuildingInstallation" path="installedOnBuildingInstallation" schema="energy">
                 <join fromTable="SolarEnergySystem" toTable="building_installation" fromColumn="installedOnBuildingInstalla_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
@@ -1035,7 +1044,9 @@
                     <attribute column="area" type="double" path="." schema="gml"/>
                 </type>
             </complexAttribute>
-            <featureOrObjectOrDataProperty path="relates" schema="energy"/>
+            <featureOrObjectOrDataProperty target="_Opening" path="relates" schema="energy">
+                <join fromTable="ThermalComponent" toTable="opening" fromColumn="relates_ID" toColumn="ID"/>
+            </featureOrObjectOrDataProperty>
             <featureOrObjectOrDataProperty target="AbstractConstruction" path="construction" schema="energy">
                 <join fromTable="ThermalComponent" toTable="AbstractConstruction" fromColumn="construction_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>

@@ -32,10 +32,10 @@ ALTER TABLE Energy_produc_TO_FinalE_isProd
 -- SystemOperation 
 -- -------------------------------------------------------------------- 
 ALTER TABLE SystemOperation
-    DROP CONSTRAINT SystemOpera_has_EnergyConve_FK;
+    DROP CONSTRAINT SystemOperati_operationTime_FK;
 
 ALTER TABLE SystemOperation
-    DROP CONSTRAINT SystemOperati_operationTime_FK;
+    DROP CONSTRAINT SystemOpera_has_EnergyConve_FK;
 
 -- -------------------------------------------------------------------- 
 -- EnergyDistributionSystem 
@@ -47,16 +47,16 @@ ALTER TABLE EnergyDistributionSystem
 -- Occupants 
 -- -------------------------------------------------------------------- 
 ALTER TABLE Occupants
-    DROP CONSTRAINT Occupants_occupied_Building_FK;
-
-ALTER TABLE Occupants
-    DROP CONSTRAINT Occupants_heatDissipation_FK;
-
-ALTER TABLE Occupants
     DROP CONSTRAINT Occupants_occupancyRate_FK;
 
 ALTER TABLE Occupants
+    DROP CONSTRAINT Occupants_occupied_Building_FK;
+
+ALTER TABLE Occupants
     DROP CONSTRAINT Occupants_occupied_UsageZon_FK;
+
+ALTER TABLE Occupants
+    DROP CONSTRAINT Occupants_heatDissipation_FK;
 
 -- -------------------------------------------------------------------- 
 -- CityObject_energy_ADE 
@@ -158,22 +158,25 @@ ALTER TABLE Construction
     DROP CONSTRAINT Construction_FK;
 
 ALTER TABLE Construction
-    DROP CONSTRAINT Construction_opticalPropert_FK;
+    DROP CONSTRAINT Construction_serviceLife_FK;
 
 ALTER TABLE Construction
-    DROP CONSTRAINT Construction_serviceLife_FK;
+    DROP CONSTRAINT Construction_opticalPropert_FK;
 
 -- -------------------------------------------------------------------- 
 -- EnergyConversionSystem 
 -- -------------------------------------------------------------------- 
 ALTER TABLE EnergyConversionSystem
-    DROP CONSTRAINT Energ_energ_CityO_energ_ADE_FK;
+    DROP CONSTRAINT EnergyConversio_installedIn_FK;
 
 ALTER TABLE EnergyConversionSystem
     DROP CONSTRAINT EnergyConvers_productAndIns_FK;
 
 ALTER TABLE EnergyConversionSystem
     DROP CONSTRAINT EnergyConversio_serviceLife_FK;
+
+ALTER TABLE EnergyConversionSystem
+    DROP CONSTRAINT Energ_energ_CityO_energ_ADE_FK;
 
 -- -------------------------------------------------------------------- 
 -- Household 
@@ -185,13 +188,13 @@ ALTER TABLE Household
 -- LayerComponent 
 -- -------------------------------------------------------------------- 
 ALTER TABLE LayerComponent
-    DROP CONSTRAINT LayerCompo_layerCompo_Layer_FK;
-
-ALTER TABLE LayerComponent
     DROP CONSTRAINT LayerComponent_serviceLife_FK;
 
 ALTER TABLE LayerComponent
     DROP CONSTRAINT LayerComponent_material_FK;
+
+ALTER TABLE LayerComponent
+    DROP CONSTRAINT LayerCompo_layerCompo_Layer_FK;
 
 -- -------------------------------------------------------------------- 
 -- Transmittance 
@@ -305,10 +308,10 @@ ALTER TABLE FloorArea
 -- EnergyDemand 
 -- -------------------------------------------------------------------- 
 ALTER TABLE EnergyDemand
-    DROP CONSTRAINT Energ_energ_CityO_ener_ADE_FK1;
+    DROP CONSTRAINT EnergyDemand_energyAmount_FK;
 
 ALTER TABLE EnergyDemand
-    DROP CONSTRAINT EnergyDemand_energyAmount_FK;
+    DROP CONSTRAINT Energ_energ_CityO_ener_ADE_FK1;
 
 ALTER TABLE EnergyDemand
     DROP CONSTRAINT EnergyDemand_energyDistribu_FK;
@@ -327,6 +330,15 @@ ALTER TABLE BuildingUnit
 
 ALTER TABLE BuildingUnit
     DROP CONSTRAINT BuildingU_contains_UsageZon_FK;
+
+-- -------------------------------------------------------------------- 
+-- Therma_to_themat_surfac_relate 
+-- -------------------------------------------------------------------- 
+ALTER TABLE Therma_to_themat_surfac_relate
+    DROP CONSTRAINT Therm_to_thema_surfa_relat_FK1;
+
+ALTER TABLE Therma_to_themat_surfac_relate
+    DROP CONSTRAINT Therm_to_thema_surfa_relat_FK2;
 
 -- -------------------------------------------------------------------- 
 -- TimeSeriesSchedule 
@@ -380,6 +392,9 @@ ALTER TABLE SolarEnergySystem
     DROP CONSTRAINT SolarEnergySystem_FK;
 
 ALTER TABLE SolarEnergySystem
+    DROP CONSTRAINT SolarEnergySy_installedOnBo_FK;
+
+ALTER TABLE SolarEnergySystem
     DROP CONSTRAINT SolarEnergySy_installedOnBu_FK;
 
 ALTER TABLE SolarEnergySystem
@@ -395,13 +410,13 @@ ALTER TABLE UsageZone
     DROP CONSTRAINT Usage_usage_Abstr_energ_ADE_FK;
 
 ALTER TABLE UsageZone
-    DROP CONSTRAINT UsageZone_contains_ThermalZ_FK;
-
-ALTER TABLE UsageZone
     DROP CONSTRAINT UsageZone_coolingSchedule_FK;
 
 ALTER TABLE UsageZone
     DROP CONSTRAINT UsageZone_heatingSchedule_FK;
+
+ALTER TABLE UsageZone
+    DROP CONSTRAINT UsageZone_contains_ThermalZ_FK;
 
 ALTER TABLE UsageZone
     DROP CONSTRAINT UsageZone_ventilationSchedu_FK;
@@ -491,10 +506,13 @@ ALTER TABLE ThermalComponent
     DROP CONSTRAINT ThermalComponent_FK;
 
 ALTER TABLE ThermalComponent
-    DROP CONSTRAINT ThermalCo_composed_ThermalB_FK;
+    DROP CONSTRAINT ThermalComponent_relates_FK;
 
 ALTER TABLE ThermalComponent
     DROP CONSTRAINT ThermalCompone_construction_FK;
+
+ALTER TABLE ThermalComponent
+    DROP CONSTRAINT ThermalCo_composed_ThermalB_FK;
 
 -- -------------------------------------------------------------------- 
 -- IrregularTimeSeriesFile 
@@ -533,16 +551,16 @@ ALTER TABLE WeatherData
 -- Facilities 
 -- -------------------------------------------------------------------- 
 ALTER TABLE Facilities
-    DROP CONSTRAINT Facilitie_equipped_Building_FK;
-
-ALTER TABLE Facilities
     DROP CONSTRAINT Facilities_operationSchedul_FK;
 
 ALTER TABLE Facilities
-    DROP CONSTRAINT Facilities_heatDissipation_FK;
+    DROP CONSTRAINT Facilitie_equipped_Building_FK;
 
 ALTER TABLE Facilities
     DROP CONSTRAINT Facilitie_equipped_UsageZon_FK;
+
+ALTER TABLE Facilities
+    DROP CONSTRAINT Facilities_heatDissipation_FK;
 
 -- -------------------------------------------------------------------- 
 -- AbstractBuilding_energy_ADE 
@@ -806,6 +824,11 @@ DROP TABLE ServiceLife;
 -- BuildingUnit 
 -- -------------------------------------------------------------------- 
 DROP TABLE BuildingUnit;
+
+-- -------------------------------------------------------------------- 
+-- Therma_to_themat_surfac_relate 
+-- -------------------------------------------------------------------- 
+DROP TABLE Therma_to_themat_surfac_relate;
 
 -- -------------------------------------------------------------------- 
 -- TimeSeriesSchedule 
