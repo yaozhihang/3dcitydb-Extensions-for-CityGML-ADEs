@@ -10,9 +10,6 @@
     </applicationSchemas>
     <featureOrObjectOrDataTypes>
         <featureOrObjectOrDataType id="_CityObject_utility_ADE" table="CityObject_utility_ADE" derivedFrom="_CityObject" abstract="true" path="_CityObject_utility_ADE" schema="utility">
-            <extension base="_CityObject">
-                <join fromTable="CityObject_utility_ADE" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
-            </extension>
             <featureOrObjectOrDataProperty target="AbstractMediumSupply" path="mediumSupply" schema="utility">
                 <join fromTable="AbstractMediumSupply" toTable="CityObject_utility_ADE" fromColumn="Abstr_mediu_CityO_utili_ADE_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>

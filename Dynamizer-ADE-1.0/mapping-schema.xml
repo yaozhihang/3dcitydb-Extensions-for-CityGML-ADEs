@@ -10,9 +10,6 @@
     </applicationSchemas>
     <featureOrObjectOrDataTypes>
         <featureOrObjectOrDataType id="_CityObject_dynamizer_ade_ADE" table="CityObject_dynamizer_ade_ADE" derivedFrom="_CityObject" abstract="true" path="_CityObject_dynamizer_ade_ADE" schema="dynamizer_ade">
-            <extension base="_CityObject">
-                <join fromTable="CityObject_dynamizer_ade_ADE" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
-            </extension>
             <featureOrObjectOrDataProperty target="Dynamizer" path="dynamizers" schema="dynamizer_ade">
                 <join fromTable="Dynamizer" toTable="CityObject_dynamizer_ade_ADE" fromColumn="Dyna_dyna_City_dyna_ade_ADE_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>

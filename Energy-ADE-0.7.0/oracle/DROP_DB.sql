@@ -1,116 +1,26 @@
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- ***********************************  Drop foreign keys ********************************* 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- -------------------------------------------------------------------- 
--- FinalEnergy 
+-- AbstractConstruction 
 -- -------------------------------------------------------------------- 
-ALTER TABLE FinalEnergy
-    DROP CONSTRAINT FinalEnergy_energyAmount_FK;
+ALTER TABLE AbstractConstruction
+    DROP CONSTRAINT Abstr_bound_Bound_energ_ADE_FK;
 
-ALTER TABLE FinalEnergy
-    DROP CONSTRAINT FinalEnergy_energyCarrier_FK;
-
--- -------------------------------------------------------------------- 
--- TimeSeries 
--- -------------------------------------------------------------------- 
-ALTER TABLE TimeSeries
-    DROP CONSTRAINT TimeSeries_variableProperti_FK;
+ALTER TABLE AbstractConstruction
+    DROP CONSTRAINT Abstr_openi_Openi_energ_ADE_FK;
 
 -- -------------------------------------------------------------------- 
--- DailyPatternSchedule 
+-- AbstractMaterial 
 -- -------------------------------------------------------------------- 
-ALTER TABLE DailyPatternSchedule
-    DROP CONSTRAINT DailyPatternSchedule_FK;
-
--- -------------------------------------------------------------------- 
--- Therma_bounde_TO_Therma_delimi 
--- -------------------------------------------------------------------- 
-ALTER TABLE Therma_bounde_TO_Therma_delimi
-    DROP CONSTRAINT Therm_bound_TO_Therm_delim_FK1;
-
-ALTER TABLE Therma_bounde_TO_Therma_delimi
-    DROP CONSTRAINT Therm_bound_TO_Therm_delim_FK2;
-
--- -------------------------------------------------------------------- 
--- SystemOperation 
--- -------------------------------------------------------------------- 
-ALTER TABLE SystemOperation
-    DROP CONSTRAINT SystemOperati_operationTime_FK;
-
-ALTER TABLE SystemOperation
-    DROP CONSTRAINT SystemOpera_has_EnergyConve_FK;
-
--- -------------------------------------------------------------------- 
--- EnergyDistributionSystem 
--- -------------------------------------------------------------------- 
-ALTER TABLE EnergyDistributionSystem
-    DROP CONSTRAINT EnergyDistribut_serviceLife_FK;
-
--- -------------------------------------------------------------------- 
--- Occupants 
--- -------------------------------------------------------------------- 
-ALTER TABLE Occupants
-    DROP CONSTRAINT Occupants_occupancyRate_FK;
-
-ALTER TABLE Occupants
-    DROP CONSTRAINT Occupants_occupied_Building_FK;
-
-ALTER TABLE Occupants
-    DROP CONSTRAINT Occupants_occupied_UsageZon_FK;
-
-ALTER TABLE Occupants
-    DROP CONSTRAINT Occupants_heatDissipation_FK;
-
--- -------------------------------------------------------------------- 
--- CityObject_energy_ADE 
--- -------------------------------------------------------------------- 
-ALTER TABLE CityObject_energy_ADE
-    DROP CONSTRAINT CityObject_energy_ADE_FK;
-
--- -------------------------------------------------------------------- 
--- RegularTimeSeries 
--- -------------------------------------------------------------------- 
-ALTER TABLE RegularTimeSeries
-    DROP CONSTRAINT RegularTimeSeries_FK;
+ALTER TABLE AbstractMaterial
+    DROP CONSTRAINT AbstractMateri_imageTexture_FK;
 
 -- -------------------------------------------------------------------- 
 -- Boiler 
 -- -------------------------------------------------------------------- 
 ALTER TABLE Boiler
     DROP CONSTRAINT Boiler_FK;
-
--- -------------------------------------------------------------------- 
--- SolarThermalSystem 
--- -------------------------------------------------------------------- 
-ALTER TABLE SolarThermalSystem
-    DROP CONSTRAINT SolarThermalSystem_FK;
-
--- -------------------------------------------------------------------- 
--- ThermalZone 
--- -------------------------------------------------------------------- 
-ALTER TABLE ThermalZone
-    DROP CONSTRAINT ThermalZone_FK;
-
-ALTER TABLE ThermalZone
-    DROP CONSTRAINT Therm_therm_Abstr_energ_ADE_FK;
-
-ALTER TABLE ThermalZone
-    DROP CONSTRAINT ThermalZone_volumeGeometry_FK;
-
--- -------------------------------------------------------------------- 
--- ThermalDistributionSystem 
--- -------------------------------------------------------------------- 
-ALTER TABLE ThermalDistributionSystem
-    DROP CONSTRAINT ThermalDistributionSystem_FK;
-
--- -------------------------------------------------------------------- 
--- MeasurementPoint 
--- -------------------------------------------------------------------- 
-ALTER TABLE MeasurementPoint
-    DROP CONSTRAINT Measureme_contains_Irregula_FK;
-
--- -------------------------------------------------------------------- 
--- BoundarySurface_energy_ADE 
--- -------------------------------------------------------------------- 
-ALTER TABLE BoundarySurface_energy_ADE
-    DROP CONSTRAINT BoundarySurface_energy_ADE_FK;
 
 -- -------------------------------------------------------------------- 
 -- BuildingUni_to_address_address 
@@ -122,16 +32,25 @@ ALTER TABLE BuildingUni_to_address_address
     DROP CONSTRAINT Buildin_to_address_address_FK2;
 
 -- -------------------------------------------------------------------- 
--- HeatPump 
+-- BuildingUnit 
 -- -------------------------------------------------------------------- 
-ALTER TABLE HeatPump
-    DROP CONSTRAINT HeatPump_FK;
+ALTER TABLE BuildingUnit
+    DROP CONSTRAINT BuildingUnit_FK;
+
+ALTER TABLE BuildingUnit
+    DROP CONSTRAINT BuildingU_contains_UsageZon_FK;
 
 -- -------------------------------------------------------------------- 
--- IrregularTimeSeries 
+-- CombinedHeatPower 
 -- -------------------------------------------------------------------- 
-ALTER TABLE IrregularTimeSeries
-    DROP CONSTRAINT IrregularTimeSeries_FK;
+ALTER TABLE CombinedHeatPower
+    DROP CONSTRAINT CombinedHeatPower_FK;
+
+-- -------------------------------------------------------------------- 
+-- ConstantValueSchedule 
+-- -------------------------------------------------------------------- 
+ALTER TABLE ConstantValueSchedule
+    DROP CONSTRAINT ConstantValueSchedule_FK;
 
 -- -------------------------------------------------------------------- 
 -- Construction 
@@ -140,67 +59,55 @@ ALTER TABLE Construction
     DROP CONSTRAINT Construction_FK;
 
 ALTER TABLE Construction
-    DROP CONSTRAINT Construction_serviceLife_FK;
-
-ALTER TABLE Construction
     DROP CONSTRAINT Construction_opticalPropert_FK;
 
--- -------------------------------------------------------------------- 
--- EnergyConversionSystem 
--- -------------------------------------------------------------------- 
-ALTER TABLE EnergyConversionSystem
-    DROP CONSTRAINT EnergyConversio_installedIn_FK;
-
-ALTER TABLE EnergyConversionSystem
-    DROP CONSTRAINT EnergyConvers_productAndIns_FK;
-
-ALTER TABLE EnergyConversionSystem
-    DROP CONSTRAINT Energ_energ_CityO_energ_ADE_FK;
-
-ALTER TABLE EnergyConversionSystem
-    DROP CONSTRAINT EnergyConversio_serviceLife_FK;
+ALTER TABLE Construction
+    DROP CONSTRAINT Construction_serviceLife_FK;
 
 -- -------------------------------------------------------------------- 
--- Household 
+-- DHWFacilities 
 -- -------------------------------------------------------------------- 
-ALTER TABLE Household
-    DROP CONSTRAINT Household_househol_Occupant_FK;
+ALTER TABLE DHWFacilities
+    DROP CONSTRAINT DHWFacilities_FK;
 
 -- -------------------------------------------------------------------- 
--- LayerComponent 
+-- DailyPatternSchedule 
 -- -------------------------------------------------------------------- 
-ALTER TABLE LayerComponent
-    DROP CONSTRAINT LayerCompo_layerCompo_Layer_FK;
-
-ALTER TABLE LayerComponent
-    DROP CONSTRAINT LayerComponent_serviceLife_FK;
-
-ALTER TABLE LayerComponent
-    DROP CONSTRAINT LayerComponent_material_FK;
+ALTER TABLE DailyPatternSchedule
+    DROP CONSTRAINT DailyPatternSchedule_FK;
 
 -- -------------------------------------------------------------------- 
--- Transmittance 
+-- DailySchedule 
 -- -------------------------------------------------------------------- 
-ALTER TABLE Transmittance
-    DROP CONSTRAINT Transmitt_transmit_OpticalP_FK;
+ALTER TABLE DailySchedule
+    DROP CONSTRAINT DailySchedule_schedule_FK;
+
+ALTER TABLE DailySchedule
+    DROP CONSTRAINT DailySche_dailySch_PeriodOf_FK;
 
 -- -------------------------------------------------------------------- 
--- Opening_energy_ADE 
+-- DistrictNetworkSubstation 
 -- -------------------------------------------------------------------- 
-ALTER TABLE Opening_energy_ADE
-    DROP CONSTRAINT Opening_energy_ADE_FK;
+ALTER TABLE DistrictNetworkSubstation
+    DROP CONSTRAINT DistrictNetworkSubstation_FK;
 
 -- -------------------------------------------------------------------- 
--- ShadingType 
+-- DualValueSchedule 
 -- -------------------------------------------------------------------- 
-ALTER TABLE ShadingType
-    DROP CONSTRAINT Shadi_indoo_Openi_energ_ADE_FK;
+ALTER TABLE DualValueSchedule
+    DROP CONSTRAINT DualValueSchedule_FK;
 
-ALTER TABLE ShadingType
-    DROP CONSTRAINT Shadi_outdo_Openi_energ_ADE_FK;
+-- -------------------------------------------------------------------- 
+-- ElectricalAppliances 
+-- -------------------------------------------------------------------- 
+ALTER TABLE ElectricalAppliances
+    DROP CONSTRAINT ElectricalAppliances_FK;
 
-ALTER TABLE ShadingType
-    DROP CONSTRAINT ShadingType_transmittance_FK;
+-- -------------------------------------------------------------------- 
+-- ElectricalResistance 
+-- -------------------------------------------------------------------- 
+ALTER TABLE ElectricalResistance
+    DROP CONSTRAINT ElectricalResistance_FK;
 
 -- -------------------------------------------------------------------- 
 -- Emissivity 
@@ -209,16 +116,37 @@ ALTER TABLE Emissivity
     DROP CONSTRAINT Emissivit_emissivi_OpticalP_FK;
 
 -- -------------------------------------------------------------------- 
--- PowerStorageSystem 
+-- EnergyConversionSystem 
 -- -------------------------------------------------------------------- 
-ALTER TABLE PowerStorageSystem
-    DROP CONSTRAINT PowerStorageSystem_FK;
+ALTER TABLE EnergyConversionSystem
+    DROP CONSTRAINT EnergyConvers_productAndIns_FK;
+
+ALTER TABLE EnergyConversionSystem
+    DROP CONSTRAINT EnergyConversio_serviceLife_FK;
+
+ALTER TABLE EnergyConversionSystem
+    DROP CONSTRAINT EnergyConversio_installedIn_FK;
+
+ALTER TABLE EnergyConversionSystem
+    DROP CONSTRAINT Energ_energ_CityO_energ_ADE_FK;
 
 -- -------------------------------------------------------------------- 
--- CombinedHeatPower 
+-- EnergyDemand 
 -- -------------------------------------------------------------------- 
-ALTER TABLE CombinedHeatPower
-    DROP CONSTRAINT CombinedHeatPower_FK;
+ALTER TABLE EnergyDemand
+    DROP CONSTRAINT EnergyDemand_energyAmount_FK;
+
+ALTER TABLE EnergyDemand
+    DROP CONSTRAINT EnergyDemand_energyDistribu_FK;
+
+ALTER TABLE EnergyDemand
+    DROP CONSTRAINT Energ_energ_CityO_ener_ADE_FK1;
+
+-- -------------------------------------------------------------------- 
+-- EnergyDistributionSystem 
+-- -------------------------------------------------------------------- 
+ALTER TABLE EnergyDistributionSystem
+    DROP CONSTRAINT EnergyDistribut_serviceLife_FK;
 
 -- -------------------------------------------------------------------- 
 -- EnergyPerformanceCertification 
@@ -230,22 +158,28 @@ ALTER TABLE EnergyPerformanceCertification
     DROP CONSTRAINT EnergyPer_energyPe_Building_FK;
 
 -- -------------------------------------------------------------------- 
--- RegularTimeSeriesFile 
+-- Energy_isProv_TO_Energy_provid 
 -- -------------------------------------------------------------------- 
-ALTER TABLE RegularTimeSeriesFile
-    DROP CONSTRAINT RegularTimeSeriesFile_FK;
+ALTER TABLE Energy_isProv_TO_Energy_provid
+    DROP CONSTRAINT Energ_isPro_TO_Energ_provi_FK1;
+
+ALTER TABLE Energy_isProv_TO_Energy_provid
+    DROP CONSTRAINT Energ_isPro_TO_Energ_provi_FK2;
 
 -- -------------------------------------------------------------------- 
--- Gas 
+-- Facilities 
 -- -------------------------------------------------------------------- 
-ALTER TABLE Gas
-    DROP CONSTRAINT Gas_FK;
+ALTER TABLE Facilities
+    DROP CONSTRAINT Facilities_operationSchedul_FK;
 
--- -------------------------------------------------------------------- 
--- PowerDistributionSystem 
--- -------------------------------------------------------------------- 
-ALTER TABLE PowerDistributionSystem
-    DROP CONSTRAINT PowerDistributionSystem_FK;
+ALTER TABLE Facilities
+    DROP CONSTRAINT Facilities_heatDissipation_FK;
+
+ALTER TABLE Facilities
+    DROP CONSTRAINT Facilitie_equipped_Building_FK;
+
+ALTER TABLE Facilities
+    DROP CONSTRAINT Facilitie_equipped_UsageZon_FK;
 
 -- -------------------------------------------------------------------- 
 -- FinalE_isCons_TO_Energy_consum 
@@ -257,19 +191,22 @@ ALTER TABLE FinalE_isCons_TO_Energy_consum
     DROP CONSTRAINT Final_isCon_TO_Energ_consu_FK2;
 
 -- -------------------------------------------------------------------- 
--- Reflectance 
+-- FinalE_isProd_TO_Energy_produc 
 -- -------------------------------------------------------------------- 
-ALTER TABLE Reflectance
-    DROP CONSTRAINT Reflectan_reflecta_OpticalP_FK;
+ALTER TABLE FinalE_isProd_TO_Energy_produc
+    DROP CONSTRAINT Final_isPro_TO_Energ_produ_FK1;
+
+ALTER TABLE FinalE_isProd_TO_Energy_produc
+    DROP CONSTRAINT Final_isPro_TO_Energ_produ_FK2;
 
 -- -------------------------------------------------------------------- 
--- RefurbishmentMeasure 
+-- FinalEnergy 
 -- -------------------------------------------------------------------- 
-ALTER TABLE RefurbishmentMeasure
-    DROP CONSTRAINT Refur_refur_Abstr_energ_ADE_FK;
+ALTER TABLE FinalEnergy
+    DROP CONSTRAINT FinalEnergy_energyAmount_FK;
 
-ALTER TABLE RefurbishmentMeasure
-    DROP CONSTRAINT Refur_refur_Bound_energ_ADE_FK;
+ALTER TABLE FinalEnergy
+    DROP CONSTRAINT FinalEnergy_energyCarrier_FK;
 
 -- -------------------------------------------------------------------- 
 -- FloorArea 
@@ -287,94 +224,172 @@ ALTER TABLE FloorArea
     DROP CONSTRAINT FloorArea_floorAre_UsageZon_FK;
 
 -- -------------------------------------------------------------------- 
--- Energy_isProv_TO_Energy_provid 
+-- Gas 
 -- -------------------------------------------------------------------- 
-ALTER TABLE Energy_isProv_TO_Energy_provid
-    DROP CONSTRAINT Energ_isPro_TO_Energ_provi_FK1;
-
-ALTER TABLE Energy_isProv_TO_Energy_provid
-    DROP CONSTRAINT Energ_isPro_TO_Energ_provi_FK2;
+ALTER TABLE Gas
+    DROP CONSTRAINT Gas_FK;
 
 -- -------------------------------------------------------------------- 
--- EnergyDemand 
+-- HeatPump 
 -- -------------------------------------------------------------------- 
-ALTER TABLE EnergyDemand
-    DROP CONSTRAINT Energ_energ_CityO_ener_ADE_FK1;
-
-ALTER TABLE EnergyDemand
-    DROP CONSTRAINT EnergyDemand_energyAmount_FK;
-
-ALTER TABLE EnergyDemand
-    DROP CONSTRAINT EnergyDemand_energyDistribu_FK;
+ALTER TABLE HeatPump
+    DROP CONSTRAINT HeatPump_FK;
 
 -- -------------------------------------------------------------------- 
--- ElectricalAppliances 
+-- HeightAboveGround 
 -- -------------------------------------------------------------------- 
-ALTER TABLE ElectricalAppliances
-    DROP CONSTRAINT ElectricalAppliances_FK;
+ALTER TABLE HeightAboveGround
+    DROP CONSTRAINT Heigh_heigh_Abstr_energ_ADE_FK;
 
 -- -------------------------------------------------------------------- 
--- BuildingUnit 
+-- Household 
 -- -------------------------------------------------------------------- 
-ALTER TABLE BuildingUnit
-    DROP CONSTRAINT BuildingUnit_FK;
-
-ALTER TABLE BuildingUnit
-    DROP CONSTRAINT BuildingU_contains_UsageZon_FK;
+ALTER TABLE Household
+    DROP CONSTRAINT Household_househol_Occupant_FK;
 
 -- -------------------------------------------------------------------- 
--- Therma_to_themat_surfac_relate 
+-- IrregularTimeSeries 
 -- -------------------------------------------------------------------- 
-ALTER TABLE Therma_to_themat_surfac_relate
-    DROP CONSTRAINT Therm_to_thema_surfa_relat_FK1;
-
-ALTER TABLE Therma_to_themat_surfac_relate
-    DROP CONSTRAINT Therm_to_thema_surfa_relat_FK2;
+ALTER TABLE IrregularTimeSeries
+    DROP CONSTRAINT IrregularTimeSeries_FK;
 
 -- -------------------------------------------------------------------- 
--- TimeSeriesSchedule 
+-- IrregularTimeSeriesFile 
 -- -------------------------------------------------------------------- 
-ALTER TABLE TimeSeriesSchedule
-    DROP CONSTRAINT TimeSeriesSchedule_FK;
-
-ALTER TABLE TimeSeriesSchedule
-    DROP CONSTRAINT TimeSeriesSch_timeDepending_FK;
+ALTER TABLE IrregularTimeSeriesFile
+    DROP CONSTRAINT IrregularTimeSeriesFile_FK;
 
 -- -------------------------------------------------------------------- 
--- ThermalZone_to_room_interiorRo 
+-- Layer 
 -- -------------------------------------------------------------------- 
-ALTER TABLE ThermalZone_to_room_interiorRo
-    DROP CONSTRAINT ThermalZo_to_room_interior_FK1;
-
-ALTER TABLE ThermalZone_to_room_interiorRo
-    DROP CONSTRAINT ThermalZo_to_room_interior_FK2;
+ALTER TABLE Layer
+    DROP CONSTRAINT Layer_layer_Construction_FK;
 
 -- -------------------------------------------------------------------- 
--- DailySchedule 
+-- LayerComponent 
 -- -------------------------------------------------------------------- 
-ALTER TABLE DailySchedule
-    DROP CONSTRAINT DailySchedule_schedule_FK;
+ALTER TABLE LayerComponent
+    DROP CONSTRAINT LayerComponent_serviceLife_FK;
 
-ALTER TABLE DailySchedule
-    DROP CONSTRAINT DailySche_dailySch_PeriodOf_FK;
+ALTER TABLE LayerComponent
+    DROP CONSTRAINT LayerComponent_material_FK;
 
--- -------------------------------------------------------------------- 
--- AbstractConstruction 
--- -------------------------------------------------------------------- 
-ALTER TABLE AbstractConstruction
-    DROP CONSTRAINT Abstr_bound_Bound_energ_ADE_FK;
-
-ALTER TABLE AbstractConstruction
-    DROP CONSTRAINT Abstr_openi_Openi_energ_ADE_FK;
+ALTER TABLE LayerComponent
+    DROP CONSTRAINT LayerCompo_layerCompo_Layer_FK;
 
 -- -------------------------------------------------------------------- 
--- VolumeType 
+-- LightingFacilities 
 -- -------------------------------------------------------------------- 
-ALTER TABLE VolumeType
-    DROP CONSTRAINT Volum_volum_Abstr_energ_ADE_FK;
+ALTER TABLE LightingFacilities
+    DROP CONSTRAINT LightingFacilities_FK;
 
-ALTER TABLE VolumeType
-    DROP CONSTRAINT VolumeType_volume_ThermalZo_FK;
+-- -------------------------------------------------------------------- 
+-- MeasurementPoint 
+-- -------------------------------------------------------------------- 
+ALTER TABLE MeasurementPoint
+    DROP CONSTRAINT Measureme_contains_Irregula_FK;
+
+-- -------------------------------------------------------------------- 
+-- MechanicalVentilation 
+-- -------------------------------------------------------------------- 
+ALTER TABLE MechanicalVentilation
+    DROP CONSTRAINT MechanicalVentilation_FK;
+
+-- -------------------------------------------------------------------- 
+-- Occupants 
+-- -------------------------------------------------------------------- 
+ALTER TABLE Occupants
+    DROP CONSTRAINT Occupants_heatDissipation_FK;
+
+ALTER TABLE Occupants
+    DROP CONSTRAINT Occupants_occupancyRate_FK;
+
+ALTER TABLE Occupants
+    DROP CONSTRAINT Occupants_occupied_Building_FK;
+
+ALTER TABLE Occupants
+    DROP CONSTRAINT Occupants_occupied_UsageZon_FK;
+
+-- -------------------------------------------------------------------- 
+-- PeriodOfYear 
+-- -------------------------------------------------------------------- 
+ALTER TABLE PeriodOfYear
+    DROP CONSTRAINT PeriodOfY_periodOf_DailyPat_FK;
+
+-- -------------------------------------------------------------------- 
+-- PhotovoltaicSystem 
+-- -------------------------------------------------------------------- 
+ALTER TABLE PhotovoltaicSystem
+    DROP CONSTRAINT PhotovoltaicSystem_FK;
+
+-- -------------------------------------------------------------------- 
+-- PhotovoltaicThermalSystem 
+-- -------------------------------------------------------------------- 
+ALTER TABLE PhotovoltaicThermalSystem
+    DROP CONSTRAINT PhotovoltaicThermalSystem_FK;
+
+-- -------------------------------------------------------------------- 
+-- PowerDistributionSystem 
+-- -------------------------------------------------------------------- 
+ALTER TABLE PowerDistributionSystem
+    DROP CONSTRAINT PowerDistributionSystem_FK;
+
+-- -------------------------------------------------------------------- 
+-- PowerStorageSystem 
+-- -------------------------------------------------------------------- 
+ALTER TABLE PowerStorageSystem
+    DROP CONSTRAINT PowerStorageSystem_FK;
+
+-- -------------------------------------------------------------------- 
+-- Reflectance 
+-- -------------------------------------------------------------------- 
+ALTER TABLE Reflectance
+    DROP CONSTRAINT Reflectan_reflecta_OpticalP_FK;
+
+-- -------------------------------------------------------------------- 
+-- RefurbishmentMeasure 
+-- -------------------------------------------------------------------- 
+ALTER TABLE RefurbishmentMeasure
+    DROP CONSTRAINT Refurbishment_dateOfRefurbi_FK;
+
+ALTER TABLE RefurbishmentMeasure
+    DROP CONSTRAINT Refur_refur_Abstr_energ_ADE_FK;
+
+ALTER TABLE RefurbishmentMeasure
+    DROP CONSTRAINT Refur_refur_Bound_energ_ADE_FK;
+
+-- -------------------------------------------------------------------- 
+-- RegularTimeSeries 
+-- -------------------------------------------------------------------- 
+ALTER TABLE RegularTimeSeries
+    DROP CONSTRAINT RegularTimeSeries_FK;
+
+-- -------------------------------------------------------------------- 
+-- RegularTimeSeriesFile 
+-- -------------------------------------------------------------------- 
+ALTER TABLE RegularTimeSeriesFile
+    DROP CONSTRAINT RegularTimeSeriesFile_FK;
+
+-- -------------------------------------------------------------------- 
+-- ReverseConstruction 
+-- -------------------------------------------------------------------- 
+ALTER TABLE ReverseConstruction
+    DROP CONSTRAINT ReverseConstruction_FK;
+
+ALTER TABLE ReverseConstruction
+    DROP CONSTRAINT ReverseConstr_baseConstruct_FK;
+
+-- -------------------------------------------------------------------- 
+-- ShadingType 
+-- -------------------------------------------------------------------- 
+ALTER TABLE ShadingType
+    DROP CONSTRAINT ShadingType_transmittance_FK;
+
+ALTER TABLE ShadingType
+    DROP CONSTRAINT Shadi_indoo_Openi_energ_ADE_FK;
+
+ALTER TABLE ShadingType
+    DROP CONSTRAINT Shadi_outdo_Openi_energ_ADE_FK;
 
 -- -------------------------------------------------------------------- 
 -- SolarEnergySystem 
@@ -392,40 +407,10 @@ ALTER TABLE SolarEnergySystem
     DROP CONSTRAINT SolarEnergySy_surfaceGeomet_FK;
 
 -- -------------------------------------------------------------------- 
--- UsageZone 
+-- SolarThermalSystem 
 -- -------------------------------------------------------------------- 
-ALTER TABLE UsageZone
-    DROP CONSTRAINT UsageZone_FK;
-
-ALTER TABLE UsageZone
-    DROP CONSTRAINT Usage_usage_Abstr_energ_ADE_FK;
-
-ALTER TABLE UsageZone
-    DROP CONSTRAINT UsageZone_coolingSchedule_FK;
-
-ALTER TABLE UsageZone
-    DROP CONSTRAINT UsageZone_heatingSchedule_FK;
-
-ALTER TABLE UsageZone
-    DROP CONSTRAINT UsageZone_ventilationSchedu_FK;
-
-ALTER TABLE UsageZone
-    DROP CONSTRAINT UsageZone_contains_ThermalZ_FK;
-
-ALTER TABLE UsageZone
-    DROP CONSTRAINT UsageZone_averageInternalGa_FK;
-
-ALTER TABLE UsageZone
-    DROP CONSTRAINT UsageZone_volumeGeometry_FK;
-
--- -------------------------------------------------------------------- 
--- FinalE_isProd_TO_Energy_produc 
--- -------------------------------------------------------------------- 
-ALTER TABLE FinalE_isProd_TO_Energy_produc
-    DROP CONSTRAINT Final_isPro_TO_Energ_produ_FK1;
-
-ALTER TABLE FinalE_isProd_TO_Energy_produc
-    DROP CONSTRAINT Final_isPro_TO_Energ_produ_FK2;
+ALTER TABLE SolarThermalSystem
+    DROP CONSTRAINT SolarThermalSystem_FK;
 
 -- -------------------------------------------------------------------- 
 -- SolidMaterial 
@@ -434,70 +419,49 @@ ALTER TABLE SolidMaterial
     DROP CONSTRAINT SolidMaterial_FK;
 
 -- -------------------------------------------------------------------- 
--- HeightAboveGround 
--- -------------------------------------------------------------------- 
-ALTER TABLE HeightAboveGround
-    DROP CONSTRAINT Heigh_heigh_Abstr_energ_ADE_FK;
-
--- -------------------------------------------------------------------- 
--- ThermalStorageSystem 
--- -------------------------------------------------------------------- 
-ALTER TABLE ThermalStorageSystem
-    DROP CONSTRAINT ThermalStorageSystem_FK;
-
--- -------------------------------------------------------------------- 
--- ConstantValueSchedule 
--- -------------------------------------------------------------------- 
-ALTER TABLE ConstantValueSchedule
-    DROP CONSTRAINT ConstantValueSchedule_FK;
-
--- -------------------------------------------------------------------- 
--- PeriodOfYear 
--- -------------------------------------------------------------------- 
-ALTER TABLE PeriodOfYear
-    DROP CONSTRAINT PeriodOfY_periodOf_DailyPat_FK;
-
--- -------------------------------------------------------------------- 
 -- StorageSystem 
 -- -------------------------------------------------------------------- 
 ALTER TABLE StorageSystem
-    DROP CONSTRAINT StorageSy_storage_EnergyDem_FK;
-
-ALTER TABLE StorageSystem
     DROP CONSTRAINT StorageSystem_serviceLife_FK;
 
--- -------------------------------------------------------------------- 
--- MechanicalVentilation 
--- -------------------------------------------------------------------- 
-ALTER TABLE MechanicalVentilation
-    DROP CONSTRAINT MechanicalVentilation_FK;
+ALTER TABLE StorageSystem
+    DROP CONSTRAINT StorageSy_storage_EnergyDem_FK;
 
 -- -------------------------------------------------------------------- 
--- PhotovoltaicThermalSystem 
+-- SystemOperation 
 -- -------------------------------------------------------------------- 
-ALTER TABLE PhotovoltaicThermalSystem
-    DROP CONSTRAINT PhotovoltaicThermalSystem_FK;
+ALTER TABLE SystemOperation
+    DROP CONSTRAINT SystemOpera_has_EnergyConve_FK;
+
+ALTER TABLE SystemOperation
+    DROP CONSTRAINT SystemOperati_operationTime_FK;
 
 -- -------------------------------------------------------------------- 
--- ElectricalResistance 
+-- Therma_bounde_TO_Therma_delimi 
 -- -------------------------------------------------------------------- 
-ALTER TABLE ElectricalResistance
-    DROP CONSTRAINT ElectricalResistance_FK;
+ALTER TABLE Therma_bounde_TO_Therma_delimi
+    DROP CONSTRAINT Therm_bound_TO_Therm_delim_FK1;
+
+ALTER TABLE Therma_bounde_TO_Therma_delimi
+    DROP CONSTRAINT Therm_bound_TO_Therm_delim_FK2;
 
 -- -------------------------------------------------------------------- 
--- ReverseConstruction 
+-- Therma_to_themat_surfac_relate 
 -- -------------------------------------------------------------------- 
-ALTER TABLE ReverseConstruction
-    DROP CONSTRAINT ReverseConstruction_FK;
+ALTER TABLE Therma_to_themat_surfac_relate
+    DROP CONSTRAINT Therm_to_thema_surfa_relat_FK1;
 
-ALTER TABLE ReverseConstruction
-    DROP CONSTRAINT ReverseConstr_baseConstruct_FK;
+ALTER TABLE Therma_to_themat_surfac_relate
+    DROP CONSTRAINT Therm_to_thema_surfa_relat_FK2;
 
 -- -------------------------------------------------------------------- 
--- PhotovoltaicSystem 
+-- ThermalBoundary 
 -- -------------------------------------------------------------------- 
-ALTER TABLE PhotovoltaicSystem
-    DROP CONSTRAINT PhotovoltaicSystem_FK;
+ALTER TABLE ThermalBoundary
+    DROP CONSTRAINT ThermalBoundary_FK;
+
+ALTER TABLE ThermalBoundary
+    DROP CONSTRAINT ThermalBounda_surfaceGeomet_FK;
 
 -- -------------------------------------------------------------------- 
 -- ThermalComponent 
@@ -515,130 +479,121 @@ ALTER TABLE ThermalComponent
     DROP CONSTRAINT ThermalCo_composed_ThermalB_FK;
 
 -- -------------------------------------------------------------------- 
--- IrregularTimeSeriesFile 
+-- ThermalDistributionSystem 
 -- -------------------------------------------------------------------- 
-ALTER TABLE IrregularTimeSeriesFile
-    DROP CONSTRAINT IrregularTimeSeriesFile_FK;
+ALTER TABLE ThermalDistributionSystem
+    DROP CONSTRAINT ThermalDistributionSystem_FK;
 
 -- -------------------------------------------------------------------- 
--- AbstractMaterial 
+-- ThermalStorageSystem 
 -- -------------------------------------------------------------------- 
-ALTER TABLE AbstractMaterial
-    DROP CONSTRAINT AbstractMateri_imageTexture_FK;
+ALTER TABLE ThermalStorageSystem
+    DROP CONSTRAINT ThermalStorageSystem_FK;
 
 -- -------------------------------------------------------------------- 
--- DistrictNetworkSubstation 
+-- ThermalZone 
 -- -------------------------------------------------------------------- 
-ALTER TABLE DistrictNetworkSubstation
-    DROP CONSTRAINT DistrictNetworkSubstation_FK;
+ALTER TABLE ThermalZone
+    DROP CONSTRAINT ThermalZone_FK;
+
+ALTER TABLE ThermalZone
+    DROP CONSTRAINT Therm_therm_Abstr_energ_ADE_FK;
+
+ALTER TABLE ThermalZone
+    DROP CONSTRAINT ThermalZone_volumeGeometry_FK;
 
 -- -------------------------------------------------------------------- 
--- Layer 
+-- ThermalZone_to_room_interiorRo 
 -- -------------------------------------------------------------------- 
-ALTER TABLE Layer
-    DROP CONSTRAINT Layer_layer_Construction_FK;
+ALTER TABLE ThermalZone_to_room_interiorRo
+    DROP CONSTRAINT ThermalZo_to_room_interior_FK1;
+
+ALTER TABLE ThermalZone_to_room_interiorRo
+    DROP CONSTRAINT ThermalZo_to_room_interior_FK2;
+
+-- -------------------------------------------------------------------- 
+-- TimeSeries 
+-- -------------------------------------------------------------------- 
+ALTER TABLE TimeSeries
+    DROP CONSTRAINT TimeSeries_variableProperti_FK;
+
+-- -------------------------------------------------------------------- 
+-- TimeSeriesSchedule 
+-- -------------------------------------------------------------------- 
+ALTER TABLE TimeSeriesSchedule
+    DROP CONSTRAINT TimeSeriesSchedule_FK;
+
+ALTER TABLE TimeSeriesSchedule
+    DROP CONSTRAINT TimeSeriesSch_timeDepending_FK;
+
+-- -------------------------------------------------------------------- 
+-- Transmittance 
+-- -------------------------------------------------------------------- 
+ALTER TABLE Transmittance
+    DROP CONSTRAINT Transmitt_transmit_OpticalP_FK;
+
+-- -------------------------------------------------------------------- 
+-- UsageZone 
+-- -------------------------------------------------------------------- 
+ALTER TABLE UsageZone
+    DROP CONSTRAINT UsageZone_FK;
+
+ALTER TABLE UsageZone
+    DROP CONSTRAINT UsageZone_coolingSchedule_FK;
+
+ALTER TABLE UsageZone
+    DROP CONSTRAINT UsageZone_heatingSchedule_FK;
+
+ALTER TABLE UsageZone
+    DROP CONSTRAINT UsageZone_ventilationSchedu_FK;
+
+ALTER TABLE UsageZone
+    DROP CONSTRAINT UsageZone_averageInternalGa_FK;
+
+ALTER TABLE UsageZone
+    DROP CONSTRAINT Usage_usage_Abstr_energ_ADE_FK;
+
+ALTER TABLE UsageZone
+    DROP CONSTRAINT UsageZone_contains_ThermalZ_FK;
+
+ALTER TABLE UsageZone
+    DROP CONSTRAINT UsageZone_volumeGeometry_FK;
+
+-- -------------------------------------------------------------------- 
+-- VolumeType 
+-- -------------------------------------------------------------------- 
+ALTER TABLE VolumeType
+    DROP CONSTRAINT Volum_volum_Abstr_energ_ADE_FK;
+
+ALTER TABLE VolumeType
+    DROP CONSTRAINT VolumeType_volume_ThermalZo_FK;
 
 -- -------------------------------------------------------------------- 
 -- WeatherData 
 -- -------------------------------------------------------------------- 
 ALTER TABLE WeatherData
-    DROP CONSTRAINT Weath_weath_CityO_energ_ADE_FK;
-
-ALTER TABLE WeatherData
     DROP CONSTRAINT WeatherData_values_FK;
 
--- -------------------------------------------------------------------- 
--- Facilities 
--- -------------------------------------------------------------------- 
-ALTER TABLE Facilities
-    DROP CONSTRAINT Facilities_operationSchedul_FK;
+ALTER TABLE WeatherData
+    DROP CONSTRAINT Weath_weath_CityO_energ_ADE_FK;
 
-ALTER TABLE Facilities
-    DROP CONSTRAINT Facilitie_equipped_Building_FK;
-
-ALTER TABLE Facilities
-    DROP CONSTRAINT Facilities_heatDissipation_FK;
-
-ALTER TABLE Facilities
-    DROP CONSTRAINT Facilitie_equipped_UsageZon_FK;
-
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- ***********************************  Drop tables  ************************************** 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- -------------------------------------------------------------------- 
 -- AbstractBuilding_energy_ADE 
 -- -------------------------------------------------------------------- 
-ALTER TABLE AbstractBuilding_energy_ADE
-    DROP CONSTRAINT AbstractBuilding_energy_ADE_FK;
+DROP TABLE AbstractBuilding_energy_ADE;
 
 -- -------------------------------------------------------------------- 
--- DualValueSchedule 
+-- AbstractConstruction 
 -- -------------------------------------------------------------------- 
-ALTER TABLE DualValueSchedule
-    DROP CONSTRAINT DualValueSchedule_FK;
+DROP TABLE AbstractConstruction;
 
 -- -------------------------------------------------------------------- 
--- LightingFacilities 
+-- AbstractMaterial 
 -- -------------------------------------------------------------------- 
-ALTER TABLE LightingFacilities
-    DROP CONSTRAINT LightingFacilities_FK;
-
--- -------------------------------------------------------------------- 
--- DHWFacilities 
--- -------------------------------------------------------------------- 
-ALTER TABLE DHWFacilities
-    DROP CONSTRAINT DHWFacilities_FK;
-
--- -------------------------------------------------------------------- 
--- ThermalBoundary 
--- -------------------------------------------------------------------- 
-ALTER TABLE ThermalBoundary
-    DROP CONSTRAINT ThermalBoundary_FK;
-
-ALTER TABLE ThermalBoundary
-    DROP CONSTRAINT ThermalBounda_surfaceGeomet_FK;
-
--- -------------------------------------------------------------------- 
--- FinalEnergy 
--- -------------------------------------------------------------------- 
-DROP TABLE FinalEnergy;
-
--- -------------------------------------------------------------------- 
--- TimeSeries 
--- -------------------------------------------------------------------- 
-DROP TABLE TimeSeries;
-
--- -------------------------------------------------------------------- 
--- DailyPatternSchedule 
--- -------------------------------------------------------------------- 
-DROP TABLE DailyPatternSchedule;
-
--- -------------------------------------------------------------------- 
--- Therma_bounde_TO_Therma_delimi 
--- -------------------------------------------------------------------- 
-DROP TABLE Therma_bounde_TO_Therma_delimi;
-
--- -------------------------------------------------------------------- 
--- SystemOperation 
--- -------------------------------------------------------------------- 
-DROP TABLE SystemOperation;
-
--- -------------------------------------------------------------------- 
--- EnergyDistributionSystem 
--- -------------------------------------------------------------------- 
-DROP TABLE EnergyDistributionSystem;
-
--- -------------------------------------------------------------------- 
--- Occupants 
--- -------------------------------------------------------------------- 
-DROP TABLE Occupants;
-
--- -------------------------------------------------------------------- 
--- CityObject_energy_ADE 
--- -------------------------------------------------------------------- 
-DROP TABLE CityObject_energy_ADE;
-
--- -------------------------------------------------------------------- 
--- RegularTimeSeries 
--- -------------------------------------------------------------------- 
-DROP TABLE RegularTimeSeries;
+DROP TABLE AbstractMaterial;
 
 -- -------------------------------------------------------------------- 
 -- Boiler 
@@ -646,39 +601,9 @@ DROP TABLE RegularTimeSeries;
 DROP TABLE Boiler;
 
 -- -------------------------------------------------------------------- 
--- ImageTexture 
--- -------------------------------------------------------------------- 
-DROP TABLE ImageTexture;
-
--- -------------------------------------------------------------------- 
--- SolarThermalSystem 
--- -------------------------------------------------------------------- 
-DROP TABLE SolarThermalSystem;
-
--- -------------------------------------------------------------------- 
--- ThermalZone 
--- -------------------------------------------------------------------- 
-DROP TABLE ThermalZone;
-
--- -------------------------------------------------------------------- 
--- ThermalDistributionSystem 
--- -------------------------------------------------------------------- 
-DROP TABLE ThermalDistributionSystem;
-
--- -------------------------------------------------------------------- 
--- MeasurementPoint 
--- -------------------------------------------------------------------- 
-DROP TABLE MeasurementPoint;
-
--- -------------------------------------------------------------------- 
 -- BoundarySurface_energy_ADE 
 -- -------------------------------------------------------------------- 
 DROP TABLE BoundarySurface_energy_ADE;
-
--- -------------------------------------------------------------------- 
--- OpticalProperties 
--- -------------------------------------------------------------------- 
-DROP TABLE OpticalProperties;
 
 -- -------------------------------------------------------------------- 
 -- BuildingUni_to_address_address 
@@ -686,69 +611,14 @@ DROP TABLE OpticalProperties;
 DROP TABLE BuildingUni_to_address_address;
 
 -- -------------------------------------------------------------------- 
--- HeatPump 
+-- BuildingUnit 
 -- -------------------------------------------------------------------- 
-DROP TABLE HeatPump;
+DROP TABLE BuildingUnit;
 
 -- -------------------------------------------------------------------- 
--- IrregularTimeSeries 
+-- CityObject_energy_ADE 
 -- -------------------------------------------------------------------- 
-DROP TABLE IrregularTimeSeries;
-
--- -------------------------------------------------------------------- 
--- Construction 
--- -------------------------------------------------------------------- 
-DROP TABLE Construction;
-
--- -------------------------------------------------------------------- 
--- TimeValuesProperties 
--- -------------------------------------------------------------------- 
-DROP TABLE TimeValuesProperties;
-
--- -------------------------------------------------------------------- 
--- EnergyConversionSystem 
--- -------------------------------------------------------------------- 
-DROP TABLE EnergyConversionSystem;
-
--- -------------------------------------------------------------------- 
--- Household 
--- -------------------------------------------------------------------- 
-DROP TABLE Household;
-
--- -------------------------------------------------------------------- 
--- LayerComponent 
--- -------------------------------------------------------------------- 
-DROP TABLE LayerComponent;
-
--- -------------------------------------------------------------------- 
--- Transmittance 
--- -------------------------------------------------------------------- 
-DROP TABLE Transmittance;
-
--- -------------------------------------------------------------------- 
--- Opening_energy_ADE 
--- -------------------------------------------------------------------- 
-DROP TABLE Opening_energy_ADE;
-
--- -------------------------------------------------------------------- 
--- HeatExchangeType 
--- -------------------------------------------------------------------- 
-DROP TABLE HeatExchangeType;
-
--- -------------------------------------------------------------------- 
--- ShadingType 
--- -------------------------------------------------------------------- 
-DROP TABLE ShadingType;
-
--- -------------------------------------------------------------------- 
--- Emissivity 
--- -------------------------------------------------------------------- 
-DROP TABLE Emissivity;
-
--- -------------------------------------------------------------------- 
--- PowerStorageSystem 
--- -------------------------------------------------------------------- 
-DROP TABLE PowerStorageSystem;
+DROP TABLE CityObject_energy_ADE;
 
 -- -------------------------------------------------------------------- 
 -- CombinedHeatPower 
@@ -756,14 +626,114 @@ DROP TABLE PowerStorageSystem;
 DROP TABLE CombinedHeatPower;
 
 -- -------------------------------------------------------------------- 
+-- ConstantValueSchedule 
+-- -------------------------------------------------------------------- 
+DROP TABLE ConstantValueSchedule;
+
+-- -------------------------------------------------------------------- 
+-- Construction 
+-- -------------------------------------------------------------------- 
+DROP TABLE Construction;
+
+-- -------------------------------------------------------------------- 
+-- DHWFacilities 
+-- -------------------------------------------------------------------- 
+DROP TABLE DHWFacilities;
+
+-- -------------------------------------------------------------------- 
+-- DailyPatternSchedule 
+-- -------------------------------------------------------------------- 
+DROP TABLE DailyPatternSchedule;
+
+-- -------------------------------------------------------------------- 
+-- DailySchedule 
+-- -------------------------------------------------------------------- 
+DROP TABLE DailySchedule;
+
+-- -------------------------------------------------------------------- 
+-- DateOfEvent 
+-- -------------------------------------------------------------------- 
+DROP TABLE DateOfEvent;
+
+-- -------------------------------------------------------------------- 
+-- DistrictNetworkSubstation 
+-- -------------------------------------------------------------------- 
+DROP TABLE DistrictNetworkSubstation;
+
+-- -------------------------------------------------------------------- 
+-- DualValueSchedule 
+-- -------------------------------------------------------------------- 
+DROP TABLE DualValueSchedule;
+
+-- -------------------------------------------------------------------- 
+-- ElectricalAppliances 
+-- -------------------------------------------------------------------- 
+DROP TABLE ElectricalAppliances;
+
+-- -------------------------------------------------------------------- 
+-- ElectricalResistance 
+-- -------------------------------------------------------------------- 
+DROP TABLE ElectricalResistance;
+
+-- -------------------------------------------------------------------- 
+-- Emissivity 
+-- -------------------------------------------------------------------- 
+DROP TABLE Emissivity;
+
+-- -------------------------------------------------------------------- 
+-- EnergyCarrier 
+-- -------------------------------------------------------------------- 
+DROP TABLE EnergyCarrier;
+
+-- -------------------------------------------------------------------- 
+-- EnergyConversionSystem 
+-- -------------------------------------------------------------------- 
+DROP TABLE EnergyConversionSystem;
+
+-- -------------------------------------------------------------------- 
+-- EnergyDemand 
+-- -------------------------------------------------------------------- 
+DROP TABLE EnergyDemand;
+
+-- -------------------------------------------------------------------- 
+-- EnergyDistributionSystem 
+-- -------------------------------------------------------------------- 
+DROP TABLE EnergyDistributionSystem;
+
+-- -------------------------------------------------------------------- 
 -- EnergyPerformanceCertification 
 -- -------------------------------------------------------------------- 
 DROP TABLE EnergyPerformanceCertification;
 
 -- -------------------------------------------------------------------- 
--- RegularTimeSeriesFile 
+-- Energy_isProv_TO_Energy_provid 
 -- -------------------------------------------------------------------- 
-DROP TABLE RegularTimeSeriesFile;
+DROP TABLE Energy_isProv_TO_Energy_provid;
+
+-- -------------------------------------------------------------------- 
+-- Facilities 
+-- -------------------------------------------------------------------- 
+DROP TABLE Facilities;
+
+-- -------------------------------------------------------------------- 
+-- FinalE_isCons_TO_Energy_consum 
+-- -------------------------------------------------------------------- 
+DROP TABLE FinalE_isCons_TO_Energy_consum;
+
+-- -------------------------------------------------------------------- 
+-- FinalE_isProd_TO_Energy_produc 
+-- -------------------------------------------------------------------- 
+DROP TABLE FinalE_isProd_TO_Energy_produc;
+
+-- -------------------------------------------------------------------- 
+-- FinalEnergy 
+-- -------------------------------------------------------------------- 
+DROP TABLE FinalEnergy;
+
+-- -------------------------------------------------------------------- 
+-- FloorArea 
+-- -------------------------------------------------------------------- 
+DROP TABLE FloorArea;
 
 -- -------------------------------------------------------------------- 
 -- Gas 
@@ -771,14 +741,104 @@ DROP TABLE RegularTimeSeriesFile;
 DROP TABLE Gas;
 
 -- -------------------------------------------------------------------- 
+-- HeatExchangeType 
+-- -------------------------------------------------------------------- 
+DROP TABLE HeatExchangeType;
+
+-- -------------------------------------------------------------------- 
+-- HeatPump 
+-- -------------------------------------------------------------------- 
+DROP TABLE HeatPump;
+
+-- -------------------------------------------------------------------- 
+-- HeightAboveGround 
+-- -------------------------------------------------------------------- 
+DROP TABLE HeightAboveGround;
+
+-- -------------------------------------------------------------------- 
+-- Household 
+-- -------------------------------------------------------------------- 
+DROP TABLE Household;
+
+-- -------------------------------------------------------------------- 
+-- ImageTexture 
+-- -------------------------------------------------------------------- 
+DROP TABLE ImageTexture;
+
+-- -------------------------------------------------------------------- 
+-- IrregularTimeSeries 
+-- -------------------------------------------------------------------- 
+DROP TABLE IrregularTimeSeries;
+
+-- -------------------------------------------------------------------- 
+-- IrregularTimeSeriesFile 
+-- -------------------------------------------------------------------- 
+DROP TABLE IrregularTimeSeriesFile;
+
+-- -------------------------------------------------------------------- 
+-- Layer 
+-- -------------------------------------------------------------------- 
+DROP TABLE Layer;
+
+-- -------------------------------------------------------------------- 
+-- LayerComponent 
+-- -------------------------------------------------------------------- 
+DROP TABLE LayerComponent;
+
+-- -------------------------------------------------------------------- 
+-- LightingFacilities 
+-- -------------------------------------------------------------------- 
+DROP TABLE LightingFacilities;
+
+-- -------------------------------------------------------------------- 
+-- MeasurementPoint 
+-- -------------------------------------------------------------------- 
+DROP TABLE MeasurementPoint;
+
+-- -------------------------------------------------------------------- 
+-- MechanicalVentilation 
+-- -------------------------------------------------------------------- 
+DROP TABLE MechanicalVentilation;
+
+-- -------------------------------------------------------------------- 
+-- Occupants 
+-- -------------------------------------------------------------------- 
+DROP TABLE Occupants;
+
+-- -------------------------------------------------------------------- 
+-- Opening_energy_ADE 
+-- -------------------------------------------------------------------- 
+DROP TABLE Opening_energy_ADE;
+
+-- -------------------------------------------------------------------- 
+-- OpticalProperties 
+-- -------------------------------------------------------------------- 
+DROP TABLE OpticalProperties;
+
+-- -------------------------------------------------------------------- 
+-- PeriodOfYear 
+-- -------------------------------------------------------------------- 
+DROP TABLE PeriodOfYear;
+
+-- -------------------------------------------------------------------- 
+-- PhotovoltaicSystem 
+-- -------------------------------------------------------------------- 
+DROP TABLE PhotovoltaicSystem;
+
+-- -------------------------------------------------------------------- 
+-- PhotovoltaicThermalSystem 
+-- -------------------------------------------------------------------- 
+DROP TABLE PhotovoltaicThermalSystem;
+
+-- -------------------------------------------------------------------- 
 -- PowerDistributionSystem 
 -- -------------------------------------------------------------------- 
 DROP TABLE PowerDistributionSystem;
 
 -- -------------------------------------------------------------------- 
--- FinalE_isCons_TO_Energy_consum 
+-- PowerStorageSystem 
 -- -------------------------------------------------------------------- 
-DROP TABLE FinalE_isCons_TO_Energy_consum;
+DROP TABLE PowerStorageSystem;
 
 -- -------------------------------------------------------------------- 
 -- Reflectance 
@@ -791,129 +851,14 @@ DROP TABLE Reflectance;
 DROP TABLE RefurbishmentMeasure;
 
 -- -------------------------------------------------------------------- 
--- FloorArea 
+-- RegularTimeSeries 
 -- -------------------------------------------------------------------- 
-DROP TABLE FloorArea;
+DROP TABLE RegularTimeSeries;
 
 -- -------------------------------------------------------------------- 
--- Energy_isProv_TO_Energy_provid 
+-- RegularTimeSeriesFile 
 -- -------------------------------------------------------------------- 
-DROP TABLE Energy_isProv_TO_Energy_provid;
-
--- -------------------------------------------------------------------- 
--- EnergyDemand 
--- -------------------------------------------------------------------- 
-DROP TABLE EnergyDemand;
-
--- -------------------------------------------------------------------- 
--- ElectricalAppliances 
--- -------------------------------------------------------------------- 
-DROP TABLE ElectricalAppliances;
-
--- -------------------------------------------------------------------- 
--- ServiceLife 
--- -------------------------------------------------------------------- 
-DROP TABLE ServiceLife;
-
--- -------------------------------------------------------------------- 
--- BuildingUnit 
--- -------------------------------------------------------------------- 
-DROP TABLE BuildingUnit;
-
--- -------------------------------------------------------------------- 
--- Therma_to_themat_surfac_relate 
--- -------------------------------------------------------------------- 
-DROP TABLE Therma_to_themat_surfac_relate;
-
--- -------------------------------------------------------------------- 
--- TimeSeriesSchedule 
--- -------------------------------------------------------------------- 
-DROP TABLE TimeSeriesSchedule;
-
--- -------------------------------------------------------------------- 
--- ThermalZone_to_room_interiorRo 
--- -------------------------------------------------------------------- 
-DROP TABLE ThermalZone_to_room_interiorRo;
-
--- -------------------------------------------------------------------- 
--- DailySchedule 
--- -------------------------------------------------------------------- 
-DROP TABLE DailySchedule;
-
--- -------------------------------------------------------------------- 
--- AbstractConstruction 
--- -------------------------------------------------------------------- 
-DROP TABLE AbstractConstruction;
-
--- -------------------------------------------------------------------- 
--- VolumeType 
--- -------------------------------------------------------------------- 
-DROP TABLE VolumeType;
-
--- -------------------------------------------------------------------- 
--- SolarEnergySystem 
--- -------------------------------------------------------------------- 
-DROP TABLE SolarEnergySystem;
-
--- -------------------------------------------------------------------- 
--- UsageZone 
--- -------------------------------------------------------------------- 
-DROP TABLE UsageZone;
-
--- -------------------------------------------------------------------- 
--- FinalE_isProd_TO_Energy_produc 
--- -------------------------------------------------------------------- 
-DROP TABLE FinalE_isProd_TO_Energy_produc;
-
--- -------------------------------------------------------------------- 
--- SolidMaterial 
--- -------------------------------------------------------------------- 
-DROP TABLE SolidMaterial;
-
--- -------------------------------------------------------------------- 
--- HeightAboveGround 
--- -------------------------------------------------------------------- 
-DROP TABLE HeightAboveGround;
-
--- -------------------------------------------------------------------- 
--- ThermalStorageSystem 
--- -------------------------------------------------------------------- 
-DROP TABLE ThermalStorageSystem;
-
--- -------------------------------------------------------------------- 
--- ConstantValueSchedule 
--- -------------------------------------------------------------------- 
-DROP TABLE ConstantValueSchedule;
-
--- -------------------------------------------------------------------- 
--- PeriodOfYear 
--- -------------------------------------------------------------------- 
-DROP TABLE PeriodOfYear;
-
--- -------------------------------------------------------------------- 
--- DateOfEvent 
--- -------------------------------------------------------------------- 
-DROP TABLE DateOfEvent;
-
--- -------------------------------------------------------------------- 
--- StorageSystem 
--- -------------------------------------------------------------------- 
-DROP TABLE StorageSystem;
-
--- -------------------------------------------------------------------- 
--- MechanicalVentilation 
--- -------------------------------------------------------------------- 
-DROP TABLE MechanicalVentilation;
-
--- -------------------------------------------------------------------- 
--- PhotovoltaicThermalSystem 
--- -------------------------------------------------------------------- 
-DROP TABLE PhotovoltaicThermalSystem;
-
--- -------------------------------------------------------------------- 
--- ElectricalResistance 
--- -------------------------------------------------------------------- 
-DROP TABLE ElectricalResistance;
+DROP TABLE RegularTimeSeriesFile;
 
 -- -------------------------------------------------------------------- 
 -- ReverseConstruction 
@@ -921,9 +866,59 @@ DROP TABLE ElectricalResistance;
 DROP TABLE ReverseConstruction;
 
 -- -------------------------------------------------------------------- 
--- PhotovoltaicSystem 
+-- Schedule 
 -- -------------------------------------------------------------------- 
-DROP TABLE PhotovoltaicSystem;
+DROP TABLE Schedule;
+
+-- -------------------------------------------------------------------- 
+-- ServiceLife 
+-- -------------------------------------------------------------------- 
+DROP TABLE ServiceLife;
+
+-- -------------------------------------------------------------------- 
+-- ShadingType 
+-- -------------------------------------------------------------------- 
+DROP TABLE ShadingType;
+
+-- -------------------------------------------------------------------- 
+-- SolarEnergySystem 
+-- -------------------------------------------------------------------- 
+DROP TABLE SolarEnergySystem;
+
+-- -------------------------------------------------------------------- 
+-- SolarThermalSystem 
+-- -------------------------------------------------------------------- 
+DROP TABLE SolarThermalSystem;
+
+-- -------------------------------------------------------------------- 
+-- SolidMaterial 
+-- -------------------------------------------------------------------- 
+DROP TABLE SolidMaterial;
+
+-- -------------------------------------------------------------------- 
+-- StorageSystem 
+-- -------------------------------------------------------------------- 
+DROP TABLE StorageSystem;
+
+-- -------------------------------------------------------------------- 
+-- SystemOperation 
+-- -------------------------------------------------------------------- 
+DROP TABLE SystemOperation;
+
+-- -------------------------------------------------------------------- 
+-- Therma_bounde_TO_Therma_delimi 
+-- -------------------------------------------------------------------- 
+DROP TABLE Therma_bounde_TO_Therma_delimi;
+
+-- -------------------------------------------------------------------- 
+-- Therma_to_themat_surfac_relate 
+-- -------------------------------------------------------------------- 
+DROP TABLE Therma_to_themat_surfac_relate;
+
+-- -------------------------------------------------------------------- 
+-- ThermalBoundary 
+-- -------------------------------------------------------------------- 
+DROP TABLE ThermalBoundary;
 
 -- -------------------------------------------------------------------- 
 -- ThermalComponent 
@@ -931,67 +926,64 @@ DROP TABLE PhotovoltaicSystem;
 DROP TABLE ThermalComponent;
 
 -- -------------------------------------------------------------------- 
--- IrregularTimeSeriesFile 
+-- ThermalDistributionSystem 
 -- -------------------------------------------------------------------- 
-DROP TABLE IrregularTimeSeriesFile;
+DROP TABLE ThermalDistributionSystem;
 
 -- -------------------------------------------------------------------- 
--- AbstractMaterial 
+-- ThermalStorageSystem 
 -- -------------------------------------------------------------------- 
-DROP TABLE AbstractMaterial;
+DROP TABLE ThermalStorageSystem;
 
 -- -------------------------------------------------------------------- 
--- DistrictNetworkSubstation 
+-- ThermalZone 
 -- -------------------------------------------------------------------- 
-DROP TABLE DistrictNetworkSubstation;
+DROP TABLE ThermalZone;
 
 -- -------------------------------------------------------------------- 
--- Layer 
+-- ThermalZone_to_room_interiorRo 
 -- -------------------------------------------------------------------- 
-DROP TABLE Layer;
+DROP TABLE ThermalZone_to_room_interiorRo;
+
+-- -------------------------------------------------------------------- 
+-- TimeSeries 
+-- -------------------------------------------------------------------- 
+DROP TABLE TimeSeries;
+
+-- -------------------------------------------------------------------- 
+-- TimeSeriesSchedule 
+-- -------------------------------------------------------------------- 
+DROP TABLE TimeSeriesSchedule;
+
+-- -------------------------------------------------------------------- 
+-- TimeValuesProperties 
+-- -------------------------------------------------------------------- 
+DROP TABLE TimeValuesProperties;
+
+-- -------------------------------------------------------------------- 
+-- Transmittance 
+-- -------------------------------------------------------------------- 
+DROP TABLE Transmittance;
+
+-- -------------------------------------------------------------------- 
+-- UsageZone 
+-- -------------------------------------------------------------------- 
+DROP TABLE UsageZone;
+
+-- -------------------------------------------------------------------- 
+-- VolumeType 
+-- -------------------------------------------------------------------- 
+DROP TABLE VolumeType;
 
 -- -------------------------------------------------------------------- 
 -- WeatherData 
 -- -------------------------------------------------------------------- 
 DROP TABLE WeatherData;
 
--- -------------------------------------------------------------------- 
--- Facilities 
--- -------------------------------------------------------------------- 
-DROP TABLE Facilities;
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- *********************************  Drop Sequences  *********************************** 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 
--- -------------------------------------------------------------------- 
--- AbstractBuilding_energy_ADE 
--- -------------------------------------------------------------------- 
-DROP TABLE AbstractBuilding_energy_ADE;
+DROP SEQUENCE DateOfEvent_SEQ;
 
--- -------------------------------------------------------------------- 
--- DualValueSchedule 
--- -------------------------------------------------------------------- 
-DROP TABLE DualValueSchedule;
-
--- -------------------------------------------------------------------- 
--- Schedule 
--- -------------------------------------------------------------------- 
-DROP TABLE Schedule;
-
--- -------------------------------------------------------------------- 
--- LightingFacilities 
--- -------------------------------------------------------------------- 
-DROP TABLE LightingFacilities;
-
--- -------------------------------------------------------------------- 
--- DHWFacilities 
--- -------------------------------------------------------------------- 
-DROP TABLE DHWFacilities;
-
--- -------------------------------------------------------------------- 
--- EnergyCarrier 
--- -------------------------------------------------------------------- 
-DROP TABLE EnergyCarrier;
-
--- -------------------------------------------------------------------- 
--- ThermalBoundary 
--- -------------------------------------------------------------------- 
-DROP TABLE ThermalBoundary;
-
+PURGE RECYCLEBIN;

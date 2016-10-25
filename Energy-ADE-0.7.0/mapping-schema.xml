@@ -10,9 +10,6 @@
     </applicationSchemas>
     <featureOrObjectOrDataTypes>
         <featureOrObjectOrDataType id="_AbstractBuilding_energy_ADE" table="AbstractBuilding_energy_ADE" derivedFrom="_CityObject" abstract="true" path="_AbstractBuilding_energy_ADE" schema="energy">
-            <extension base="_AbstractBuilding">
-                <join fromTable="AbstractBuilding_energy_ADE" toTable="building" fromColumn="ID" toColumn="ID"/>
-            </extension>
             <complexAttribute path="buildingType" schema="energy">
                 <type>
                     <attribute column="buildingType_uom" type="string" path="@uom" schema="gml"/>
@@ -304,9 +301,6 @@
             </featureOrObjectOrDataProperty>
         </featureOrObjectOrDataType>
         <featureOrObjectOrDataType id="_BoundarySurface_energy_ADE" table="BoundarySurface_energy_ADE" derivedFrom="_CityObject" abstract="true" path="_BoundarySurface_energy_ADE" schema="energy">
-            <extension base="_BoundarySurface">
-                <join fromTable="BoundarySurface_energy_ADE" toTable="thematic_surface" fromColumn="ID" toColumn="ID"/>
-            </extension>
             <featureOrObjectOrDataProperty target="RefurbishmentMeasure" path="refurbishmentMeasureOnBoundarySurface" schema="energy">
                 <join fromTable="RefurbishmentMeasure" toTable="BoundarySurface_energy_ADE" fromColumn="Refur_refur_Bound_energ_ADE_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
@@ -316,9 +310,6 @@
         </featureOrObjectOrDataType>
         <featureOrObjectOrDataType id="AbstractConstruction" table="AbstractConstruction" derivedFrom="_Feature" abstract="true" path="AbstractConstruction" schema="energy"/>
         <featureOrObjectOrDataType id="_CityObject_energy_ADE" table="CityObject_energy_ADE" derivedFrom="_CityObject" abstract="true" path="_CityObject_energy_ADE" schema="energy">
-            <extension base="_CityObject">
-                <join fromTable="CityObject_energy_ADE" toTable="cityobject" fromColumn="ID" toColumn="ID"/>
-            </extension>
             <featureOrObjectOrDataProperty target="EnergyConversionSystem" path="energyConversionSystem" schema="energy">
                 <join fromTable="EnergyConversionSystem" toTable="CityObject_energy_ADE" fromColumn="Energ_energ_CityO_energ_ADE_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>
@@ -483,9 +474,6 @@
             </featureOrObjectOrDataProperty>
         </featureOrObjectOrDataType>
         <featureOrObjectOrDataType id="_Opening_energy_ADE" table="Opening_energy_ADE" derivedFrom="_CityObject" abstract="true" path="_Opening_energy_ADE" schema="energy">
-            <extension base="_Opening">
-                <join fromTable="Opening_energy_ADE" toTable="opening" fromColumn="ID" toColumn="ID"/>
-            </extension>
             <featureOrObjectOrDataProperty target="ShadingType" path="indoorShading" schema="energy">
                 <join fromTable="ShadingType" toTable="Opening_energy_ADE" fromColumn="Shadi_indoo_Openi_energ_ADE_ID" toColumn="ID"/>
             </featureOrObjectOrDataProperty>

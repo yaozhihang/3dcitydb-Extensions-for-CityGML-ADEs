@@ -1,56 +1,6 @@
--- -------------------------------------------------------------------- 
--- CompositeTimeseries 
--- -------------------------------------------------------------------- 
-CREATE TABLE CompositeTimeseries
-(
-    ID INTEGER NOT NULL,
-    PRIMARY KEY (ID)
-);
-
--- -------------------------------------------------------------------- 
--- SensorConnection 
--- -------------------------------------------------------------------- 
-CREATE TABLE SensorConnection
-(
-    ID INTEGER NOT NULL,
-    sensorLocation_ID INTEGER,
-    sensorID VARCHAR(254),
-    serviceType VARCHAR(254),
-    linkToObservation VARCHAR(254),
-    linkToSensorML VARCHAR(254),
-    PRIMARY KEY (ID)
-);
-
--- -------------------------------------------------------------------- 
--- Dynamizer 
--- -------------------------------------------------------------------- 
-CREATE TABLE Dynamizer
-(
-    ID INTEGER NOT NULL,
-    dynamicData_ID INTEGER,
-    linkToSensor_ID INTEGER,
-    Dyna_dyna_City_dyna_ade_ADE_ID INTEGER,
-    attributeRef VARCHAR(254),
-    startTime_frame VARCHAR(254),
-    startTime_calendarEraName VARCHAR(254),
-    startTime_indeterminatePositio VARCHAR(254),
-    startTime VARCHAR(254),
-    endTime_frame VARCHAR(254),
-    endTime_calendarEraName VARCHAR(254),
-    endTime_indeterminatePosition VARCHAR(254),
-    endTime VARCHAR(254),
-    PRIMARY KEY (ID)
-);
-
--- -------------------------------------------------------------------- 
--- CityObject_dynamizer_ade_ADE 
--- -------------------------------------------------------------------- 
-CREATE TABLE CityObject_dynamizer_ade_ADE
-(
-    ID INTEGER NOT NULL,
-    PRIMARY KEY (ID)
-);
-
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- ***********************************  Create tables ************************************* 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 -- -------------------------------------------------------------------- 
 -- AbstractTimeseries 
 -- -------------------------------------------------------------------- 
@@ -73,6 +23,59 @@ CREATE TABLE AtomicTimeseries
 );
 
 -- -------------------------------------------------------------------- 
+-- CityObject_dynamizer_ade_ADE 
+-- -------------------------------------------------------------------- 
+CREATE TABLE CityObject_dynamizer_ade_ADE
+(
+    ID INTEGER NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+-- -------------------------------------------------------------------- 
+-- CompositeTimeseries 
+-- -------------------------------------------------------------------- 
+CREATE TABLE CompositeTimeseries
+(
+    ID INTEGER NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+-- -------------------------------------------------------------------- 
+-- Dynamizer 
+-- -------------------------------------------------------------------- 
+CREATE TABLE Dynamizer
+(
+    ID INTEGER NOT NULL,
+    dynamicData_ID INTEGER,
+    linkToSensor_ID INTEGER,
+    Dyna_dyna_City_dyna_ade_ADE_ID INTEGER,
+    startTime_frame VARCHAR(254),
+    startTime_calendarEraName VARCHAR(254),
+    startTime_indeterminatePositio VARCHAR(254),
+    startTime VARCHAR(254),
+    endTime_frame VARCHAR(254),
+    endTime_calendarEraName VARCHAR(254),
+    endTime_indeterminatePosition VARCHAR(254),
+    endTime VARCHAR(254),
+    attributeRef VARCHAR(254),
+    PRIMARY KEY (ID)
+);
+
+-- -------------------------------------------------------------------- 
+-- SensorConnection 
+-- -------------------------------------------------------------------- 
+CREATE TABLE SensorConnection
+(
+    ID INTEGER NOT NULL,
+    sensorLocation_ID INTEGER,
+    sensorID VARCHAR(254),
+    serviceType VARCHAR(254),
+    linkToObservation VARCHAR(254),
+    linkToSensorML VARCHAR(254),
+    PRIMARY KEY (ID)
+);
+
+-- -------------------------------------------------------------------- 
 -- TimeseriesComponent 
 -- -------------------------------------------------------------------- 
 CREATE TABLE TimeseriesComponent
@@ -85,17 +88,20 @@ CREATE TABLE TimeseriesComponent
     PRIMARY KEY (ID)
 );
 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- *********************************  Create foreign keys  ******************************** 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- -------------------------------------------------------------------- 
+-- AtomicTimeseries 
+-- -------------------------------------------------------------------- 
+ALTER TABLE AtomicTimeseries
+    ADD CONSTRAINT AtomicTimeseries_FK FOREIGN KEY (ID) REFERENCES AbstractTimeseries (ID);
+
 -- -------------------------------------------------------------------- 
 -- CompositeTimeseries 
 -- -------------------------------------------------------------------- 
 ALTER TABLE CompositeTimeseries
     ADD CONSTRAINT CompositeTimeseries_FK FOREIGN KEY (ID) REFERENCES AbstractTimeseries (ID);
-
--- -------------------------------------------------------------------- 
--- SensorConnection 
--- -------------------------------------------------------------------- 
-ALTER TABLE SensorConnection
-    ADD CONSTRAINT SensorConnect_sensorLocatio_FK FOREIGN KEY (sensorLocation_ID) REFERENCES cityobject (ID);
 
 -- -------------------------------------------------------------------- 
 -- Dynamizer 
@@ -113,16 +119,10 @@ ALTER TABLE Dynamizer
     ADD CONSTRAINT Dyna_dyna_City_dyna_ade_ADE_FK FOREIGN KEY (Dyna_dyna_City_dyna_ade_ADE_ID) REFERENCES CityObject_dynamizer_ade_ADE (ID);
 
 -- -------------------------------------------------------------------- 
--- CityObject_dynamizer_ade_ADE 
+-- SensorConnection 
 -- -------------------------------------------------------------------- 
-ALTER TABLE CityObject_dynamizer_ade_ADE
-    ADD CONSTRAINT CityObjec_dynamizer_ade_ADE_FK FOREIGN KEY (ID) REFERENCES cityobject (ID);
-
--- -------------------------------------------------------------------- 
--- AtomicTimeseries 
--- -------------------------------------------------------------------- 
-ALTER TABLE AtomicTimeseries
-    ADD CONSTRAINT AtomicTimeseries_FK FOREIGN KEY (ID) REFERENCES AbstractTimeseries (ID);
+ALTER TABLE SensorConnection
+    ADD CONSTRAINT SensorConnect_sensorLocatio_FK FOREIGN KEY (sensorLocation_ID) REFERENCES cityobject (ID);
 
 -- -------------------------------------------------------------------- 
 -- TimeseriesComponent 
@@ -133,3 +133,54 @@ ALTER TABLE TimeseriesComponent
 ALTER TABLE TimeseriesComponent
     ADD CONSTRAINT Timeserie_componen_Composit_FK FOREIGN KEY (Timeserie_componen_Composit_ID) REFERENCES CompositeTimeseries (ID);
 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- *********************************  Create Indexes  ************************************* 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- -------------------------------------------------------------------- 
+-- Dynamizer 
+-- -------------------------------------------------------------------- 
+CREATE INDEX Dynamizer_dynamicData_FKX ON Dynamizer
+    USING btree
+    (
+      dynamicData_ID ASC NULLS LAST
+    )   WITH (FILLFACTOR = 90);
+
+CREATE INDEX Dynamizer_linkToSensor_FKX ON Dynamizer
+    USING btree
+    (
+      linkToSensor_ID ASC NULLS LAST
+    )   WITH (FILLFACTOR = 90);
+
+CREATE INDEX Dyna_dyna_City_dyn_ade_ADE_FKX ON Dynamizer
+    USING btree
+    (
+      Dyna_dyna_City_dyna_ade_ADE_ID ASC NULLS LAST
+    )   WITH (FILLFACTOR = 90);
+
+-- -------------------------------------------------------------------- 
+-- SensorConnection 
+-- -------------------------------------------------------------------- 
+CREATE INDEX SensorConnect_sensorLocati_FKX ON SensorConnection
+    USING btree
+    (
+      sensorLocation_ID ASC NULLS LAST
+    )   WITH (FILLFACTOR = 90);
+
+-- -------------------------------------------------------------------- 
+-- TimeseriesComponent 
+-- -------------------------------------------------------------------- 
+CREATE INDEX TimeseriesCompo_timeseries_FKX ON TimeseriesComponent
+    USING btree
+    (
+      timeseries_ID ASC NULLS LAST
+    )   WITH (FILLFACTOR = 90);
+
+CREATE INDEX Timeseri_componen_Composit_FKX ON TimeseriesComponent
+    USING btree
+    (
+      Timeserie_componen_Composit_ID ASC NULLS LAST
+    )   WITH (FILLFACTOR = 90);
+
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-- *********************************  Create Sequences  *********************************** 
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
