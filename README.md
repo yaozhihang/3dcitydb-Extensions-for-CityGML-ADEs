@@ -15,7 +15,7 @@ The database schemas are licensed under the [Apache License, Version 2.0](http:/
 
 Latest release
 --------------
-The latest release of the database schemas is `v0.2-beta`. Note that the development of the database schema generator is still an ongoing work in the context of our research project in coorperation with company virtualcitySYSTEMS. Thus, further improved versions of the database schemas will be constantly released in the following months
+The latest release of the database schemas is `v0.2-beta`. Note that the development of the database schema generator is still an ongoing work in the context of our research project in coorperation with company virtualcitySYSTEMS. Thus, further improved versions of the database schemas will be constantly released in the following months.
 
 
 Developers
